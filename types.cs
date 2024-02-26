@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 public class Employee
 {
     public string Gender { get; set; }
@@ -10,10 +12,10 @@ public class Section
     public string Name { get; set; }
     public string Description { get; set; }
     public string Next { get; set; }
-    public List<Question> Questions { get; set; }
-    public List<string> Choices { get; set; }
-    public string Group { get; set; }
-    public List<Factor> Factors { get; set; }
+    public List<Question>? Questions { get; set; }
+    public List<string>? Choices { get; set; }
+    public string? Group { get; set; }
+    public List<Factor>? Factors { get; set; }
 }
 
 public class Question
@@ -30,8 +32,8 @@ public class Factor
     public string Scale { get; set; }
     public int Value { get; set; }
     public string Type { get; set; }
-    public List<Rate> Rates { get; set; }
-    public List<int> Items { get; set; }
+    public List<Rate>? Rates { get; set; }
+    public List<int>? Items { get; set; }
 }
 
 public class Rate
