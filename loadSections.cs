@@ -6,15 +6,6 @@ public static class LoadSections
     {
         new Section
         {
-            Step = 0,
-            Name = "性別について",
-            Description = "4つのSTEPによる簡単な質問から、\nあなたの職場におけるストレスレベルを測定します。\n質問は全部で57問です。（所要時間約5分間）",
-            Next = "次へ",
-            Questions = new List<Question> { new Question { Id = 1, Text = "はじめに性別を選んでください", Score = 0, Reverse = false } },
-            Choices = new List<string> { "男性", "女性", "その他", "答えない" },
-        },
-        new Section
-        {
             Step = 1,
             Name = "仕事について",
             Description = "あなたの仕事についてうかがいます。\n4つの中から最もあてはまる選択ボタンを選んでください。（全17問）",
@@ -430,12 +421,5 @@ public static class LoadSections
                 },
             }
         },
-        new Section
-        {
-            Step = 5,
-            Name = "レベルについて",
-            Description = "これで質問は、終わりです。\nお疲れさまでした。\nチェック結果にお進みください。",
-            Next = "結果を見る",
-        }
     };
 }
