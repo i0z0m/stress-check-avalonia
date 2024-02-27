@@ -9,6 +9,7 @@ namespace stress_check_avalonia
         public MainWindow()
         {
             InitializeComponent();
+            this.Title = "ストレスチェック実施プログラム";
         }
 
         private void InitializeComponent()
