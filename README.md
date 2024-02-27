@@ -2,4 +2,4 @@
 
 ## Acknowledgements
 
-- [厚生労働省版ストレスチェック実施プログラム](https://stresscheck.mhlw.go.jp/)
+- [蜴夂函蜉ｴ蜒咲怐迚医せ繝医Ξ繧ｹ繝√ぉ繝�繧ｯ螳滓命繝励Ο繧ｰ繝ｩ繝](https://stresscheck.mhlw.go.jp/)
