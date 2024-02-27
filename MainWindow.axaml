@@ -11,5 +11,6 @@
         Title="stress_check_avalonia">
     <StackPanel>
         <local:Header />
+        <local:SectionDescription Description="Your description here" IsLastSection="True" />
     </StackPanel>
 </Window>
