@@ -1,9 +1,18 @@
+using System;
 using System.Collections.Generic;
 
 public class Employee
 {
     public string Gender { get; set; }
     public string Level { get; set; }
+    public string Name { get; set; }
+    public string Furigana { get; set; }
+    public DateTime Birthday { get; set; }
+    public string ID { get; set; }
+    public string Workplace { get; set; }
+    public string? Email { get; set; }
+    public string? Phone { get; set; }
+    public string? Extension { get; set; }
 }
 
 public class Section
