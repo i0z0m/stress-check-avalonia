@@ -1,0 +1,11 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:stress_check_avalonia"
+             x:Class="stress_check_avalonia.SectionDescription"
+             x:DataType="local:SectionDescriptionViewModel">
+
+    <TextBlock x:Name="DescriptionTextBlock"
+               Text="{Binding Section.Description}"
+               Padding="10"
+               FontSize="16" />
+</UserControl>
