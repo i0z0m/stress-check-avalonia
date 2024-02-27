@@ -1,5 +1,14 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             Width="1000" Height="630"
              x:Class="stress_check_avalonia.UserControl1">
-    <TextBlock>ストレスチェック実施プログラム</TextBlock>
+
+
+    <Grid Background="#89c548" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+        <Image Source="/Assets/icon.png" Width="96" Height="96" Margin="72,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
+        <TextBlock Text="ストレスチェック実施プログラム 標準版（57項目）" FontSize="36" Margin="200,28,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="White" />
+    </Grid>
 </UserControl>
