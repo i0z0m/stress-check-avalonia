@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace stress_check_avalonia
@@ -15,9 +16,12 @@ namespace stress_check_avalonia
                 {
                     _section = value;
                     OnPropertyChanged(nameof(Section));
+                    OnPropertyChanged(nameof(Questions));
                 }
             }
         }
+
+        public List<Question> Questions => Section.Questions;
 
         public event PropertyChangedEventHandler PropertyChanged;
 

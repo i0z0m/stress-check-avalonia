@@ -1,0 +1,30 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:local="clr-namespace:stress_check_avalonia"
+			 x:Class="stress_check_avalonia.QuestionText"
+			 x:DataType="local:SectionViewModel">
+
+	<StackPanel Orientation="Horizontal"
+				Margin="93,16,0,0"
+				VerticalAlignment="Top"
+				HorizontalAlignment="Left">
+		<TextBlock x:Name="QuestionIdTextBlock"
+                   FontSize="16"
+                   Foreground="Black" />
+		<TextBlock Text="."
+				   FontSize="16"
+				   Foreground="Black" />
+		<TextBlock x:Name="QuestionTextTextBlock"
+                   FontSize="16"
+				   Margin="8,0,0,0"
+                   Foreground="Black" />
+	</StackPanel>
+</UserControl>
+
+
+
+
+
+

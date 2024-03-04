@@ -12,5 +12,6 @@
     <StackPanel>
         <local:Header />
         <local:SectionDescription Description="Your description here" IsLastSection="True" />
+		<local:QuestionText />
     </StackPanel>
 </Window>
