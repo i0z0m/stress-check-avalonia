@@ -7,5 +7,6 @@
     <TextBlock x:Name="DescriptionTextBlock"
                Text="{Binding Section.Description}"
                Padding="10"
-               FontSize="16" />
+               FontSize="16"
+			   Margin="80,0,0,0"/>
 </UserControl>
