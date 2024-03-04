@@ -1,5 +1,7 @@
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using System;
 
 namespace stress_check_avalonia
 {
@@ -17,6 +19,30 @@ namespace stress_check_avalonia
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+
+            this.FindControl<RadioButton>("RadioButton1").Checked += OnChoiceSelected;
+            this.FindControl<RadioButton>("RadioButton2").Checked += OnChoiceSelected;
+            this.FindControl<RadioButton>("RadioButton3").Checked += OnChoiceSelected;
+            this.FindControl<RadioButton>("RadioButton4").Checked += OnChoiceSelected;
         }
+
+        public void OnChoiceSelected(object sender, RoutedEventArgs e)
+        {
+            var radioButton = (RadioButton)sender;
+            var choice = (string)radioButton.Content;
+
+            var viewModel = DataContext as SectionViewModel;
+            System.Diagnostics.Debug.WriteLine($"ViewModel is: {viewModel}");
+            if (viewModel != null)
+            {
+                System.Diagnostics.Debug.WriteLine($"Selected choice: {choice}");
+
+                // Get the displayed question from the QuestionText user control
+                var questionTextControl = this.FindControl<QuestionText>("QuestionTextControl");
+
+                viewModel.HandleChoiceSelect(choice);
+            }
+        }
+
     }
 }

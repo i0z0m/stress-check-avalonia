@@ -8,24 +8,28 @@
              x:DataType="local:SectionViewModel">
 
     <StackPanel Orientation="Horizontal">
-        <RadioButton GroupName="First Group"
-                     Content="{Binding Choices[0]}"
-					 Foreground="Black"
-					 FontSize="16" />
-        <RadioButton GroupName="First Group"
-                     Content="{Binding Choices[1]}"
+		<RadioButton x:Name="RadioButton1" GroupName="First Group"
+					 Content="{Binding Choices[0]}"
 					 Foreground="Black"
 					 FontSize="16"
-			         Margin="30,0,0,0" />
-        <RadioButton GroupName="First Group"
-                     Content="{Binding Choices[2]}"
+					 Checked="OnChoiceSelected" />
+		<RadioButton x:Name="RadioButton2" GroupName="First Group"
+					 Content="{Binding Choices[1]}"
 					 Foreground="Black"
 					 FontSize="16"
-					 Margin="30,0,0,0" />
-        <RadioButton GroupName="First Group"
-                     Content="{Binding Choices[3]}"
+					 Margin="30,0,0,0"
+					 Checked="OnChoiceSelected" />
+		<RadioButton x:Name="RadioButton3" GroupName="First Group"
+					 Content="{Binding Choices[2]}"
 					 Foreground="Black"
 					 FontSize="16"
-					 Margin="30,0,0,0" />
-    </StackPanel>
+					 Margin="30,0,0,0"
+					 Checked="OnChoiceSelected" />
+		<RadioButton x:Name="RadioButton4" GroupName="First Group"
+					 Content="{Binding Choices[3]}"
+					 Foreground="Black"
+					 FontSize="16"
+					 Margin="30,0,0,0"
+					 Checked="OnChoiceSelected" />
+	</StackPanel>
 </UserControl>
