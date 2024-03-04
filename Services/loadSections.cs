@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 
-public static class LoadSections
+namespace stress_check_avalonia
 {
-    public static List<Section> sections = new List<Section>
+    public static class LoadSections
+    {
+        public static List<Section> sections = new List<Section>
     {
         new Section
         {
@@ -422,4 +424,5 @@ public static class LoadSections
             }
         },
     };
+    }
 }

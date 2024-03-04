@@ -1,10 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public static class ScoreCalculator
+namespace stress_check_avalonia
 {
-    public static int CalculateScore(List<Question> questions)
+    public static class ScoreCalculator
     {
-        return questions.Sum(question => question.Reverse ? 5 - question.Score : question.Score);
+        public static int CalculateScore(List<Question> questions)
+        {
+            return questions.Sum(question => question.Reverse ? 5 - question.Score : question.Score);
+        }
     }
-}
+} 
