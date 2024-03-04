@@ -2,7 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:stress_check_avalonia"
              x:Class="stress_check_avalonia.SectionDescription"
-             x:DataType="local:SectionDescriptionViewModel">
+             x:DataType="local:SectionViewModel">
 
     <TextBlock x:Name="DescriptionTextBlock"
                Text="{Binding Section.Description}"

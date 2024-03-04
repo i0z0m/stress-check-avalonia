@@ -29,7 +29,7 @@ namespace stress_check_avalonia
         public SectionDescription()
         {
             InitializeComponent();
-            DataContext = new SectionDescriptionViewModel
+            DataContext = new SectionViewModel
             {
                 Section = LoadSections.sections[0]
             };

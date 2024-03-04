@@ -2,7 +2,7 @@ using System.ComponentModel;
 
 namespace stress_check_avalonia
 {
-    public class SectionDescriptionViewModel : INotifyPropertyChanged
+    public class SectionViewModel : INotifyPropertyChanged
     {
         private Section _section;
 
