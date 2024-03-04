@@ -22,6 +22,8 @@ namespace stress_check_avalonia
         }
 
         public List<Question> Questions => Section.Questions;
+        public List<string> Choices => Section.Choices;
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
