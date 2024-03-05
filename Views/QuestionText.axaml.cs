@@ -1,6 +1,6 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Avalonia;
 
 namespace stress_check_avalonia
 {
@@ -25,7 +25,7 @@ namespace stress_check_avalonia
         public int QuestionIndex
         {
             get { return (int)(GetValue(QuestionIndexProperty) ?? 0); } // Cast to int and handle possible null value
-            set 
+            set
             {
                 SetValue(QuestionIndexProperty, value);
                 UpdateQuestion();
@@ -38,20 +38,7 @@ namespace stress_check_avalonia
             {
                 DisplayedQuestion = viewModel.Questions[QuestionIndex];
                 viewModel.DisplayedQuestion = DisplayedQuestion;
-
-                // Convert the Id to string and display it
-                var questionIdTextBlock = this.FindControl<TextBlock>("QuestionIdTextBlock");
-                if (questionIdTextBlock != null)
-                {
-                    questionIdTextBlock.Text = DisplayedQuestion.Id.ToString();
-                }
-
-                // Display the Text of the displayed question
-                var questionTextTextBlock = this.FindControl<TextBlock>("QuestionTextTextBlock");
-                if (questionTextTextBlock != null)
-                {
-                    questionTextTextBlock.Text = DisplayedQuestion.Text;
-                }
+                UpdateDisplayedQuestion();
             }
         }
 
@@ -60,25 +47,23 @@ namespace stress_check_avalonia
         protected override void OnDataContextChanged(System.EventArgs e)
         {
             base.OnDataContextChanged(e);
+            UpdateQuestion();
+        }
 
-            if (DataContext is SectionViewModel viewModel)
+        private void UpdateDisplayedQuestion()
+        {
+            // Convert the Id to string and display it
+            var questionIdTextBlock = this.FindControl<TextBlock>("QuestionIdTextBlock");
+            if (questionIdTextBlock != null)
             {
-                DisplayedQuestion = viewModel.Questions[QuestionIndex];
-                viewModel.DisplayedQuestion = DisplayedQuestion;
+                questionIdTextBlock.Text = DisplayedQuestion.Id.ToString();
+            }
 
-                // Convert the Id to string and display it
-                var questionIdTextBlock = this.FindControl<TextBlock>("QuestionIdTextBlock");
-                if (questionIdTextBlock != null)
-                {
-                    questionIdTextBlock.Text = DisplayedQuestion.Id.ToString();
-                }
-
-                // Display the Text of the displayed question
-                var questionTextTextBlock = this.FindControl<TextBlock>("QuestionTextTextBlock");
-                if (questionTextTextBlock != null)
-                {
-                    questionTextTextBlock.Text = DisplayedQuestion.Text;
-                }
+            // Display the Text of the displayed question
+            var questionTextTextBlock = this.FindControl<TextBlock>("QuestionTextTextBlock");
+            if (questionTextTextBlock != null)
+            {
+                questionTextTextBlock.Text = DisplayedQuestion.Text;
             }
         }
     }
