@@ -16,6 +16,7 @@ namespace stress_check_avalonia
             AvaloniaXamlLoader.Load(this);
         }
 
+        public int QuestionIndex { get; set; }
         public Question DisplayedQuestion { get; private set; }
 
         protected override void OnDataContextChanged(System.EventArgs e)
@@ -24,7 +25,7 @@ namespace stress_check_avalonia
 
             if (DataContext is SectionViewModel viewModel)
             {
-                DisplayedQuestion = viewModel.Questions[0];
+                DisplayedQuestion = viewModel.Questions[QuestionIndex];
                 viewModel.DisplayedQuestion = DisplayedQuestion;
 
             // Convert the Id to string and display it
