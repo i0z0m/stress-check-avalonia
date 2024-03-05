@@ -34,9 +34,6 @@ namespace stress_check_avalonia
             {
                 System.Diagnostics.Debug.WriteLine($"Selected choice: {choice}");
 
-                // Get the displayed question from the QuestionText user control
-                var questionTextControl = this.FindControl<QuestionText>("QuestionTextControl");
-
                 viewModel.HandleChoiceSelect(choice);
             }
         }

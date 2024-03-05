@@ -10,7 +10,6 @@ namespace stress_check_avalonia
 
         private Section _currentSection;
         private Question _currentQuestion;
-        private Question _displayedQuestion;
 
         private SectionViewModel()
         {
@@ -56,6 +55,8 @@ namespace stress_check_avalonia
             }
         }
 
+        public Question DisplayedQuestion { get; set; }
+
         public List<Question> Questions => CurrentSection.Questions;
         public List<string> Choices => CurrentSection.Choices;
 
@@ -71,6 +72,7 @@ namespace stress_check_avalonia
             var choiceIndex = Choices.IndexOf(choice);
             var choiceValue = choiceIndex >= 0 ? choiceIndex + 1 : 0; // Add 1 to the index to start the score at 1
 
+            CurrentQuestion = DisplayedQuestion;
             System.Diagnostics.Debug.WriteLine($"CurrentQuestion is: {CurrentQuestion}");
 
             if (CurrentQuestion != null)

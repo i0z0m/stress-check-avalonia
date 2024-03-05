@@ -16,25 +16,29 @@ namespace stress_check_avalonia
             AvaloniaXamlLoader.Load(this);
         }
 
+        public Question DisplayedQuestion { get; private set; }
+
         protected override void OnDataContextChanged(System.EventArgs e)
         {
             base.OnDataContextChanged(e);
 
             if (DataContext is SectionViewModel viewModel)
             {
-                var firstQuestion = viewModel.Questions[0];
-                // Convert the Id to string and display it
-                var questionIdTextBlock = this.FindControl<TextBlock>("QuestionIdTextBlock");
+                DisplayedQuestion = viewModel.Questions[0];
+                viewModel.DisplayedQuestion = DisplayedQuestion;
+
+            // Convert the Id to string and display it
+            var questionIdTextBlock = this.FindControl<TextBlock>("QuestionIdTextBlock");
                 if (questionIdTextBlock != null)
                 {
-                    questionIdTextBlock.Text = firstQuestion.Id.ToString();
+                    questionIdTextBlock.Text = DisplayedQuestion.Id.ToString();
                 }
 
-                // Display the Text of the first question
+                // Display the Text of the displayed question
                 var questionTextTextBlock = this.FindControl<TextBlock>("QuestionTextTextBlock");
                 if (questionTextTextBlock != null)
                 {
-                    questionTextTextBlock.Text = firstQuestion.Text;
+                    questionTextTextBlock.Text = DisplayedQuestion.Text;
                 }
             }
         }
