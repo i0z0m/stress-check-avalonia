@@ -5,28 +5,32 @@
              xmlns:local="clr-namespace:stress_check_avalonia"
              x:Class="stress_check_avalonia.Header"
              x:DataType="local:SectionViewModel"
-             Height="96"
-             Background="#89c548"
+			 Height="48"
              VerticalAlignment="Top"
              HorizontalAlignment="Stretch">
 	<Grid>
-		<Image Source="/Assets/icon.png" Width="96" Height="96" Margin="72,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
+        <StackPanel Orientation="Horizontal"
+                    Background="#89c548"
+					Margin="0,8,0,0"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Stretch">
+            <TextBlock Text="STEP"
+					   Margin="120,0,0,0"
+                       FontSize="24"
+                       Foreground="White" />
+            <TextBlock Text="{Binding CurrentSection.Step}"
+                       FontSize="24"
+                       Foreground="White" />
+            <TextBlock Text="{Binding CurrentSection.Name}"
+                       FontSize="24"
+                       Margin="24,0,0,0"
+                       Foreground="White" />
 
-		<StackPanel Orientation="Horizontal"
-					Margin="180,28,0,0"
-					VerticalAlignment="Top"
-					HorizontalAlignment="Left">
-			<TextBlock Text="STEP"
-					   FontSize="36"
-					   Foreground="White" />
-			<TextBlock Text="{Binding CurrentSection.Step}"
-					   FontSize="36"
-					   Foreground="White" />
-			<TextBlock Text="{Binding CurrentSection.Name}"
-					   FontSize="36"
-					   Margin="36,0,0,0"
-					   Foreground="White" />
-		</StackPanel>
+        </StackPanel>
+		 <Image Source="/Assets/icon.png"
+				Width="64"
+	            Height="64"
+                Margin="48,0,0,0"
+	            HorizontalAlignment="Left"/>
 	</Grid>
-
 </UserControl>

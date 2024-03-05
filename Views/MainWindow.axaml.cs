@@ -23,7 +23,7 @@ namespace stress_check_avalonia
                 var choiceButtons = new ChoiceButtons
                 {
                     HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Right,
-                    Margin = new Thickness(0, 0, 80, 0)
+                    Margin = new Thickness(0, 0, 53, 0)
                 };
 
                 var questionGrid = new Grid
