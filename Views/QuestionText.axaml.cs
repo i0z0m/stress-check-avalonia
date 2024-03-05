@@ -25,7 +25,34 @@ namespace stress_check_avalonia
         public int QuestionIndex
         {
             get { return (int)(GetValue(QuestionIndexProperty) ?? 0); } // Cast to int and handle possible null value
-            set { SetValue(QuestionIndexProperty, value); }
+            set 
+            {
+                SetValue(QuestionIndexProperty, value);
+                UpdateQuestion();
+            }
+        }
+
+        private void UpdateQuestion()
+        {
+            if (DataContext is SectionViewModel viewModel && viewModel.Questions.Count > QuestionIndex)
+            {
+                DisplayedQuestion = viewModel.Questions[QuestionIndex];
+                viewModel.DisplayedQuestion = DisplayedQuestion;
+
+                // Convert the Id to string and display it
+                var questionIdTextBlock = this.FindControl<TextBlock>("QuestionIdTextBlock");
+                if (questionIdTextBlock != null)
+                {
+                    questionIdTextBlock.Text = DisplayedQuestion.Id.ToString();
+                }
+
+                // Display the Text of the displayed question
+                var questionTextTextBlock = this.FindControl<TextBlock>("QuestionTextTextBlock");
+                if (questionTextTextBlock != null)
+                {
+                    questionTextTextBlock.Text = DisplayedQuestion.Text;
+                }
+            }
         }
 
         public Question DisplayedQuestion { get; private set; }
