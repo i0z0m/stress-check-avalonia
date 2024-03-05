@@ -20,13 +20,13 @@ namespace stress_check_avalonia
         {
             AvaloniaXamlLoader.Load(this);
 
-            this.FindControl<RadioButton>("RadioButton1").Checked += OnChoiceSelected;
-            this.FindControl<RadioButton>("RadioButton2").Checked += OnChoiceSelected;
-            this.FindControl<RadioButton>("RadioButton3").Checked += OnChoiceSelected;
-            this.FindControl<RadioButton>("RadioButton4").Checked += OnChoiceSelected;
+            this.FindControl<RadioButton>("RadioButton1").Checked += OnChoiceSelect;
+            this.FindControl<RadioButton>("RadioButton2").Checked += OnChoiceSelect;
+            this.FindControl<RadioButton>("RadioButton3").Checked += OnChoiceSelect;
+            this.FindControl<RadioButton>("RadioButton4").Checked += OnChoiceSelect;
         }
 
-        public void OnChoiceSelected(object sender, RoutedEventArgs e)
+        public void OnChoiceSelect(object sender, RoutedEventArgs e)
         {
             var radioButton = (RadioButton)sender;
             var choice = (string)radioButton.Content;
