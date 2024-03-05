@@ -10,6 +10,7 @@ namespace stress_check_avalonia
 
         private Section _currentSection;
         private Question _currentQuestion;
+        private Question _displayedQuestion;
 
         private SectionViewModel()
         {
