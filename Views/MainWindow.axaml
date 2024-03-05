@@ -12,6 +12,9 @@
     <StackPanel>
         <local:Header />
         <local:SectionDescription Description="Your description here" IsLastSection="True" />
-		<local:QuestionAndChoices />
+		<StackPanel Orientation="Horizontal">
+			<local:QuestionText />
+			<local:ChoiceButtons Margin="120,0,0,0"/>
+		</StackPanel>
     </StackPanel>
 </Window>
