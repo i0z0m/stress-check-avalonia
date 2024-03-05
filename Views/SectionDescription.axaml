@@ -5,7 +5,7 @@
              x:DataType="local:SectionViewModel">
 
     <TextBlock x:Name="DescriptionTextBlock"
-               Text="{Binding Section.Description}"
+               Text="{Binding CurrentSection.Description}"
                Padding="10"
                FontSize="16"
 			   Margin="80,0,0,0"/>

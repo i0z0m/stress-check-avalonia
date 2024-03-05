@@ -6,18 +6,37 @@ namespace stress_check_avalonia
 {
     public class SectionViewModel : INotifyPropertyChanged
     {
-        private Section _section;
+        private static SectionViewModel _instance;
+
+        private Section _currentSection;
         private Question _currentQuestion;
 
-        public Section Section
+        private SectionViewModel()
         {
-            get { return _section; }
+            CurrentSection = LoadSections.sections[0];
+        }
+
+        public static SectionViewModel Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new SectionViewModel();
+                }
+                return _instance;
+            }
+        }
+
+        public Section CurrentSection
+        {
+            get { return _currentSection; }
             set
             {
-                if (_section != value)
+                if (_currentSection != value)
                 {
-                    _section = value;
-                    OnPropertyChanged(nameof(Section));
+                    _currentSection = value;
+                    OnPropertyChanged(nameof(CurrentSection));
                     OnPropertyChanged(nameof(Questions));
                 }
             }
@@ -36,8 +55,8 @@ namespace stress_check_avalonia
             }
         }
 
-        public List<Question> Questions => Section.Questions;
-        public List<string> Choices => Section.Choices;
+        public List<Question> Questions => CurrentSection.Questions;
+        public List<string> Choices => CurrentSection.Choices;
 
         public event PropertyChangedEventHandler PropertyChanged;
 

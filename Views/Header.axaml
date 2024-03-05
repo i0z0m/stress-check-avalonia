@@ -19,10 +19,10 @@
 			<TextBlock Text="STEP"
 					   FontSize="36"
 					   Foreground="White" />
-			<TextBlock Text="{Binding Section.Step}"
+			<TextBlock Text="{Binding CurrentSection.Step}"
 					   FontSize="36"
 					   Foreground="White" />
-			<TextBlock Text="{Binding Section.Name}"
+			<TextBlock Text="{Binding CurrentSection.Name}"
 					   FontSize="36"
 					   Margin="36,0,0,0"
 					   Foreground="White" />

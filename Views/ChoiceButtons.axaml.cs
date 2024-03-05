@@ -10,10 +10,7 @@ namespace stress_check_avalonia
         public ChoiceButtons()
         {
             InitializeComponent();
-            DataContext = new SectionViewModel
-            {
-                Section = LoadSections.sections[0]
-            };
+            DataContext = SectionViewModel.Instance;
         }
 
         private void InitializeComponent()
@@ -43,6 +40,5 @@ namespace stress_check_avalonia
                 viewModel.HandleChoiceSelect(choice);
             }
         }
-
     }
 }
