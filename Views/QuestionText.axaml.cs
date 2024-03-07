@@ -28,6 +28,10 @@ namespace stress_check_avalonia
             set
             {
                 SetValue(QuestionIndexProperty, value);
+                if (DataContext is SectionViewModel viewModel)
+                {
+                    viewModel.QuestionIndex = value;
+                }
                 UpdateQuestion();
             }
         }

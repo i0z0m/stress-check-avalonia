@@ -22,6 +22,7 @@ namespace stress_check_avalonia
 
                 var choiceButtons = new ChoiceButtons
                 {
+                    QuestionIndex = i,
                     HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Right,
                     Margin = new Thickness(0, 0, 53, 0)
                 };

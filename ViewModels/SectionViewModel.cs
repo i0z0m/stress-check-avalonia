@@ -1,3 +1,4 @@
+using Avalonia.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,6 +11,7 @@ namespace stress_check_avalonia
 
         private Section _currentSection;
         private Question _currentQuestion;
+        private int _questionIndex;
 
         private SectionViewModel()
         {
@@ -51,6 +53,19 @@ namespace stress_check_avalonia
                 {
                     _currentQuestion = value;
                     OnPropertyChanged(nameof(CurrentQuestion));
+                }
+            }
+        }
+
+        public int QuestionIndex
+        {
+            get { return _questionIndex; }
+            set
+            {
+                if (_questionIndex != value)
+                {
+                    _questionIndex = value;
+                    OnPropertyChanged(nameof(QuestionIndex));
                 }
             }
         }
