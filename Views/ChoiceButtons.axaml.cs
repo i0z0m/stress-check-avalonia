@@ -88,10 +88,11 @@ namespace stress_check_avalonia
                     {
                         System.Diagnostics.Debug.WriteLine($"Selected choice: {choice}");
 
-                        viewModel.HandleChoiceSelect(choice);
+                        viewModel.HandleChoiceSelect(choice, groupName);
                     }
                 }
             }
         }
+
     }
 }

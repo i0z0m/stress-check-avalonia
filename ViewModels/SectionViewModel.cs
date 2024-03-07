@@ -82,13 +82,16 @@ namespace stress_check_avalonia
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public void HandleChoiceSelect(string choice)
+        public void HandleChoiceSelect(string choice, string groupName)
         {
             var choiceIndex = Choices.IndexOf(choice);
             var choiceValue = choiceIndex >= 0 ? choiceIndex + 1 : 0; // Add 1 to the index to start the score at 1
 
-            CurrentQuestion = DisplayedQuestion;
-            System.Diagnostics.Debug.WriteLine($"CurrentQuestion is: {CurrentQuestion}");
+            // Convert the GroupName to an integer and use it to set the CurrentQuestion
+            if (int.TryParse(groupName, out int questionIndex) && questionIndex < Questions.Count)
+            {
+                CurrentQuestion = Questions[questionIndex];
+            }
 
             if (CurrentQuestion != null)
             {
@@ -96,7 +99,7 @@ namespace stress_check_avalonia
                 CurrentQuestion.Score = choiceValue;
 
                 // Output the updated score to the console for debugging
-                System.Diagnostics.Debug.WriteLine($"Question ID: {CurrentQuestion.Id}, Updated Score: {CurrentQuestion.Score}");
+                System.Diagnostics.Debug.WriteLine($"CurrentQuestion ID: {CurrentQuestion.Id}, Updated Score: {CurrentQuestion.Score}");
 
                 // Calculate the score of the current section
                 var sectionScore = ScoreCalculator.CalculateScore(Questions);
