@@ -4,15 +4,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:stress_check_avalonia"
         xmlns:desc="clr-namespace:stress_check_avalonia"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        Width="1000" Height="630"
+        mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="670"
+        Width="1000" Height="670"
         x:Class="stress_check_avalonia.MainWindow"
         Icon="/Assets/favicon.png"
         Title="stress_check_avalonia">
-    <StackPanel>
-        <local:Header />
-        <local:SectionDescription Description="Your description here" IsLastSection="True" />
-		<StackPanel x:Name="QuestionsPanel">
-		</StackPanel>
-    </StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <local:Header />
+            <local:SectionDescription Description="Your description here" IsLastSection="True" />
+            <StackPanel x:Name="QuestionsPanel">
+            </StackPanel>
+        </StackPanel>
+        <DockPanel Grid.Row="1" LastChildFill="False">
+            <local:BackButtons DockPanel.Dock="Left" Margin="50, 0, 0, 10" />
+            <local:NextButton DockPanel.Dock="Right" Margin="0, 0, 50, 10" />
+        </DockPanel>
+    </Grid>
 </Window>
+
