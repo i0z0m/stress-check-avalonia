@@ -70,8 +70,6 @@ namespace stress_check_avalonia
             }
         }
 
-        public Question DisplayedQuestion { get; set; }
-
         public List<Question> Questions => CurrentSection.Questions;
         public List<string> Choices => CurrentSection.Choices;
 

@@ -41,7 +41,6 @@ namespace stress_check_avalonia
             if (DataContext is SectionViewModel viewModel && viewModel.Questions.Count > QuestionIndex)
             {
                 DisplayedQuestion = viewModel.Questions[QuestionIndex];
-                viewModel.DisplayedQuestion = DisplayedQuestion;
                 UpdateDisplayedQuestion();
             }
         }
