@@ -32,34 +32,40 @@ namespace stress_check_avalonia
             // Add each question and its corresponding choice buttons to the QuestionsPanel
             for (int i = QuestionStartIndex; i < QuestionStartIndex + QuestionsPerPage && i < questions.Count; i++)
             {
-                var questionText = new QuestionText
-                {
-                    QuestionIndex = i
-                };
+                if (i < SectionViewModel.Instance.QuestionViewModels.Count)
+                 {
+                    var questionViewModel = SectionViewModel.Instance.QuestionViewModels[i];
 
-                var choiceButtons = new ChoiceButtons
-                {
-                    QuestionIndex = i,
-                    HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Right,
-                    Margin = new Thickness(0, 0, 53, 0)
-                };
+                    var questionText = new QuestionText
+                    {
+                        QuestionIndex = i
+                    };
 
-                var questionGrid = new Grid
-                {
-                    ColumnDefinitions =
+                    var choiceButtons = new ChoiceButtons
+                    {
+                        QuestionViewModel = questionViewModel, // Pass the QuestionViewModel to the ChoiceButtons
+                        QuestionIndex = i,
+                        HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Right,
+                        Margin = new Thickness(0, 0, 53, 0)
+                    };
+
+                    var questionGrid = new Grid
+                    {
+                        ColumnDefinitions =
                     {
                         new ColumnDefinition(1, GridUnitType.Star),
                         new ColumnDefinition(0, GridUnitType.Auto)
                     }
-                };
+                    };
 
-                Grid.SetColumn(questionText, 0);
-                Grid.SetColumn(choiceButtons, 1);
+                    Grid.SetColumn(questionText, 0);
+                    Grid.SetColumn(choiceButtons, 1);
 
-                questionGrid.Children.Add(questionText);
-                questionGrid.Children.Add(choiceButtons);
+                    questionGrid.Children.Add(questionText);
+                    questionGrid.Children.Add(choiceButtons);
 
-                QuestionsPanel.Children.Add(questionGrid);
+                    QuestionsPanel.Children.Add(questionGrid);
+                }
             }
         }
 

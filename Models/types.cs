@@ -33,6 +33,7 @@ namespace stress_check_avalonia
     {
         public int Id { get; set; }
         public string Text { get; set; }
+        public int Choice { get; set; }
         public int Score { get; set; }
         public bool Reverse { get; set; }
     }

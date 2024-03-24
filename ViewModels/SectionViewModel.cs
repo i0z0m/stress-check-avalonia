@@ -1,11 +1,10 @@
-using Avalonia.Controls;
-using System;
+using ReactiveUI;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Linq;
 
 namespace stress_check_avalonia
 {
-    public class SectionViewModel : INotifyPropertyChanged
+    public class SectionViewModel : ReactiveObject
     {
         private static SectionViewModel _instance;
 
@@ -13,9 +12,12 @@ namespace stress_check_avalonia
         private Question _currentQuestion;
         private int _questionIndex;
 
-        private SectionViewModel()
+        public List<QuestionViewModel> QuestionViewModels { get; private set; }
+
+        public SectionViewModel()
         {
             CurrentSection = LoadSections.sections[0];
+            QuestionViewModels = CurrentSection.Questions.Select(q => new QuestionViewModel(q)).ToList();
         }
 
         public static SectionViewModel Instance
@@ -33,15 +35,7 @@ namespace stress_check_avalonia
         public Section CurrentSection
         {
             get { return _currentSection; }
-            set
-            {
-                if (_currentSection != value)
-                {
-                    _currentSection = value;
-                    OnPropertyChanged(nameof(CurrentSection));
-                    OnPropertyChanged(nameof(Questions));
-                }
-            }
+            set { this.RaiseAndSetIfChanged(ref _currentSection, value); }
         }
 
         public void SetCurrentSection(int newSectionIndex)
@@ -49,6 +43,7 @@ namespace stress_check_avalonia
             if (newSectionIndex >= 0 && newSectionIndex < LoadSections.sections.Count)
             {
                 CurrentSection = LoadSections.sections[newSectionIndex];
+                QuestionViewModels = CurrentSection.Questions.Select(q => new QuestionViewModel(q)).ToList();
             }
         }
 
@@ -60,7 +55,6 @@ namespace stress_check_avalonia
                 if (_currentQuestion != value)
                 {
                     _currentQuestion = value;
-                    OnPropertyChanged(nameof(CurrentQuestion));
                 }
             }
         }
@@ -73,20 +67,12 @@ namespace stress_check_avalonia
                 if (_questionIndex != value)
                 {
                     _questionIndex = value;
-                    OnPropertyChanged(nameof(QuestionIndex));
                 }
             }
         }
 
         public List<Question> Questions => CurrentSection.Questions;
         public List<string> Choices => CurrentSection.Choices;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
 
         public void HandleChoiceSelect(string choice, string groupName)
         {

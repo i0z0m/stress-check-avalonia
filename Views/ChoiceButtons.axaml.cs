@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using ReactiveUI;
 using System;
 
 namespace stress_check_avalonia
@@ -11,6 +12,8 @@ namespace stress_check_avalonia
     {
         public static readonly AvaloniaProperty QuestionIndexProperty =
     AvaloniaProperty.Register<ChoiceButtons, int>("QuestionIndex", defaultBindingMode: BindingMode.TwoWay);
+
+        public QuestionViewModel QuestionViewModel { get; set; }
 
         public int QuestionIndex
         {
@@ -30,8 +33,9 @@ namespace stress_check_avalonia
         {
             InitializeComponent();
             DataContext = SectionViewModel.Instance;
-            this.GetObservable(QuestionIndexProperty).Subscribe(_ => UpdateGroupName());
+            this.WhenAnyValue(x => x.QuestionIndex).Subscribe(_ => UpdateGroupName());
         }
+
 
         private void InitializeComponent()
         {
@@ -75,17 +79,19 @@ namespace stress_check_avalonia
             var radioButton = sender as RadioButton;
             if (radioButton != null)
             {
-                var choice = radioButton.Content as string;
+                var choice = radioButton.Content.ToString();
                 if (choice != null)
                 {
-                    var groupName = radioButton.GroupName;
-
-                    System.Diagnostics.Debug.WriteLine($"GroupName is: {groupName}");
-
                     var viewModel = DataContext as SectionViewModel;
-                    System.Diagnostics.Debug.WriteLine($"ViewModel is: {viewModel}");
                     if (viewModel != null)
                     {
+                        var choiceIndex = viewModel.Choices.IndexOf(choice);
+                        QuestionViewModel.SelectedChoice = choiceIndex;
+
+                        var groupName = radioButton.GroupName;
+
+                        System.Diagnostics.Debug.WriteLine($"GroupName is: {groupName}");
+                        System.Diagnostics.Debug.WriteLine($"ViewModel is: {viewModel}");
                         System.Diagnostics.Debug.WriteLine($"Selected choice: {choice}");
 
                         viewModel.HandleChoiceSelect(choice, groupName);
@@ -93,6 +99,5 @@ namespace stress_check_avalonia
                 }
             }
         }
-
     }
 }
