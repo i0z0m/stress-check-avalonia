@@ -44,6 +44,14 @@ namespace stress_check_avalonia
             }
         }
 
+        public void SetCurrentSection(int newSectionIndex)
+        {
+            if (newSectionIndex >= 0 && newSectionIndex < LoadSections.sections.Count)
+            {
+                CurrentSection = LoadSections.sections[newSectionIndex];
+            }
+        }
+
         public Question CurrentQuestion
         {
             get { return _currentQuestion; }

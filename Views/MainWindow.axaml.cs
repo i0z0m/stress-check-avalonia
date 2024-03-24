@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia;
+using System.Linq;
 
 namespace stress_check_avalonia
 {
@@ -10,9 +11,22 @@ namespace stress_check_avalonia
             InitializeComponent();
             this.Title = "ストレスチェック実施プログラム";
 
-            // Use the Questions from SectionViewModel
+            // Initialize the first section
+            InitSections(0);
+        }
+
+        public void InitSections(int sectionIndex)
+        {
+            // Set the current section in the SectionViewModel
+            SectionViewModel.Instance.SetCurrentSection(sectionIndex);
+
+            // Clear the existing questions
+            QuestionsPanel.Children.Clear();
+
+            // Get the questions for the specified section
             var questions = SectionViewModel.Instance.Questions;
 
+            // Add each question and its corresponding choice buttons to the QuestionsPanel
             for (int i = 0; i < questions.Count; i++)
             {
                 var questionText = new QuestionText
@@ -44,6 +58,14 @@ namespace stress_check_avalonia
 
                 QuestionsPanel.Children.Add(questionGrid);
             }
+        }
+
+        public bool AreAllQuestionsAnswered()
+        {
+            return QuestionsPanel.Children.OfType<Grid>()
+                .SelectMany(grid => grid.Children.OfType<ChoiceButtons>())
+                .All(choiceButtons => Enumerable.Range(1, 4)
+                    .Any(i => choiceButtons.FindControl<RadioButton>($"RadioButton{i}").IsChecked == true));
         }
     }
 }
