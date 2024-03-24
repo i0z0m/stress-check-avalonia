@@ -6,16 +6,19 @@ namespace stress_check_avalonia
 {
     public partial class MainWindow : Window
     {
+        public int QuestionStartIndex { get; set; }
+        public int QuestionsPerPage { get; } = 10;
+
         public MainWindow()
         {
             InitializeComponent();
             this.Title = "ストレスチェック実施プログラム";
 
             // Initialize the first section
-            InitSections(0);
+            InitSections(0, QuestionsPerPage); // Display the first set of questions
         }
 
-        public void InitSections(int sectionIndex)
+        public void InitSections(int sectionIndex, int questionCount)
         {
             // Set the current section in the SectionViewModel
             SectionViewModel.Instance.SetCurrentSection(sectionIndex);
@@ -27,7 +30,7 @@ namespace stress_check_avalonia
             var questions = SectionViewModel.Instance.Questions;
 
             // Add each question and its corresponding choice buttons to the QuestionsPanel
-            for (int i = 0; i < questions.Count; i++)
+            for (int i = QuestionStartIndex; i < QuestionStartIndex + QuestionsPerPage && i < questions.Count; i++)
             {
                 var questionText = new QuestionText
                 {
@@ -66,6 +69,12 @@ namespace stress_check_avalonia
                 .SelectMany(grid => grid.Children.OfType<ChoiceButtons>())
                 .All(choiceButtons => Enumerable.Range(1, 4)
                     .Any(i => choiceButtons.FindControl<RadioButton>($"RadioButton{i}").IsChecked == true));
+        }
+
+        public bool AreAllQuestionsDisplayed()
+        {
+            var questions = SectionViewModel.Instance.Questions;
+            return QuestionStartIndex + QuestionsPerPage >= questions.Count;
         }
     }
 }

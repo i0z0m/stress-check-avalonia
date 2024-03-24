@@ -17,11 +17,26 @@ namespace stress_check_avalonia
             if (mainWindow != null && mainWindow.AreAllQuestionsAnswered())
             {
                 int currentIndex = LoadSections.sections.IndexOf(SectionViewModel.Instance.CurrentSection);
-                if (currentIndex < LoadSections.sections.Count - 1) // Check if it's not the last section
+
+                if (mainWindow.AreAllQuestionsDisplayed())
                 {
-                    // Load new section
-                    mainWindow.InitSections(currentIndex + 1);
+                    if (currentIndex < LoadSections.sections.Count - 1) // Check if it's not the last section
+                    {
+                        // Increment the section index
+                        currentIndex++;
+
+                        // Reset the question start index
+                        mainWindow.QuestionStartIndex = 0;
+                    }
                 }
+                else
+                {
+                    // Update the question start index
+                    mainWindow.QuestionStartIndex += mainWindow.QuestionsPerPage;
+                }
+
+                // Load new section
+                mainWindow.InitSections(currentIndex, mainWindow.QuestionsPerPage); // Display the next set of questions
             }
         }
     }
