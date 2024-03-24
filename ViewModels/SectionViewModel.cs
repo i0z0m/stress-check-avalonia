@@ -76,8 +76,8 @@ namespace stress_check_avalonia
 
         public void HandleChoiceSelect(string choice, string groupName)
         {
-            var choiceIndex = Choices.IndexOf(choice);
-            var choiceValue = choiceIndex >= 0 ? choiceIndex + 1 : 0; // Add 1 to the index to start the score at 1
+            // Convert the choice to an integer
+            var choiceValue = int.TryParse(choice, out int result) ? result : 0;
 
             // Convert the GroupName to an integer and use it to set the CurrentQuestion
             if (int.TryParse(groupName, out int questionIndex) && questionIndex < Questions.Count)

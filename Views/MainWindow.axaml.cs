@@ -33,7 +33,7 @@ namespace stress_check_avalonia
             for (int i = QuestionStartIndex; i < QuestionStartIndex + QuestionsPerPage && i < questions.Count; i++)
             {
                 if (i < SectionViewModel.Instance.QuestionViewModels.Count)
-                 {
+                {
                     var questionViewModel = SectionViewModel.Instance.QuestionViewModels[i];
 
                     var questionText = new QuestionText
@@ -49,13 +49,22 @@ namespace stress_check_avalonia
                         Margin = new Thickness(0, 0, 53, 0)
                     };
 
+                    // Set the IsChecked property of the RadioButton corresponding to the selected choice
+                    var selectedChoice = questionViewModel.Question.Score;
+                    if (selectedChoice >= 1 && selectedChoice <= 4)
+                    {
+                        var radioButton = choiceButtons.FindControl<RadioButton>($"RadioButton{selectedChoice}");
+                        radioButton.IsCheckedChanged -= choiceButtons.OnChoiceSelect;
+                        radioButton.IsChecked = true;
+                    }
+
                     var questionGrid = new Grid
                     {
                         ColumnDefinitions =
-                    {
-                        new ColumnDefinition(1, GridUnitType.Star),
-                        new ColumnDefinition(0, GridUnitType.Auto)
-                    }
+                        {
+                            new ColumnDefinition(1, GridUnitType.Star),
+                            new ColumnDefinition(0, GridUnitType.Auto)
+                        }
                     };
 
                     Grid.SetColumn(questionText, 0);
@@ -68,6 +77,7 @@ namespace stress_check_avalonia
                 }
             }
         }
+
 
         public bool AreAllQuestionsAnswered()
         {
