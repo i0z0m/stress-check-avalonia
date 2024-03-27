@@ -81,10 +81,10 @@ namespace stress_check_avalonia
 
         public bool AreAllQuestionsAnswered()
         {
-            return QuestionsPanel.Children.OfType<Grid>()
+            return !QuestionsPanel.Children.OfType<Grid>()
                 .SelectMany(grid => grid.Children.OfType<ChoiceButtons>())
-                .All(choiceButtons => Enumerable.Range(1, 4)
-                    .Any(i => choiceButtons.FindControl<RadioButton>($"RadioButton{i}").IsChecked == true));
+                .Any(choiceButtons => Enumerable.Range(1, 4)
+                    .All(i => choiceButtons.FindControl<RadioButton>($"RadioButton{i}").IsChecked != true));
         }
 
         public bool AreAllQuestionsDisplayed()
