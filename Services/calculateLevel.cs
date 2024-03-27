@@ -12,7 +12,7 @@ namespace stress_check_avalonia
 
     public static class LevelCalculator
     {
-        public static LevelResult CalculateLevel(List<int> scores, List<List<int>> values)
+        public static LevelResult CalculateLevel(this List<int> scores, List<List<int>> values)
         {
             bool method1 = scores[2] >= 77 || (scores[1] + scores[3] >= 76 && scores[2] >= 63);
 

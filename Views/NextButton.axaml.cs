@@ -22,7 +22,7 @@ namespace stress_check_avalonia
                 if (mainWindow.AreAllQuestionsDisplayed())
                 {
                     // Calculate the score of the current section
-                    int sectionScore = ScoreCalculator.CalculateScore(SectionViewModel.Instance.Questions);
+                    int sectionScore = SectionViewModel.Instance.Questions.CalculateScore();
 
                     // Output the section score to the console for debugging
                     System.Diagnostics.Debug.WriteLine($"Section Score: {sectionScore}");

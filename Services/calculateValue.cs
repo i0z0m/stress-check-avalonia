@@ -24,7 +24,7 @@ namespace stress_check_avalonia
             return subtractionTotal + additionScore;
         }
 
-        public static int CalculateValue(List<Question> questions, Factor factor)
+        public static int CalculateValue(this List<Question> questions, Factor factor)
         {
             List<Question> filteredQuestions = questions.Where(question => factor.Items?.Contains(question.Id) ?? false).ToList();
             int score = 0;
