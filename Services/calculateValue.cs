@@ -29,20 +29,13 @@ namespace stress_check_avalonia
             List<Question> filteredQuestions = questions.Where(question => factor.Items?.Contains(question.Id) ?? false).ToList();
             int score = 0;
 
-            switch (factor.Type)
+            score = factor.Type switch
             {
-                case "subtraction":
-                    score = CalculateSubtractionPattern(filteredQuestions);
-                    break;
-                case "addition":
-                    score = CalculateAdditionPattern(filteredQuestions);
-                    break;
-                case "complex":
-                    score = CalculateComplexPattern(filteredQuestions);
-                    break;
-                default:
-                    break;
-            }
+                "subtraction" => CalculateSubtractionPattern(filteredQuestions),
+                "addition" => CalculateAdditionPattern(filteredQuestions),
+                "complex" => CalculateComplexPattern(filteredQuestions),
+                _ => 0
+            };
 
             Rate rate = factor.Rates?.FirstOrDefault(rate => score >= rate.Min && score <= rate.Max);
             return rate != null ? rate.Value : 0;
