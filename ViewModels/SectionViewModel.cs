@@ -9,7 +9,6 @@ namespace stress_check_avalonia
         private static SectionViewModel _instance;
 
         private Section _currentSection;
-        private Question _currentQuestion;
         private int _questionIndex;
 
         public List<QuestionViewModel> QuestionViewModels { get; private set; }
@@ -47,18 +46,6 @@ namespace stress_check_avalonia
             }
         }
 
-        public Question CurrentQuestion
-        {
-            get { return _currentQuestion; }
-            set
-            {
-                if (_currentQuestion != value)
-                {
-                    _currentQuestion = value;
-                }
-            }
-        }
-
         public int QuestionIndex
         {
             get { return _questionIndex; }
@@ -73,31 +60,5 @@ namespace stress_check_avalonia
 
         public List<Question> Questions => CurrentSection.Questions;
         public List<string> Choices => CurrentSection.Choices;
-
-        public void HandleChoiceSelect(string choice, string groupName)
-        {
-            // Convert the choice to an integer
-            var choiceValue = int.TryParse(choice, out int result) ? result : 0;
-
-            // Convert the GroupName to an integer and use it to set the CurrentQuestion
-            if (int.TryParse(groupName, out int questionIndex) && questionIndex < Questions.Count)
-            {
-                CurrentQuestion = Questions[questionIndex];
-            }
-
-            if (CurrentQuestion != null)
-            {
-                // Update the score of the current question
-                CurrentQuestion.Score = choiceValue;
-
-                // Output the updated score to the console for debugging
-                System.Diagnostics.Debug.WriteLine($"CurrentQuestion ID: {CurrentQuestion.Id}, Updated Score: {CurrentQuestion.Score}");
-
-                // Calculate the score of the current section
-                var sectionScore = ScoreCalculator.CalculateScore(Questions);
-            }
-            // Update the scores state
-            // This part depends on how you manage the scores of the sections
-        }
     }
 }

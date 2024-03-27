@@ -11,6 +11,7 @@ namespace stress_check_avalonia
             InitializeComponent();
         }
 
+        // In NextButton.axaml.cs
         public void ClickHandler(object sender, RoutedEventArgs args)
         {
             var mainWindow = this.FindAncestorOfType<MainWindow>();
@@ -20,6 +21,12 @@ namespace stress_check_avalonia
 
                 if (mainWindow.AreAllQuestionsDisplayed())
                 {
+                    // Calculate the score of the current section
+                    int sectionScore = ScoreCalculator.CalculateScore(SectionViewModel.Instance.Questions);
+
+                    // Output the section score to the console for debugging
+                    System.Diagnostics.Debug.WriteLine($"Section Score: {sectionScore}");
+
                     if (currentIndex < LoadSections.sections.Count - 1) // Check if it's not the last section
                     {
                         // Increment the section index

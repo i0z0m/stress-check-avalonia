@@ -22,6 +22,12 @@ namespace stress_check_avalonia
                 {
                     if (currentIndex > 0) // Check if it's not the first section
                     {
+                        // Calculate the score of the current section
+                        int sectionScore = ScoreCalculator.CalculateScore(SectionViewModel.Instance.Questions);
+
+                        // Output the section score to the console for debugging
+                        System.Diagnostics.Debug.WriteLine($"Section Score: {sectionScore}");
+
                         // Decrement the section index
                         currentIndex--;
 

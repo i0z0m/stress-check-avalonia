@@ -15,4 +15,13 @@ public class QuestionViewModel : ReactiveObject
         get => _question;
         set => this.RaiseAndSetIfChanged(ref _question, value);
     }
+
+    public void HandleChoiceSelect(int choiceValue)
+    {
+        // Update the score of the question
+        Question.Score = choiceValue;
+
+        // Output the updated score to the console for debugging
+        System.Diagnostics.Debug.WriteLine($"Question ID: {Question.Id}, Updated Score: {Question.Score}");
+    }
 }

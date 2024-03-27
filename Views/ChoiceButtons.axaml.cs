@@ -79,16 +79,8 @@ namespace stress_check_avalonia
             if (radioButton != null && radioButton.IsChecked == true)
             {
                 var choiceIndex = int.Parse(radioButton.Tag.ToString());
-                // Update the Score property of the Question
-                QuestionViewModel.Question.Score = choiceIndex;
-
-                var groupName = radioButton.GroupName;
-
-                System.Diagnostics.Debug.WriteLine($"GroupName is: {groupName}");
-                System.Diagnostics.Debug.WriteLine($"ViewModel is: {DataContext as SectionViewModel}");
-                System.Diagnostics.Debug.WriteLine($"Selected choice: {choiceIndex}");
-
-                (DataContext as SectionViewModel)?.HandleChoiceSelect(choiceIndex.ToString(), groupName);
+                // Call HandleChoiceSelect on the QuestionViewModel instance
+                QuestionViewModel.HandleChoiceSelect(choiceIndex);
             }
         }
     }
