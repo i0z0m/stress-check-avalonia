@@ -4,8 +4,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:stress_check_avalonia"
         xmlns:desc="clr-namespace:stress_check_avalonia"
-        mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="670"
-        Width="1000" Height="670"
+        mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="630"
+        Width="1000" Height="630"
         x:Class="stress_check_avalonia.MainWindow"
         Icon="/Assets/favicon.png"
         Title="stress_check_avalonia">
@@ -15,7 +15,8 @@
 			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
 		<StackPanel Grid.Row="0">
-			<local:Header />
+			<local:AppHeader />
+			<local:AppTitle />
 			<local:SectionDescription x:Name="SectionDescriptionControl" Description="Your description here" IsLastSection="True" />
 			<StackPanel x:Name="QuestionsPanel">
 			</StackPanel>

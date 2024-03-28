@@ -1,15 +1,13 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
 namespace stress_check_avalonia
 {
-    public partial class Header : UserControl
+    public partial class AppHeader : UserControl
     {
-        public Header()
+        public AppHeader()
         {
             InitializeComponent();
-            DataContext = SectionViewModel.Instance;
         }
 
         private void InitializeComponent()
@@ -18,3 +16,4 @@ namespace stress_check_avalonia
         }
     }
 }
+

@@ -3,34 +3,33 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:stress_check_avalonia"
-             x:Class="stress_check_avalonia.Header"
+             x:Class="stress_check_avalonia.AppTitle"
              x:DataType="local:SectionViewModel"
-			 Height="48"
+             Height="54"
              VerticalAlignment="Top"
              HorizontalAlignment="Stretch">
 	<Grid>
-        <StackPanel Orientation="Horizontal"
+		<StackPanel Orientation="Horizontal"
                     Background="#89c548"
-					Margin="0,8,0,0"
+                    Margin="0,8,0,0"
                     VerticalAlignment="Top"
                     HorizontalAlignment="Stretch">
-            <TextBlock Text="STEP"
-					   Margin="120,0,0,0"
-                       FontSize="24"
+			<TextBlock Text="STEP"
+                       Margin="120,0,0,0"
+                       FontSize="30"
                        Foreground="White" />
-            <TextBlock Text="{Binding CurrentSection.Step}"
-                       FontSize="24"
+			<TextBlock Text="{Binding CurrentSection.Step}"
+                       FontSize="30"
                        Foreground="White" />
-            <TextBlock Text="{Binding CurrentSection.Name}"
-                       FontSize="24"
+			<TextBlock Text="{Binding CurrentSection.Name}"
+                       FontSize="30"
                        Margin="24,0,0,0"
                        Foreground="White" />
-
-        </StackPanel>
-		 <Image Source="/Assets/icon.png"
-				Width="64"
-	            Height="64"
-                Margin="48,0,0,0"
-	            HorizontalAlignment="Left"/>
+		</StackPanel>
+		<Image Source="/Assets/icon.png"
+               Width="64"
+               Height="64"
+               Margin="48,0,0,0"
+               HorizontalAlignment="Left"/>
 	</Grid>
 </UserControl>

@@ -1,7 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.VisualTree;
-using stress_check_avalonia;
 
 namespace stress_check_avalonia
 {

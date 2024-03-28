@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.Media;
 using Avalonia;
 using System.Linq;
 
@@ -74,6 +75,14 @@ namespace stress_check_avalonia
                     questionGrid.Children.Add(choiceButtons);
 
                     QuestionsPanel.Children.Add(questionGrid);
+
+                    var underline = new Border
+                    {
+                        BorderThickness = new Thickness(0, 0, 0, 1),
+                        BorderBrush = Brushes.Gray,
+                        Margin = new Thickness(48, 0, 48, 8)
+                    };
+                    QuestionsPanel.Children.Add(underline);
                 }
             }
         }

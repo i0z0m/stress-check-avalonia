@@ -5,7 +5,7 @@
 			 xmlns:local="clr-namespace:stress_check_avalonia"
 			 x:Class="stress_check_avalonia.BackButtons">
 	<StackPanel Orientation="Horizontal">
-		<Button Content="タイトルに戻る" Click="ClickHandler" Margin="0, 0, 10, 0"/>
-		<Button Content="1つ前の画面へ" Click="ClickHandler" />
+		<Button Content="タイトルに戻る" Click="ClickHandler" Margin="0, 0, 10, 0" Width="180" Height="60" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18" />
+		<Button Content="1つ前の画面へ" Click="ClickHandler" Width="180" Height="60" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18" />
 	</StackPanel>
 </UserControl>
