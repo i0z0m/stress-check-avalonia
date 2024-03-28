@@ -1,3 +1,4 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using System.Collections.Generic;
@@ -36,7 +37,8 @@ namespace stress_check_avalonia
             var employeeLevelTextBlock = new TextBlock
             {
                 Text = Employee.Level == "High" ? "高ストレス者です" : "低ストレス者です",
-                HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center
+                HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
+                Margin = new Thickness(0, 0, 0, 20)
             };
             sectionPanel.Children.Add(employeeLevelTextBlock);
 
