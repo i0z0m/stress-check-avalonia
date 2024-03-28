@@ -16,11 +16,11 @@ namespace stress_check_avalonia
             var mainWindow = this.FindAncestorOfType<MainWindow>();
             if (mainWindow != null)
             {
-                if (mainWindow.AggregateResultsPanel.IsVisible)
+                if (mainWindow.AggregateResultsControl != null && mainWindow.AggregateResultsControl.IsVisible)
                 {
                     // Display the last page of the last section
                     int lastSectionIndex = LoadSections.sections.Count - 1;
-                    mainWindow.InitSections(lastSectionIndex, mainWindow.QuestionsPerPage);
+                    mainWindow.DisplayQuestions(lastSectionIndex, mainWindow.QuestionsPerPage);
                     mainWindow.QuestionStartIndex = ((LoadSections.sections[lastSectionIndex].Questions.Count - 1) / mainWindow.QuestionsPerPage) * mainWindow.QuestionsPerPage;
 
                     // Make sure the QuestionsPanel is visible
@@ -30,7 +30,7 @@ namespace stress_check_avalonia
                     mainWindow.SectionDescriptionControl.IsVisible = true;
 
                     // Hide the AggregateResults
-                    mainWindow.AggregateResultsPanel.IsVisible = false;
+                    mainWindow.AggregateResultsControl.IsVisible = false;
                 }
                 else
                 {
@@ -63,7 +63,7 @@ namespace stress_check_avalonia
                     }
 
                     // Load previous section or page
-                    mainWindow.InitSections(currentIndex, mainWindow.QuestionsPerPage); // Display the previous set of questions
+                    mainWindow.DisplayQuestions(currentIndex, mainWindow.QuestionsPerPage); // Display the previous set of questions
                 }
             }
         }

@@ -7,17 +7,24 @@ namespace stress_check_avalonia
 {
     public partial class AggregateResults : UserControl
     {
-        public Employee Employee { get; }
+        public Employee? Employee { get; private set; } // Make Employee nullable
         public List<Section> Sections { get; }
 
-        public AggregateResults(Employee employee)
+        public AggregateResults()
         {
             InitializeComponent();
             DataContext = this;
-            Employee = employee;
             Sections = new List<Section>(); // Initialize Sections
+        }
+
+        public void DisplayResults(Employee employee)
+        {
+            this.Employee = EmployeeViewModel.Instance.Employee;
 
             var sectionPanel = this.FindControl<StackPanel>("SectionPanel");
+
+            // Clear the sectionPanel before adding new elements
+            sectionPanel.Children.Clear();
 
             // Create TextBlock for Employee Level
             var scores = LoadSections.sections.Select(s => s.Scores).ToList();

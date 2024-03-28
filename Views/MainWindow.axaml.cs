@@ -8,18 +8,17 @@ namespace stress_check_avalonia
     {
         public int QuestionStartIndex { get; set; }
         public int QuestionsPerPage { get; } = 10;
-        public AggregateResults AggregateResults { get; set; }
+        public AggregateResults AggregateResultsControl { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
             this.Title = "ストレスチェック実施プログラム";
 
-            // Initialize the first section
-            InitSections(0, QuestionsPerPage); // Display the first set of questions
+            DisplayQuestions(0, QuestionsPerPage); // Display the first set of questions
         }
 
-        public void InitSections(int sectionIndex, int questionCount)
+        public void DisplayQuestions(int sectionIndex, int questionCount)
         {
             // Set the current section in the SectionViewModel
             SectionViewModel.Instance.SetCurrentSection(sectionIndex);
@@ -96,23 +95,21 @@ namespace stress_check_avalonia
 
         public void ShowResults()
         {
-            // Create an instance of AggregateResults
+            // Initialize AggregateResults
             if (EmployeeViewModel.Instance?.Employee != null)
             {
-                AggregateResults = new AggregateResults(EmployeeViewModel.Instance.Employee);
+                AggregateResultsControl = new AggregateResults();
+                AggregateResultsControl.DisplayResults(EmployeeViewModel.Instance.Employee);
+
+                // Hide the QuestionsPanel
+                QuestionsPanel.IsVisible = false;
+
+                // Hide the SectionDescription
+                SectionDescriptionControl.IsVisible = false;
+
+                // Show the AggregateResults
+                ResultsContent.Content = AggregateResultsControl;
             }
-
-            // Add the AggregateResults instance to the AggregateResultsPanel
-            AggregateResultsPanel.Children.Add(AggregateResults);
-
-            // Hide the QuestionsPanel
-            QuestionsPanel.IsVisible = false;
-
-            // Hide the SectionDescription
-            SectionDescriptionControl.IsVisible = false;
-
-            // Show the AggregateResults
-            AggregateResultsPanel.IsVisible = true;
         }
     }
 }

@@ -50,7 +50,7 @@ namespace stress_check_avalonia
                 }
 
                 // Load new section
-                mainWindow.InitSections(currentIndex, mainWindow.QuestionsPerPage); // Display the next set of questions
+                mainWindow.DisplayQuestions(currentIndex, mainWindow.QuestionsPerPage); // Display the next set of questions
                 System.Diagnostics.Debug.WriteLine($"Loading section at index {currentIndex}");
             }
         }
