@@ -8,6 +8,7 @@ namespace stress_check_avalonia
     {
         public int QuestionStartIndex { get; set; }
         public int QuestionsPerPage { get; } = 10;
+        public AggregateResults AggregateResults { get; set; }
 
         public MainWindow()
         {
@@ -91,6 +92,27 @@ namespace stress_check_avalonia
         {
             var questions = SectionViewModel.Instance.Questions;
             return QuestionStartIndex + QuestionsPerPage >= questions.Count;
+        }
+
+        public void ShowResults()
+        {
+            // Create an instance of AggregateResults
+            if (EmployeeViewModel.Instance?.Employee != null)
+            {
+                AggregateResults = new AggregateResults(EmployeeViewModel.Instance.Employee);
+            }
+
+            // Add the AggregateResults instance to the AggregateResultsPanel
+            AggregateResultsPanel.Children.Add(AggregateResults);
+
+            // Hide the QuestionsPanel
+            QuestionsPanel.IsVisible = false;
+
+            // Hide the SectionDescription
+            SectionDescriptionControl.IsVisible = false;
+
+            // Show the AggregateResults
+            AggregateResultsPanel.IsVisible = true;
         }
     }
 }

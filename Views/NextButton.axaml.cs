@@ -12,7 +12,6 @@ namespace stress_check_avalonia
             InitializeComponent();
         }
 
-        // In NextButton.axaml.cs
         public void ClickHandler(object sender, RoutedEventArgs args)
         {
             var mainWindow = this.FindAncestorOfType<MainWindow>();
@@ -38,6 +37,11 @@ namespace stress_check_avalonia
                         // Reset the question start index
                         mainWindow.QuestionStartIndex = 0;
                     }
+                    else // If it's the last section
+                    {
+                        // Show the AggregateResults
+                        mainWindow.ShowResults();
+                    }
                 }
                 else
                 {
@@ -47,6 +51,7 @@ namespace stress_check_avalonia
 
                 // Load new section
                 mainWindow.InitSections(currentIndex, mainWindow.QuestionsPerPage); // Display the next set of questions
+                System.Diagnostics.Debug.WriteLine($"Loading section at index {currentIndex}");
             }
         }
     }
