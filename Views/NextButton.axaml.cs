@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.VisualTree;
+using stress_check_avalonia;
 
 namespace stress_check_avalonia
 {
@@ -21,11 +22,13 @@ namespace stress_check_avalonia
 
                 if (mainWindow.AreAllQuestionsDisplayed())
                 {
-                    // Calculate the score of the current section
-                    int sectionScore = SectionViewModel.Instance.Questions.CalculateScore();
+                    // Update the score and values of the current section
+                    SectionViewModel.Instance.UpdateScores();
+                    SectionViewModel.Instance.UpdateValues();
 
-                    // Output the section score to the console for debugging
-                    System.Diagnostics.Debug.WriteLine($"Section Score: {sectionScore}");
+                    // Output the section score and values to the console for debugging
+                    System.Diagnostics.Debug.WriteLine($"Section Score: {SectionViewModel.Instance.CurrentSection.Scores}");
+                    System.Diagnostics.Debug.WriteLine($"Section Values: {SectionViewModel.Instance.CurrentSection.Values}");
 
                     if (currentIndex < LoadSections.sections.Count - 1) // Check if it's not the last section
                     {

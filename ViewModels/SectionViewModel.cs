@@ -1,4 +1,5 @@
 using ReactiveUI;
+using stress_check_avalonia;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -60,5 +61,18 @@ namespace stress_check_avalonia
 
         public List<Question> Questions => CurrentSection.Questions;
         public List<string> Choices => CurrentSection.Choices;
+
+        public void UpdateScores()
+        {
+            CurrentSection.Scores = Questions.CalculateScore();
+        }
+
+        public void UpdateValues()
+        {
+            if (CurrentSection.Factors != null)
+            {
+                CurrentSection.Values = CurrentSection.Factors.Sum(factor => Questions.CalculateValue(factor));
+            }
+        }
     }
 }
