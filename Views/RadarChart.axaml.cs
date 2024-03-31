@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Shapes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using System;
@@ -51,6 +52,7 @@ namespace stress_check_avalonia
 
             var angleIncrement = 2 * Math.PI / Items.Count();
 
+            DrawPolygon(context, center, radius, angleIncrement);
             DrawAxes(context, center, radius, angleIncrement);
             DrawPoints(context, center, radius, angleIncrement);
         }
@@ -91,8 +93,47 @@ namespace stress_check_avalonia
                 context.DrawEllipse(pointBrush, null, point, pointSize.Width / 2, pointSize.Height / 2);
             }
         }
-    }
 
+        private void DrawPolygon(DrawingContext context, Point center, double radius, double angleIncrement)
+        {
+            var points = Items.Select((item, index) =>
+            {
+                var angle = index * angleIncrement;
+                var normalizedValue = item.Value / 5.0;
+                var distance = normalizedValue * radius;
+
+                return new Point(
+                    center.X + distance * Math.Sin(angle),
+                    center.Y - distance * Math.Cos(angle));
+            }).ToList();
+
+            var polygon = new Polygon
+            {
+                Points = points,
+                Stroke = Brushes.Blue,
+                StrokeThickness = 2,
+                Fill = Brushes.LightBlue,
+                Opacity = 0.5
+            };
+
+            var pathFigure = new PathFigure
+            {
+                IsClosed = true,
+                StartPoint = points[0],
+                Segments = new PathSegments()
+            };
+
+            for (int i = 1; i < points.Count; i++)
+            {
+                pathFigure.Segments.Add(new LineSegment { Point = points[i] });
+            }
+
+            var pathGeometry = new PathGeometry();
+            pathGeometry.Figures.Add(pathFigure);
+
+            context.DrawGeometry(polygon.Fill, new Pen(polygon.Stroke, polygon.StrokeThickness), pathGeometry);
+        }
+    }
     public class RadarChartData
     {
         public int Index { get; set; }

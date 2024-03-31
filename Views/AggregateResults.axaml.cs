@@ -83,15 +83,25 @@ namespace stress_check_avalonia
                 grid.Children.Add(sectionTotalTextBlock);
 
                 // Add RadarChart for this section here
+                // var radarChart = new RadarChart();
+                // if (section.Factors != null)
+                // {
+                //     radarChart.Items = section.Factors.Select((factor, index) => new RadarChartData
+                //     {
+                //         Index = index,
+                //         Value = factor.Value
+                //     }).ToList();
+                // }
                 var radarChart = new RadarChart();
-                if (section.Factors != null)
+                radarChart.Items = new List<RadarChartData>
                 {
-                    radarChart.Items = section.Factors.Select((factor, index) => new RadarChartData
-                    {
-                        Index = index,
-                        Value = factor.Value
-                    }).ToList();
-                }
+                    new RadarChartData { Index = 0, Value = 3 },
+                    new RadarChartData { Index = 1, Value = 4 },
+                    new RadarChartData { Index = 2, Value = 2 },
+                    new RadarChartData { Index = 3, Value = 5 },
+                    new RadarChartData { Index = 4, Value = 1 },
+                    new RadarChartData { Index = 5, Value = 3 }
+                };
                 radarChart.Width = 400; // RadarChartの幅を2倍に
                 radarChart.Height = 400; // RadarChartの高さを2倍に
                 radarChart.Margin = new Thickness(10); // 必要に応じてマージンを調整
