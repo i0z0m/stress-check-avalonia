@@ -1,5 +1,4 @@
 using ReactiveUI;
-using stress_check_avalonia;
 using System.Collections.Generic;
 using System.Linq;
 
