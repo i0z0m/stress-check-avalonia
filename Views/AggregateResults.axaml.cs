@@ -36,7 +36,7 @@ namespace stress_check_avalonia
 
             var employeeLevelTextBlock = new TextBlock
             {
-                Text = Employee.Level == "High" ? "‚ƒXƒgƒŒƒXÒ‚Å‚·" : "’áƒXƒgƒŒƒXÒ‚Å‚·",
+                Text = Employee.Level == "High" ? "é«˜ã‚¹ãƒˆãƒ¬ã‚¹è€…ã§ã™" : "ä½ã‚¹ãƒˆãƒ¬ã‚¹è€…ã§ã™",
                 HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
                 Margin = new Thickness(0, 0, 0, 20)
             };
@@ -66,7 +66,7 @@ namespace stress_check_avalonia
 
                 var sectionScoreTextBlock = new TextBlock
                 {
-                    Text = $"ƒXƒRƒA‚Ì‡Œv: {section.Scores}",
+                    Text = $"ã‚¹ã‚³ã‚¢ã®åˆè¨ˆ: {section.Scores}",
                     HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center
                 };
                 Grid.SetColumn(sectionScoreTextBlock, columnIndex);
@@ -75,7 +75,7 @@ namespace stress_check_avalonia
 
                 var sectionTotalTextBlock = new TextBlock
                 {
-                    Text = $"•]‰¿“_‚Ì‡Œv: {section.Values}",
+                    Text = $"è©•ä¾¡ç‚¹ã®åˆè¨ˆ: {section.Values}",
                     HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center
                 };
                 Grid.SetColumn(sectionTotalTextBlock, columnIndex);
