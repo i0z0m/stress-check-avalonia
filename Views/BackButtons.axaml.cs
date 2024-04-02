@@ -21,12 +21,12 @@ namespace stress_check_avalonia
                     // Display the last page of the last section
                     int lastSectionIndex = LoadSections.sections.Count - 1;
                     mainWindow.DisplayQuestions(lastSectionIndex, mainWindow.QuestionsPerPage);
-                    mainWindow.QuestionStartIndex = ((LoadSections.sections[lastSectionIndex].Questions.Count - 1) / mainWindow.QuestionsPerPage) * mainWindow.QuestionsPerPage;
+                    mainWindow.QuestionStartIndex = (LoadSections.sections[lastSectionIndex].Questions.Count - 1) / mainWindow.QuestionsPerPage * mainWindow.QuestionsPerPage;
 
                     // Make sure the QuestionsPanel is visible
                     mainWindow.QuestionsPanel.IsVisible = true;
 
-                    //Make sure the SectionDescription is visible 
+                    //Make sure the SectionDescription is visible
                     mainWindow.SectionDescriptionControl.IsVisible = true;
 
                     // Hide the AggregateResults
@@ -53,7 +53,7 @@ namespace stress_check_avalonia
 
                             // Set the question start index to the first question of the last page of the previous section
                             var previousSectionQuestionCount = LoadSections.sections[currentIndex].Questions.Count;
-                            mainWindow.QuestionStartIndex = ((previousSectionQuestionCount - 1) / mainWindow.QuestionsPerPage) * mainWindow.QuestionsPerPage;
+                            mainWindow.QuestionStartIndex = (previousSectionQuestionCount - 1) / mainWindow.QuestionsPerPage * mainWindow.QuestionsPerPage;
                         }
                     }
                     else

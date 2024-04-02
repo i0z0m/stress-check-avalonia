@@ -41,12 +41,9 @@ namespace stress_check_avalonia
         {
             base.OnPropertyChanged(args);
 
-            if (args.Property == DescriptionProperty)
+            if (args.Property == DescriptionProperty && DescriptionTextBlock != null)
             {
-                if (DescriptionTextBlock != null)
-                {
-                    DescriptionTextBlock.Text = Description;
-                }
+                DescriptionTextBlock.Text = Description;
             }
 
             if (args.Property == IsLastSectionProperty)

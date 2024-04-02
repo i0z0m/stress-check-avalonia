@@ -1,27 +1,30 @@
 ﻿using Microsoft.Data.Sqlite;
 
-public class DatabaseService
+namespace stress_check_avalonia
 {
-    private const string ConnectionString = "Data Source=stress_check_db.sqlite";
-
-    public void CreateDatabase()
+    public static class DatabaseService
     {
-        using (var connection = new SqliteConnection(ConnectionString))
-        {
-            connection.Open();
+        private const string ConnectionString = "Data Source=stress_check_db.sqlite";
 
-            var command = connection.CreateCommand();
-            command.CommandText =
-            @"
+        public static void CreateDatabase()
+        {
+            using (var connection = new SqliteConnection(ConnectionString))
+            {
+                connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText =
+                @"
                 CREATE TABLE IF NOT EXISTS questions (
                     id INTEGER PRIMARY KEY,
                     score INTEGER NOT NULL
                 )
             ";
 
-            command.ExecuteNonQuery();
+                command.ExecuteNonQuery();
+            }
         }
-    }
 
-    // TODO InsertOrUpdateQuestionScoreメソッドとGetQuestionScoreメソッドは後で追加
+        // TODO InsertOrUpdateQuestionScoreメソッドとGetQuestionScoreメソッドは後で追加
+    }
 }
