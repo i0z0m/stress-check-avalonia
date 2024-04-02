@@ -3,7 +3,14 @@
              x:Class="StressCheckAvalonia.App"
              RequestedThemeVariant="Light">
 	<Application.Styles>
-		<FluentTheme />
+		<FluentTheme>
+			<FluentTheme.Palettes>
+				<!-- Palette for Light theme variant -->
+				<ColorPaletteResources x:Key="Light" Accent="Green" RegionColor="White" ErrorText="Red" />
+				<!-- Palette for Dark theme variant -->
+				<ColorPaletteResources x:Key="Dark" Accent="DarkGreen" RegionColor="Black" ErrorText="Yellow" />
+			</FluentTheme.Palettes>
+		</FluentTheme>
 		<Style Selector="Window">
 			<Setter Property="Background" Value="White"/>
 		</Style>
