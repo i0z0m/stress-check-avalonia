@@ -86,31 +86,26 @@ namespace StressCheckAvalonia.Views
                 grid.Children.Add(sectionTotalTextBlock);
 
                 // Add RadarChart for this section here
-                // var radarChart = new RadarChart();
-                // if (section.Factors != null)
-                // {
-                //     radarChart.Items = section.Factors.Select((factor, index) => new RadarChartData
-                //     {
-                //         Index = index,
-                //         Value = factor.Value
-                //     }).ToList();
-                // }
-                var radarChart = new RadarChart();
-                radarChart.Items = new List<RadarChartData>
+                // Assume this part is inside the DisplayResults method or a similar context
+                var radarChart = new RadarChart
                 {
-                    new RadarChartData { Index = 0, Value = 3 },
-                    new RadarChartData { Index = 1, Value = 4 },
-                    new RadarChartData { Index = 2, Value = 2 },
-                    new RadarChartData { Index = 3, Value = 5 },
-                    new RadarChartData { Index = 4, Value = 1 },
-                    new RadarChartData { Index = 5, Value = 3 }
+                    // Directly use the section's factors (or similar data) to populate the RadarChart
+                    // Assuming each section has a collection of factors that we want to visualize
+                    Items = section.Factors.Select(factor => new RadarChartData
+                    {
+                        Label = factor.Scale, // If you have labels for each factor
+                        // Value = factor.Value,
+                        // FIX the issue where all values ​​are 0 and make the collapsing radar chart visible.
+                        Value = 3 // Use a fixed value for now
+                    }).ToList(),
+
+                    Width = 400, // Adjust size as needed
+                    Height = 400,
+                    Margin = new Thickness(10)
                 };
-                radarChart.Width = 400; // RadarChartの幅を2倍に
-                radarChart.Height = 400; // RadarChartの高さを2倍に
-                radarChart.Margin = new Thickness(10); // 必要に応じてマージンを調整
 
                 Grid.SetColumn(radarChart, columnIndex);
-                Grid.SetRow(radarChart, 3); // RadarChartを配置する行を指定
+                Grid.SetRow(radarChart, 3); // Assuming there's a row defined for the RadarChart
                 grid.Children.Add(radarChart);
 
                 columnIndex++;

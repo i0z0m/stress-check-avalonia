@@ -1,14 +1,20 @@
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Shapes;
-using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace StressCheckAvalonia.Views
 {
+    public class RadarChartData
+    {
+        public string Label { get; set; }
+        public double Value { get; set; }
+        public Color Color { get; set; } = Colors.Green;
+    }
+
     public partial class RadarChart : UserControl
     {
         public static readonly StyledProperty<IEnumerable<RadarChartData>> ItemsProperty =
@@ -16,127 +22,116 @@ namespace StressCheckAvalonia.Views
 
         public IEnumerable<RadarChartData> Items
         {
-            get { return GetValue(ItemsProperty); }
-            set
-            {
-                SetValue(ItemsProperty, value);
-            }
+            get => GetValue(ItemsProperty);
+            set => SetValue(ItemsProperty, value);
         }
 
         public RadarChart()
         {
-            InitializeComponent();
-            this.GetObservable(BoundsProperty).Subscribe(_ => this.InvalidateVisual());
-        }
-
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
+            this.GetObservable(BoundsProperty).Subscribe(_ => InvalidateVisual());
         }
 
         public override void Render(DrawingContext context)
         {
             base.Render(context);
 
-            if (Items == null || !Items.Any())
-                return;
-
-            if (Bounds.Width < 20 || Bounds.Height < 20)
-            {
-                return;
-            }
+            if (Items == null || !Items.Any()) return;
 
             var center = new Point(Bounds.Width / 2, Bounds.Height / 2);
-            var radius = Math.Min(Bounds.Width, Bounds.Height) / 2 - 10;
-            if (radius <= 0) return;
+            var radius = Math.Min(Bounds.Width, Bounds.Height) / 2 * 0.8; // Use 80% of the smallest dimension
 
-            var angleIncrement = 2 * Math.PI / Items.Count();
-
-            DrawPolygon(context, center, radius, angleIncrement);
-            DrawAxes(context, center, radius, angleIncrement);
-            DrawPoints(context, center, radius, angleIncrement);
+            DrawRadarChart(context, center, radius);
         }
 
-        private void DrawAxes(DrawingContext context, Point center, double radius, double angleIncrement)
+        private void DrawRadarChart(DrawingContext context, Point center, double radius)
         {
-            for (int i = 0; i < Items.Count(); i++)
-            {
-                var angle = i * angleIncrement;
-                var lineEnd = new Point(
-                    center.X + radius * Math.Sin(angle),
-                    center.Y - radius * Math.Cos(angle));
+            var angleIncrement = 360.0 / Items.Count();
+            var points = new List<Point>();
 
-                context.DrawLine(new Pen(Brushes.Black), center, lineEnd);
+            // Draw background polygons and lines
+            for (int i = 5; i >= 1; i--)
+            {
+                var polygonRadius = radius * (i / 5.0);
+                var polygonPoints = new List<Point>();
+
+                for (int j = 0; j < Items.Count(); j++)
+                {
+                    var angleDegree = j * angleIncrement - 90.0;
+                    var angleRadian = Math.PI * angleDegree / 180.0;
+                    var point = new Point(center.X + Math.Cos(angleRadian) * polygonRadius, center.Y + Math.Sin(angleRadian) * polygonRadius);
+                    polygonPoints.Add(point);
+
+                    // Draw lines from center to the points of the largest polygon
+                    if (i == 5)
+                    {
+                        context.DrawLine(new Pen(Brushes.LightGray, 1), center, point);
+                    }
+                }
+
+                var polygonGeometry = new PolylineGeometry(polygonPoints, true);
+                context.DrawGeometry(null, new Pen(Brushes.LightGray, 1), polygonGeometry);
+
+                var typeface = new Typeface("Arial", FontStyle.Normal, FontWeight.Normal);
+                var formattedText = new FormattedText(
+                    i.ToString(),
+                    CultureInfo.CurrentCulture,
+                    FlowDirection.LeftToRight,
+                    typeface,
+                    12,
+                    Brushes.Gray);
+
+                var textWidth = formattedText.Width;
+                var textHeight = formattedText.Height;
+                context.DrawText(formattedText, new Point(center.X - textWidth / 2, center.Y - polygonRadius - textHeight));
             }
-        }
 
-        private void DrawPoints(DrawingContext context, Point center, double radius, double angleIncrement)
-        {
-            var points = Items.Select((item, index) =>
+            foreach (var item in Items)
             {
-                var angle = index * angleIncrement;
-                var normalizedValue = item.Value / 5.0; // Valueを0から1の範囲に正規化
-                var distance = normalizedValue * radius;
+                var angleDegree = points.Count * angleIncrement - 90.0; // Start from the top (-90 degrees)
+                var angleRadian = Math.PI * angleDegree / 180.0;
+                var point = new Point(center.X + Math.Cos(angleRadian) * radius * (item.Value / 5), center.Y + Math.Sin(angleRadian) * radius * (item.Value / 5));
+                points.Add(point);
+            }
 
-                Console.WriteLine($"Index: {item.Index}, Value: {item.Value}");
+            var geometry = new StreamGeometry();
+            using (var ctx = geometry.Open())
+            {
+                ctx.BeginFigure(points.First(), isFilled: true);
+                foreach (var point in points.Skip(1))
+                {
+                    ctx.LineTo(point);
+                }
+                ctx.EndFigure(isClosed: true);
+            }
 
-                return new Point(
-                    center.X + distance * Math.Sin(angle),
-                    center.Y - distance * Math.Cos(angle));
-            }).ToList();
-
-            var pointBrush = new SolidColorBrush(Colors.Red);
-            var pointSize = new Size(4, 4);
+            context.DrawGeometry(new SolidColorBrush(Colors.LightBlue, 0.5), new Pen(Brushes.Blue, 1.5), geometry);
 
             foreach (var point in points)
             {
-                context.DrawEllipse(pointBrush, null, point, pointSize.Width / 2, pointSize.Height / 2);
-            }
-        }
-
-        private void DrawPolygon(DrawingContext context, Point center, double radius, double angleIncrement)
-        {
-            var points = Items.Select((item, index) =>
-            {
-                var angle = index * angleIncrement;
-                var normalizedValue = item.Value / 5.0;
-                var distance = normalizedValue * radius;
-
-                return new Point(
-                    center.X + distance * Math.Sin(angle),
-                    center.Y - distance * Math.Cos(angle));
-            }).ToList();
-
-            var polygon = new Polygon
-            {
-                Points = points,
-                Stroke = Brushes.Blue,
-                StrokeThickness = 2,
-                Fill = Brushes.LightBlue,
-                Opacity = 0.5
-            };
-
-            var pathFigure = new PathFigure
-            {
-                IsClosed = true,
-                StartPoint = points[0],
-                Segments = new PathSegments()
-            };
-
-            for (int i = 1; i < points.Count; i++)
-            {
-                pathFigure.Segments.Add(new LineSegment { Point = points[i] });
+                context.DrawEllipse(Brushes.Green, null, point, 4, 4);
             }
 
-            var pathGeometry = new PathGeometry();
-            pathGeometry.Figures.Add(pathFigure);
+            for (int i = 0; i < Items.Count(); i++)
+            {
+                var item = Items.ElementAt(i);
+                var angleDegree = i * angleIncrement - 90.0;
+                var angleRadian = Math.PI * angleDegree / 180.0;
+                var labelPosition = new Point(center.X + Math.Cos(angleRadian) * (radius + 20), center.Y + Math.Sin(angleRadian) * (radius + 20));
 
-            context.DrawGeometry(polygon.Fill, new Pen(polygon.Stroke, polygon.StrokeThickness), pathGeometry);
+                var typeface = new Typeface("Arial", FontStyle.Normal, FontWeight.Normal);
+                var formattedText = new FormattedText(
+                    item.Label,
+                    CultureInfo.CurrentCulture,
+                    FlowDirection.LeftToRight,
+                    typeface,
+                    12,
+                    Brushes.Black);
+
+                var textWidth = formattedText.Width;
+                var textHeight = formattedText.Height;
+                var textPosition = new Point(labelPosition.X - textWidth / 2, labelPosition.Y - textHeight / 2);
+                context.DrawText(formattedText, textPosition);
+            }
         }
-    }
-    public class RadarChartData
-    {
-        public int Index { get; set; }
-        public double Value { get; set; }
     }
 }
