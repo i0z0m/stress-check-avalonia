@@ -3,7 +3,7 @@ using Avalonia.Media;
 using Avalonia;
 using System.Linq;
 
-namespace stress_check_avalonia
+namespace StressCheckAvalonia
 {
     public partial class MainWindow : Window
     {

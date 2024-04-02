@@ -2,7 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.VisualTree;
 
-namespace stress_check_avalonia
+namespace StressCheckAvalonia
 {
     public partial class BackButtons : UserControl
     {

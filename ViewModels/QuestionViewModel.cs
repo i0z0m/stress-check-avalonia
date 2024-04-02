@@ -1,6 +1,6 @@
 ﻿using ReactiveUI;
 
-namespace stress_check_avalonia
+namespace StressCheckAvalonia
 {
     public class QuestionViewModel : ReactiveObject
     {

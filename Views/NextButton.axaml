@@ -2,8 +2,8 @@
 		     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:local="clr-namespace:stress_check_avalonia"
-			 x:Class="stress_check_avalonia.NextButton">
+			 xmlns:local="clr-namespace:StressCheckAvalonia"
+			 x:Class="StressCheckAvalonia.NextButton">
 
 	<StackPanel Orientation="Horizontal">
 		<Button Content="次へ" Click="ClickHandler" Width="180" Height="60" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18" />

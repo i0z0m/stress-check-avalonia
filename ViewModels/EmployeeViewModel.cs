@@ -1,7 +1,6 @@
-﻿using System;
-using ReactiveUI;
+﻿using ReactiveUI;
 
-namespace stress_check_avalonia
+namespace StressCheckAvalonia
 {
     public class EmployeeViewModel : ReactiveObject
     {

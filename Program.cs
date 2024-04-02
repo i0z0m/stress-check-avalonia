@@ -1,7 +1,7 @@
 ﻿using Avalonia;
 using System;
 
-namespace stress_check_avalonia;
+namespace StressCheckAvalonia;
 
 class Program
 {

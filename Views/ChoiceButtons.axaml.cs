@@ -6,7 +6,7 @@ using Avalonia.Markup.Xaml;
 using ReactiveUI;
 using System;
 
-namespace stress_check_avalonia
+namespace StressCheckAvalonia
 {
     public partial class ChoiceButtons : UserControl
     {

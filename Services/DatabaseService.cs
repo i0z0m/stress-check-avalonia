@@ -1,6 +1,6 @@
 ﻿using Microsoft.Data.Sqlite;
 
-namespace stress_check_avalonia
+namespace StressCheckAvalonia
 {
     public static class DatabaseService
     {

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace stress_check_avalonia
+namespace StressCheckAvalonia
 {
     public class Employee
     {

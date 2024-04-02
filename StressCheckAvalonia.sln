@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "stress-check-avalonia", "stress-check-avalonia.csproj", "{8315F491-E167-42A9-A367-C7908DF8581B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StressCheckAvalonia", "StressCheckAvalonia.csproj", "{8315F491-E167-42A9-A367-C7908DF8581B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

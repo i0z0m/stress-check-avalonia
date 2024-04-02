@@ -2,7 +2,7 @@ using ReactiveUI;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace stress_check_avalonia
+namespace StressCheckAvalonia
 {
     public class SectionViewModel : ReactiveObject
     {

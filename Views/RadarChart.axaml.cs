@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace stress_check_avalonia
+namespace StressCheckAvalonia
 {
     public partial class RadarChart : UserControl
     {

@@ -2,7 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia;
 
-namespace stress_check_avalonia
+namespace StressCheckAvalonia
 {
     public partial class QuestionText : UserControl
     {

@@ -2,7 +2,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 
-namespace stress_check_avalonia
+namespace StressCheckAvalonia
 {
     public class App : Application
     {

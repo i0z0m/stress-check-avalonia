@@ -4,7 +4,7 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Data;
 
-namespace stress_check_avalonia
+namespace StressCheckAvalonia
 {
     public partial class SectionDescription : UserControl
     {
