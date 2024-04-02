@@ -1,6 +1,7 @@
-﻿using ReactiveUI;
+﻿using StressCheckAvalonia.Models;
+using ReactiveUI;
 
-namespace StressCheckAvalonia
+namespace StressCheckAvalonia.ViewModels
 {
     public class QuestionViewModel : ReactiveObject
     {

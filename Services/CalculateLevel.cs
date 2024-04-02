@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace StressCheckAvalonia
+namespace StressCheckAvalonia.Services
 {
     public class LevelResult
     {

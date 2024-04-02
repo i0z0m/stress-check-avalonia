@@ -1,9 +1,10 @@
+using StressCheckAvalonia.ViewModels;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia;
 using System.Linq;
 
-namespace StressCheckAvalonia
+namespace StressCheckAvalonia.Views
 {
     public partial class MainWindow : Window
     {

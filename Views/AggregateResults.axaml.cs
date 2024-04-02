@@ -1,10 +1,13 @@
+using StressCheckAvalonia.Models;
+using StressCheckAvalonia.Services;
+using StressCheckAvalonia.ViewModels;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace StressCheckAvalonia
+namespace StressCheckAvalonia.Views
 {
     public partial class AggregateResults : UserControl
     {

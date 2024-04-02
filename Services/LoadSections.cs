@@ -1,6 +1,7 @@
+using StressCheckAvalonia.Models;
 using System.Collections.Generic;
 
-namespace StressCheckAvalonia
+namespace StressCheckAvalonia.Services
 {
     public static class LoadSections
     {

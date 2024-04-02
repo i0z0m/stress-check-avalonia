@@ -1,7 +1,8 @@
+using StressCheckAvalonia.Models;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace StressCheckAvalonia
+namespace StressCheckAvalonia.Services
 {
     public static class ValueCalculator
     {

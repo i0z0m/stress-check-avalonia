@@ -1,8 +1,10 @@
+using StressCheckAvalonia.ViewModels;
+using StressCheckAvalonia.Services;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.VisualTree;
 
-namespace StressCheckAvalonia
+namespace StressCheckAvalonia.Views
 {
     public partial class NextButton : UserControl
     {

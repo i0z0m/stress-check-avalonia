@@ -1,10 +1,9 @@
-// SectionDescription.axaml.cs
+using StressCheckAvalonia.ViewModels;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using Avalonia.Data;
 
-namespace StressCheckAvalonia
+namespace StressCheckAvalonia.Views
 {
     public partial class SectionDescription : UserControl
     {

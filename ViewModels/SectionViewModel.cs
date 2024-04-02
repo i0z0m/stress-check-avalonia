@@ -1,8 +1,10 @@
+using StressCheckAvalonia.Models;
+using StressCheckAvalonia.Services;
 using ReactiveUI;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace StressCheckAvalonia
+namespace StressCheckAvalonia.ViewModels
 {
     public class SectionViewModel : ReactiveObject
     {

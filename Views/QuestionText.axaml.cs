@@ -1,8 +1,10 @@
+using StressCheckAvalonia.Models;
+using StressCheckAvalonia.ViewModels;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia;
 
-namespace StressCheckAvalonia
+namespace StressCheckAvalonia.Views
 {
     public partial class QuestionText : UserControl
     {
