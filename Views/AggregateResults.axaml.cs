@@ -54,6 +54,7 @@ namespace StressCheckAvalonia.Views
             grid.RowDefinitions.Add(new RowDefinition(0, GridUnitType.Auto));
             grid.RowDefinitions.Add(new RowDefinition(0, GridUnitType.Auto));
             grid.RowDefinitions.Add(new RowDefinition(0, GridUnitType.Auto));
+            grid.RowDefinitions.Add(new RowDefinition(0, GridUnitType.Auto));
 
             int columnIndex = 0;
             foreach (var section in LoadSections.sections.Take(LoadSections.sections.Count - 1)) // Exclude the 4th section
@@ -85,6 +86,16 @@ namespace StressCheckAvalonia.Views
                 Grid.SetRow(sectionTotalTextBlock, 2);
                 grid.Children.Add(sectionTotalTextBlock);
 
+                // Create a TextBlock for the section group
+                var sectionGroupTextBlock = new TextBlock
+                {
+                    Text = section.Group,
+                    HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center
+                };
+                Grid.SetColumn(sectionGroupTextBlock, columnIndex);
+                Grid.SetRow(sectionGroupTextBlock, 3);
+                grid.Children.Add(sectionGroupTextBlock);
+
                 // Add RadarChart for this section here
                 // Assume this part is inside the DisplayResults method or a similar context
                 var radarChart = new RadarChart
@@ -97,13 +108,13 @@ namespace StressCheckAvalonia.Views
                         Value = factor.Value
                     }).ToList(),
 
-                    Width = 400, // Adjust size as needed
+                    Width = 400,
                     Height = 400,
                     Margin = new Thickness(10)
                 };
 
                 Grid.SetColumn(radarChart, columnIndex);
-                Grid.SetRow(radarChart, 3); // Assuming there's a row defined for the RadarChart
+                Grid.SetRow(radarChart, 4);
                 grid.Children.Add(radarChart);
 
                 columnIndex++;
