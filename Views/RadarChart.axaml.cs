@@ -12,7 +12,7 @@ namespace StressCheckAvalonia.Views
     {
         public string Label { get; set; }
         public double Value { get; set; }
-        public Color Color { get; set; } = Colors.Green;
+        public Color Color { get; set; }
     }
 
     public partial class RadarChart : UserControl
@@ -104,11 +104,11 @@ namespace StressCheckAvalonia.Views
                 ctx.EndFigure(isClosed: true);
             }
 
-            context.DrawGeometry(new SolidColorBrush(Colors.LightBlue, 0.5), new Pen(Brushes.Blue, 1.5), geometry);
+            context.DrawGeometry(new SolidColorBrush(Items.First().Color), new Pen(new SolidColorBrush(Items.First().Color), 1.5), geometry);
 
             foreach (var point in points)
             {
-                context.DrawEllipse(Brushes.Green, null, point, 4, 4);
+                context.DrawEllipse(new SolidColorBrush(Items.First().Color), null, point, 4, 4);
             }
 
             for (int i = 0; i < Items.Count(); i++)

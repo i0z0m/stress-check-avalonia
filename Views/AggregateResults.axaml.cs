@@ -4,6 +4,7 @@ using StressCheckAvalonia.ViewModels;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -39,7 +40,9 @@ namespace StressCheckAvalonia.Views
 
             var employeeLevelTextBlock = new TextBlock
             {
+                FontSize = 30,
                 Text = Employee.Level == "High" ? "高ストレス者です" : "低ストレス者です",
+                Foreground = new SolidColorBrush(Employee.Level == "High" ? Color.FromArgb(128, 255, 0, 0) : Color.FromArgb(128, 0, 0, 255)),
                 HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
                 Margin = new Thickness(0, 0, 0, 20)
             };
@@ -100,15 +103,14 @@ namespace StressCheckAvalonia.Views
                 // Assume this part is inside the DisplayResults method or a similar context
                 var radarChart = new RadarChart
                 {
-                    // Directly use the section's factors (or similar data) to populate the RadarChart
-                    // Assuming each section has a collection of factors that we want to visualize
                     Items = section.Factors.Select(factor => new RadarChartData
                     {
                         Label = factor.Scale,
-                        Value = factor.Value
+                        Value = factor.Value,
+                        Color = Employee.Level == "High" ? Color.FromArgb(128, 255, 0, 0) : Color.FromArgb(128, 0, 0, 255)
                     }).ToList(),
 
-                    Width = 400,
+                    Width = 400, // Adjust size as needed
                     Height = 400,
                     Margin = new Thickness(10)
                 };
