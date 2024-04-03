@@ -93,10 +93,8 @@ namespace StressCheckAvalonia.Views
                     // Assuming each section has a collection of factors that we want to visualize
                     Items = section.Factors.Select(factor => new RadarChartData
                     {
-                        Label = factor.Scale, // If you have labels for each factor
-                        // Value = factor.Value,
-                        // FIX the issue where all values ​​are 0 and make the collapsing radar chart visible.
-                        Value = 3 // Use a fixed value for now
+                        Label = factor.Scale,
+                        Value = factor.Value
                     }).ToList(),
 
                     Width = 400, // Adjust size as needed

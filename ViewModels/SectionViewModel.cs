@@ -72,7 +72,12 @@ namespace StressCheckAvalonia.ViewModels
         {
             if (CurrentSection.Factors != null)
             {
-                CurrentSection.Values = CurrentSection.Factors.Sum(factor => Questions.CalculateValue(factor));
+                foreach (var factor in CurrentSection.Factors)
+                {
+                    factor.Value = Questions.CalculateValue(factor);
+                }
+
+                CurrentSection.Values = CurrentSection.Factors.Sum(factor => factor.Value);
             }
         }
     }
