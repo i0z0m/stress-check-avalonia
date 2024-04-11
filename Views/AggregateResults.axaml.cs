@@ -12,7 +12,6 @@ namespace StressCheckAvalonia.Views
 {
     public partial class AggregateResults : UserControl
     {
-        public Employee Employee { get; private set; }
         public List<Section> Sections { get; }
 
         public AggregateResults()
@@ -23,7 +22,7 @@ namespace StressCheckAvalonia.Views
 
         public void DisplayResults(Employee employee)
         {
-            this.Employee = employee; // Use the passed employee instance
+            EmployeeViewModel.Instance.Employee = employee; // Update the EmployeeViewModel's Employee
 
             var sectionPanel = this.FindControl<StackPanel>("SectionPanel");
 
@@ -34,14 +33,14 @@ namespace StressCheckAvalonia.Views
             var scores = LoadSections.sections.Select(s => s.Scores).ToList();
             var values = LoadSections.sections.Select(s => new List<int> { s.Values }).ToList();
             var levelResult = LevelCalculator.CalculateLevel(scores, values);
-            Employee.Level = levelResult.Method1 && levelResult.Method2 ? "High" : "Low";
-            System.Diagnostics.Debug.WriteLine($"Employee.Level is set to {Employee.Level}");
+            EmployeeViewModel.Instance.Employee.Level = levelResult.Method1 && levelResult.Method2 ? "High" : "Low";
+            System.Diagnostics.Debug.WriteLine($"Employee.Level is set to {EmployeeViewModel.Instance.Employee.Level}");
 
             var employeeLevelTextBlock = new TextBlock
             {
                 FontSize = 30,
-                Text = Employee.Level == "High" ? "高ストレス者です" : "低ストレス者です",
-                Foreground = new SolidColorBrush(Employee.Level == "High" ? Color.FromArgb(128, 255, 0, 0) : Color.FromArgb(128, 0, 0, 255)),
+                Text = EmployeeViewModel.Instance.Employee.Level == "High" ? "高ストレス者です" : "低ストレス者です",
+                Foreground = new SolidColorBrush(EmployeeViewModel.Instance.Employee.Level == "High" ? Color.FromArgb(128, 255, 0, 0) : Color.FromArgb(128, 0, 0, 255)),
                 HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
                 Margin = new Thickness(0, 0, 0, 20)
             };
@@ -106,7 +105,7 @@ namespace StressCheckAvalonia.Views
                     {
                         Label = factor.Scale,
                         Value = factor.Value,
-                        Color = Employee.Level == "High" ? Color.FromArgb(128, 255, 0, 0) : Color.FromArgb(128, 0, 0, 255)
+                        Color = EmployeeViewModel.Instance.Employee.Level == "High" ? Color.FromArgb(128, 255, 0, 0) : Color.FromArgb(128, 0, 0, 255)
                     }).ToList(),
 
                     Width = 300, // Adjust size as needed

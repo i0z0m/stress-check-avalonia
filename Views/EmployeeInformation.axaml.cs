@@ -14,7 +14,7 @@ namespace StressCheckAvalonia.Views
             DataContext = EmployeeViewModel.Instance;
 
             DatePicker datePicker = this.FindControl<DatePicker>("BirthdayDatePicker");
-            // datePicker.SelectedDate = new DateTimeOffset(DateTime.Today);
+            datePicker.SelectedDate = new DateTimeOffset(new DateTime(2000, 1, 1));
         }
 
         private void InitializeComponent()
