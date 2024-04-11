@@ -20,7 +20,7 @@ namespace StressCheckAvalonia.ViewModels
         }
         private EmployeeViewModel()
         {
-            _employee = new Employee();
+            _employee = new Employee { Birthday = new DateTime(2000, 1, 1) };
         }
 
         private Employee _employee;
@@ -166,7 +166,11 @@ namespace StressCheckAvalonia.ViewModels
 
         public bool IsInformationComplete()
         {
-            return true;
+            return !string.IsNullOrEmpty(Gender) &&
+                   !string.IsNullOrEmpty(Name) &&
+                   !string.IsNullOrEmpty(Furigana) &&
+                   !string.IsNullOrEmpty(ID) &&
+                   !string.IsNullOrEmpty(Workplace);
         }
     }
 }
