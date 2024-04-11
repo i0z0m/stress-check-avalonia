@@ -18,61 +18,78 @@ namespace StressCheckAvalonia.Views
             var mainWindow = this.FindAncestorOfType<MainWindow>();
             if (mainWindow != null)
             {
-                if (mainWindow.FindControl<StackPanel>("QuestionsPanel").IsVisible)
+                var button = sender as Button;
+                if (button != null)
                 {
-                    int currentIndex = LoadSections.sections.IndexOf(SectionViewModel.Instance.CurrentSection);
-
-                    if (mainWindow.QuestionStartIndex == 0)
+                    if (button.Name == "BackToTitleButton")
                     {
-                        if (currentIndex > 0) // Check if it's not the first section
+                        // If 'Back to Title' button is clicked, show EmployeeInformationControl
+                        mainWindow.FindControl<StackPanel>("QuestionsPanel").IsVisible = false;
+                        mainWindow.FindControl<ContentControl>("EmployeeInformationControl").IsVisible = true;
+                        if (mainWindow.AggregateResultsControl != null)
                         {
-                            // Update the score and values of the current section
-                            SectionViewModel.Instance.UpdateScores();
-                            SectionViewModel.Instance.UpdateValues();
-
-                            // Output the section score and values to the console for debugging
-                            System.Diagnostics.Debug.WriteLine($"Section Score: {SectionViewModel.Instance.CurrentSection.Scores}");
-                            System.Diagnostics.Debug.WriteLine($"Section Values: {SectionViewModel.Instance.CurrentSection.Values}");
-
-                            // Decrement the section index
-                            currentIndex--;
-
-                            // Set the question start index to the first question of the last page of the previous section
-                            var previousSectionQuestionCount = LoadSections.sections[currentIndex].Questions.Count;
-                            mainWindow.QuestionStartIndex = (previousSectionQuestionCount - 1) / mainWindow.QuestionsPerPage * mainWindow.QuestionsPerPage;
-                        }
-                        else
-                        {
-                            // If it's the first section, show EmployeeInformationControl
-                            mainWindow.FindControl<StackPanel>("QuestionsPanel").IsVisible = false;
-                            mainWindow.FindControl<ContentControl>("EmployeeInformationControl").IsVisible = true;
-                            return;
+                            mainWindow.AggregateResultsControl.IsVisible = false;
                         }
                     }
-                    else
+                    else if (button.Name == "BackOneScreenButton")
                     {
-                        // Update the question start index
-                        mainWindow.QuestionStartIndex -= mainWindow.QuestionsPerPage;
+                        if (mainWindow.FindControl<StackPanel>("QuestionsPanel").IsVisible)
+                        {
+                            int currentIndex = LoadSections.sections.IndexOf(SectionViewModel.Instance.CurrentSection);
+
+                            if (mainWindow.QuestionStartIndex == 0)
+                            {
+                                if (currentIndex > 0) // Check if it's not the first section
+                                {
+                                    // Update the score and values of the current section
+                                    SectionViewModel.Instance.UpdateScores();
+                                    SectionViewModel.Instance.UpdateValues();
+
+                                    // Output the section score and values to the console for debugging
+                                    System.Diagnostics.Debug.WriteLine($"Section Score: {SectionViewModel.Instance.CurrentSection.Scores}");
+                                    System.Diagnostics.Debug.WriteLine($"Section Values: {SectionViewModel.Instance.CurrentSection.Values}");
+
+                                    // Decrement the section index
+                                    currentIndex--;
+
+                                    // Set the question start index to the first question of the last page of the previous section
+                                    var previousSectionQuestionCount = LoadSections.sections[currentIndex].Questions.Count;
+                                    mainWindow.QuestionStartIndex = (previousSectionQuestionCount - 1) / mainWindow.QuestionsPerPage * mainWindow.QuestionsPerPage;
+                                }
+                                else
+                                {
+                                    // If it's the first section, show EmployeeInformationControl
+                                    mainWindow.FindControl<StackPanel>("QuestionsPanel").IsVisible = false;
+                                    mainWindow.FindControl<ContentControl>("EmployeeInformationControl").IsVisible = true;
+                                    return;
+                                }
+                            }
+                            else
+                            {
+                                // Update the question start index
+                                mainWindow.QuestionStartIndex -= mainWindow.QuestionsPerPage;
+                            }
+
+                            // Load previous section or page
+                            mainWindow.DisplayQuestions(currentIndex, mainWindow.QuestionsPerPage); // Display the previous set of questions
+                        }
+                        else if (mainWindow.AggregateResultsControl != null && mainWindow.AggregateResultsControl.IsVisible)
+                        {
+                            // Display the last page of the last section
+                            int lastSectionIndex = LoadSections.sections.Count - 1;
+                            mainWindow.DisplayQuestions(lastSectionIndex, mainWindow.QuestionsPerPage);
+                            mainWindow.QuestionStartIndex = (LoadSections.sections[lastSectionIndex].Questions.Count - 1) / mainWindow.QuestionsPerPage * mainWindow.QuestionsPerPage;
+
+                            // Make sure the QuestionsPanel is visible
+                            mainWindow.QuestionsPanel.IsVisible = true;
+
+                            //Make sure the SectionDescription is visible
+                            mainWindow.SectionDescriptionControl.IsVisible = true;
+
+                            // Hide the AggregateResults
+                            mainWindow.AggregateResultsControl.IsVisible = false;
+                        }
                     }
-
-                    // Load previous section or page
-                    mainWindow.DisplayQuestions(currentIndex, mainWindow.QuestionsPerPage); // Display the previous set of questions
-                }
-                else if (mainWindow.AggregateResultsControl != null && mainWindow.AggregateResultsControl.IsVisible)
-                {
-                    // Display the last page of the last section
-                    int lastSectionIndex = LoadSections.sections.Count - 1;
-                    mainWindow.DisplayQuestions(lastSectionIndex, mainWindow.QuestionsPerPage);
-                    mainWindow.QuestionStartIndex = (LoadSections.sections[lastSectionIndex].Questions.Count - 1) / mainWindow.QuestionsPerPage * mainWindow.QuestionsPerPage;
-
-                    // Make sure the QuestionsPanel is visible
-                    mainWindow.QuestionsPanel.IsVisible = true;
-
-                    //Make sure the SectionDescription is visible
-                    mainWindow.SectionDescriptionControl.IsVisible = true;
-
-                    // Hide the AggregateResults
-                    mainWindow.AggregateResultsControl.IsVisible = false;
                 }
             }
         }
