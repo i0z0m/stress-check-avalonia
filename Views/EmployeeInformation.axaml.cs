@@ -1,18 +1,20 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using ReactiveUI;
 using StressCheckAvalonia.ViewModels;
+using System;
+using System;
 
 namespace StressCheckAvalonia.Views
 {
     public partial class EmployeeInformation : UserControl
     {
-        public EmployeeViewModel? ViewModel { get; }
-
         public EmployeeInformation()
         {
             InitializeComponent();
-            this.WhenAnyValue(x => x.DataContext).BindTo(this, x => x.ViewModel);
+            DataContext = EmployeeViewModel.Instance;
+
+            DatePicker datePicker = this.FindControl<DatePicker>("BirthdayDatePicker");
+            // datePicker.SelectedDate = new DateTimeOffset(DateTime.Today);
         }
 
         private void InitializeComponent()

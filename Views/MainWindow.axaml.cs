@@ -17,17 +17,10 @@ namespace StressCheckAvalonia.Views
             InitializeComponent();
             this.Title = "ストレスチェック実施プログラム";
 
-            var employeeInformationControl = new EmployeeInformation
-            {
-                DataContext = EmployeeViewModel.Instance // Use the Employee instance from EmployeeViewModel
-            };
+            // Instantiate EmployeeInformation control
+            var employeeInformationControl = new EmployeeInformation();
             this.FindControl<ContentControl>("EmployeeInformationControl").Content = employeeInformationControl;
-
-            // Set DataContext for AppHeader
-            var appHeaderControl = this.FindControl<AppHeader>("AppHeaderControl");
-            appHeaderControl.DataContext = EmployeeViewModel.Instance;
         }
-
 
         public void DisplayQuestions(int sectionIndex, int questionCount)
         {

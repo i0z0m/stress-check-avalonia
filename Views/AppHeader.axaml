@@ -1,21 +1,21 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:local="clr-namespace:StressCheckAvalonia.ViewModels"
-			 x:Class="StressCheckAvalonia.Views.AppHeader"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:StressCheckAvalonia.ViewModels"
+             x:Class="StressCheckAvalonia.Views.AppHeader"
              x:DataType="local:EmployeeViewModel"
              VerticalAlignment="Top"
-			 Height="54"
+             Height="54"
              HorizontalAlignment="Stretch">
 	<StackPanel Orientation="Vertical" HorizontalAlignment="Left">
 		<StackPanel Orientation="Horizontal" Margin="53,0,0,0">
 			<TextBlock Text="社員ID：" Foreground="Black" FontSize="18"/>
-			<TextBlock Text="{Binding Employee.ID}" Foreground="Black"/>
+			<TextBlock Text="{Binding ID}" Foreground="Black"/>
 		</StackPanel>
 		<StackPanel Orientation="Horizontal" Margin="71,8,0,0">
 			<TextBlock Text="氏名：" Foreground="Black" FontSize="18"/>
-			<TextBlock Text="{Binding Employee.Name}" Foreground="Black"/>
+			<TextBlock Text="{Binding Name}" Foreground="Black"/>
 		</StackPanel>
 	</StackPanel>
 </UserControl>

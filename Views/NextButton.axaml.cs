@@ -22,15 +22,6 @@ namespace StressCheckAvalonia.Views
                 {
                     if (mainWindow.IsEmployeeInformationComplete())
                     {
-                        // Get the EmployeeInformation control
-                        var employeeInformationControl = mainWindow.FindControl<ContentControl>("EmployeeInformationControl").Content as EmployeeInformation;
-
-                        // Update the EmployeeViewModel's Employee property
-                        if (employeeInformationControl != null && employeeInformationControl.ViewModel != null)
-                        {
-                            EmployeeViewModel.Instance.Employee = employeeInformationControl.ViewModel.Employee;
-                        }
-
                         // Hide EmployeeInformationControl and show QuestionsPanel when NextButton is clicked
                         mainWindow.FindControl<ContentControl>("EmployeeInformationControl").IsVisible = false;
                         mainWindow.FindControl<StackPanel>("QuestionsPanel").IsVisible = true;

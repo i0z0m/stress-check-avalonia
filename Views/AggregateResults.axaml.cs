@@ -12,19 +12,18 @@ namespace StressCheckAvalonia.Views
 {
     public partial class AggregateResults : UserControl
     {
-        public Employee? Employee { get; private set; } // Make Employee nullable
+        public Employee Employee { get; private set; }
         public List<Section> Sections { get; }
 
         public AggregateResults()
         {
             InitializeComponent();
-            DataContext = this;
-            Sections = new List<Section>(); // Initialize Sections
+            DataContext = EmployeeViewModel.Instance;
         }
 
         public void DisplayResults(Employee employee)
         {
-            this.Employee = EmployeeViewModel.Instance.Employee;
+            this.Employee = employee; // Use the passed employee instance
 
             var sectionPanel = this.FindControl<StackPanel>("SectionPanel");
 
