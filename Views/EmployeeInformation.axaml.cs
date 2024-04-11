@@ -5,14 +5,14 @@ using StressCheckAvalonia.ViewModels;
 
 namespace StressCheckAvalonia.Views
 {
-    public partial class AppHeader : UserControl
+    public partial class EmployeeInformation : UserControl
     {
-        public EmployeeViewModel EmployeeViewModel { get; private set; }
+        public EmployeeViewModel? ViewModel { get; }
 
-        public AppHeader()
+        public EmployeeInformation()
         {
             InitializeComponent();
-            this.WhenAnyValue(x => x.DataContext).BindTo(this, x => x.EmployeeViewModel);
+            this.WhenAnyValue(x => x.DataContext).BindTo(this, x => x.ViewModel);
         }
 
         private void InitializeComponent()

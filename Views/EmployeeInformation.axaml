@@ -1,0 +1,56 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             x:Class="StressCheckAvalonia.Views.EmployeeInformation"
+             xmlns:local="clr-namespace:StressCheckAvalonia.ViewModels"
+             x:DataType="local:EmployeeViewModel">
+	<Grid Margin="53,0,53,0">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="53"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+		<TextBlock Text="必要事項を記入してください。※は必須項目です。" Foreground="Black" FontSize="18"  Grid.Row="0" Grid.Column="0"/>
+		<TextBlock Text="※氏名" FontSize="24" Grid.Row="1" Grid.Column="0"/>
+		<TextBox Text="{Binding Employee.Name}" Grid.Row="2" Grid.Column="0"/>
+		<TextBlock Text="※フリガナ" FontSize="24" Grid.Row="3" Grid.Column="0"/>
+		<TextBox Text="{Binding Employee.Furigana}" Grid.Row="4" Grid.Column="0"/>
+		<TextBlock Text="※生年月日" FontSize="24" Grid.Row="5" Grid.Column="0"/>
+		<DatePicker SelectedDate="{Binding Employee.Birthday}" Grid.Row="6" Grid.Column="0"/>
+		<TextBlock Text="※性別" FontSize="24" Grid.Row="7" Grid.Column="0"/>
+		<ComboBox SelectedItem="{Binding Employee.Gender}" Grid.Row="8" Grid.Column="0">
+			<ComboBoxItem>男性</ComboBoxItem>
+			<ComboBoxItem>女性</ComboBoxItem>
+		</ComboBox>
+		<TextBlock Text="※社員ID" FontSize="24" Grid.Row="9" Grid.Column="0"/>
+		<TextBox Text="{Binding Employee.ID}" Grid.Row="10" Grid.Column="0"/>
+
+		<TextBlock Text="産業保健スタッフがチェック後にフォローを行う場合の連絡先" Foreground="Black" FontSize="18" Grid.Row="0" Grid.Column="2"/>
+		<TextBlock Text="メールアドレス" FontSize="24" Grid.Row="1" Grid.Column="2"/>
+		<TextBox Text="{Binding Employee.Email}" Grid.Row="2" Grid.Column="2"/>
+		<TextBlock Text="電話番号" FontSize="24" Grid.Row="3" Grid.Column="2"/>
+		<TextBox Text="{Binding Employee.Phone}" Grid.Row="4" Grid.Column="2"/>
+		<TextBlock Text="内線番号" FontSize="24" Grid.Row="5" Grid.Column="2"/>
+		<TextBox Text="{Binding Employee.Extension}" Grid.Row="6" Grid.Column="2"/>
+		
+		<TextBlock Text="※職場名" FontSize="24" Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3"/>
+		<TextBox Text="{Binding Employee.Workplace}" Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="3"/>
+	</Grid>
+</UserControl>
+

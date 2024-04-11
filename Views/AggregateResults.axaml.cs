@@ -110,9 +110,9 @@ namespace StressCheckAvalonia.Views
                         Color = Employee.Level == "High" ? Color.FromArgb(128, 255, 0, 0) : Color.FromArgb(128, 0, 0, 255)
                     }).ToList(),
 
-                    Width = 400, // Adjust size as needed
-                    Height = 400,
-                    Margin = new Thickness(10)
+                    Width = 300, // Adjust size as needed
+                    Height = 300,
+                    Margin = new Thickness(20)
                 };
 
                 Grid.SetColumn(radarChart, columnIndex);

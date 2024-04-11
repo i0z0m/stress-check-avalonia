@@ -16,43 +16,76 @@ namespace StressCheckAvalonia.Views
         public void ClickHandler(object sender, RoutedEventArgs args)
         {
             var mainWindow = this.FindAncestorOfType<MainWindow>();
-            if (mainWindow != null && mainWindow.AreAllQuestionsAnswered())
+            if (mainWindow != null)
             {
-                int currentIndex = LoadSections.sections.IndexOf(SectionViewModel.Instance.CurrentSection);
-
-                if (mainWindow.AreAllQuestionsDisplayed())
+                if (mainWindow.FindControl<ContentControl>("EmployeeInformationControl").IsVisible)
                 {
-                    // Update the score and values of the current section
-                    SectionViewModel.Instance.UpdateScores();
-                    SectionViewModel.Instance.UpdateValues();
-
-                    // Output the section score and values to the console for debugging
-                    System.Diagnostics.Debug.WriteLine($"Section Score: {SectionViewModel.Instance.CurrentSection.Scores}");
-                    System.Diagnostics.Debug.WriteLine($"Section Values: {SectionViewModel.Instance.CurrentSection.Values}");
-
-                    if (currentIndex < LoadSections.sections.Count - 1) // Check if it's not the last section
+                    if (mainWindow.IsEmployeeInformationComplete())
                     {
-                        // Increment the section index
-                        currentIndex++;
+                        // Get the EmployeeInformation control
+                        var employeeInformationControl = mainWindow.FindControl<ContentControl>("EmployeeInformationControl").Content as EmployeeInformation;
 
-                        // Reset the question start index
-                        mainWindow.QuestionStartIndex = 0;
+                        // Update the EmployeeViewModel's Employee property
+                        if (employeeInformationControl != null && employeeInformationControl.ViewModel != null)
+                        {
+                            EmployeeViewModel.Instance.Employee = employeeInformationControl.ViewModel.Employee;
+                        }
+
+                        // Hide EmployeeInformationControl and show QuestionsPanel when NextButton is clicked
+                        mainWindow.FindControl<ContentControl>("EmployeeInformationControl").IsVisible = false;
+                        mainWindow.FindControl<StackPanel>("QuestionsPanel").IsVisible = true;
+
+                        // Display the first set of questions
+                        mainWindow.DisplayQuestions(0, mainWindow.QuestionsPerPage);
                     }
-                    else // If it's the last section
+                    else
                     {
-                        // Show the AggregateResults
-                        mainWindow.ShowResults();
+                        // Handle incomplete EmployeeInformation here
+                        // For example, show a message to the user
                     }
                 }
-                else
+                else if (mainWindow.AreAllQuestionsAnswered())
                 {
-                    // Update the question start index
-                    mainWindow.QuestionStartIndex += mainWindow.QuestionsPerPage;
-                }
+                    int currentIndex = LoadSections.sections.IndexOf(SectionViewModel.Instance.CurrentSection);
 
-                // Load new section
-                mainWindow.DisplayQuestions(currentIndex, mainWindow.QuestionsPerPage); // Display the next set of questions
-                System.Diagnostics.Debug.WriteLine($"Loading section at index {currentIndex}");
+                    if (mainWindow.AreAllQuestionsDisplayed())
+                    {
+                        // Update the score and values of the current section
+                        SectionViewModel.Instance.UpdateScores();
+                        SectionViewModel.Instance.UpdateValues();
+
+                        // Output the section score and values to the console for debugging
+                        System.Diagnostics.Debug.WriteLine($"Section Score: {SectionViewModel.Instance.CurrentSection.Scores}");
+                        System.Diagnostics.Debug.WriteLine($"Section Values: {SectionViewModel.Instance.CurrentSection.Values}");
+
+                        if (currentIndex < LoadSections.sections.Count - 1) // Check if it's not the last section
+                        {
+                            // Increment the section index
+                            currentIndex++;
+
+                            // Reset the question start index
+                            mainWindow.QuestionStartIndex = 0;
+                        }
+                        else // If it's the last section
+                        {
+                            // Hide QuestionsPanel and show ResultsContent
+                            mainWindow.FindControl<StackPanel>("QuestionsPanel").IsVisible = false;
+                            mainWindow.FindControl<ContentControl>("ResultsContent").IsVisible = true;
+
+                            // Show the results
+                            mainWindow.ShowResults();
+                        }
+                    }
+                    else
+                    {
+                        // Update the question start index
+                        mainWindow.QuestionStartIndex += mainWindow.QuestionsPerPage;
+                    }
+
+                    // Load new section
+                    mainWindow.DisplayQuestions(currentIndex, mainWindow.QuestionsPerPage); // Display the next set of questions
+                    System.Diagnostics.Debug.WriteLine($"Loading section at index {currentIndex}");
+                }
             }
         }
     }

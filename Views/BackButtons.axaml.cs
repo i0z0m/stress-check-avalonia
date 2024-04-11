@@ -18,23 +18,7 @@ namespace StressCheckAvalonia.Views
             var mainWindow = this.FindAncestorOfType<MainWindow>();
             if (mainWindow != null)
             {
-                if (mainWindow.AggregateResultsControl != null && mainWindow.AggregateResultsControl.IsVisible)
-                {
-                    // Display the last page of the last section
-                    int lastSectionIndex = LoadSections.sections.Count - 1;
-                    mainWindow.DisplayQuestions(lastSectionIndex, mainWindow.QuestionsPerPage);
-                    mainWindow.QuestionStartIndex = (LoadSections.sections[lastSectionIndex].Questions.Count - 1) / mainWindow.QuestionsPerPage * mainWindow.QuestionsPerPage;
-
-                    // Make sure the QuestionsPanel is visible
-                    mainWindow.QuestionsPanel.IsVisible = true;
-
-                    //Make sure the SectionDescription is visible
-                    mainWindow.SectionDescriptionControl.IsVisible = true;
-
-                    // Hide the AggregateResults
-                    mainWindow.AggregateResultsControl.IsVisible = false;
-                }
-                else
+                if (mainWindow.FindControl<StackPanel>("QuestionsPanel").IsVisible)
                 {
                     int currentIndex = LoadSections.sections.IndexOf(SectionViewModel.Instance.CurrentSection);
 
@@ -57,6 +41,13 @@ namespace StressCheckAvalonia.Views
                             var previousSectionQuestionCount = LoadSections.sections[currentIndex].Questions.Count;
                             mainWindow.QuestionStartIndex = (previousSectionQuestionCount - 1) / mainWindow.QuestionsPerPage * mainWindow.QuestionsPerPage;
                         }
+                        else
+                        {
+                            // If it's the first section, show EmployeeInformationControl
+                            mainWindow.FindControl<StackPanel>("QuestionsPanel").IsVisible = false;
+                            mainWindow.FindControl<ContentControl>("EmployeeInformationControl").IsVisible = true;
+                            return;
+                        }
                     }
                     else
                     {
@@ -66,6 +57,22 @@ namespace StressCheckAvalonia.Views
 
                     // Load previous section or page
                     mainWindow.DisplayQuestions(currentIndex, mainWindow.QuestionsPerPage); // Display the previous set of questions
+                }
+                else if (mainWindow.AggregateResultsControl != null && mainWindow.AggregateResultsControl.IsVisible)
+                {
+                    // Display the last page of the last section
+                    int lastSectionIndex = LoadSections.sections.Count - 1;
+                    mainWindow.DisplayQuestions(lastSectionIndex, mainWindow.QuestionsPerPage);
+                    mainWindow.QuestionStartIndex = (LoadSections.sections[lastSectionIndex].Questions.Count - 1) / mainWindow.QuestionsPerPage * mainWindow.QuestionsPerPage;
+
+                    // Make sure the QuestionsPanel is visible
+                    mainWindow.QuestionsPanel.IsVisible = true;
+
+                    //Make sure the SectionDescription is visible
+                    mainWindow.SectionDescriptionControl.IsVisible = true;
+
+                    // Hide the AggregateResults
+                    mainWindow.AggregateResultsControl.IsVisible = false;
                 }
             }
         }

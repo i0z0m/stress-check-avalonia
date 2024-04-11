@@ -17,8 +17,17 @@ namespace StressCheckAvalonia.Views
             InitializeComponent();
             this.Title = "ストレスチェック実施プログラム";
 
-            DisplayQuestions(0, QuestionsPerPage); // Display the first set of questions
+            var employeeInformationControl = new EmployeeInformation
+            {
+                DataContext = EmployeeViewModel.Instance // Use the Employee instance from EmployeeViewModel
+            };
+            this.FindControl<ContentControl>("EmployeeInformationControl").Content = employeeInformationControl;
+
+            // Set DataContext for AppHeader
+            var appHeaderControl = this.FindControl<AppHeader>("AppHeaderControl");
+            appHeaderControl.DataContext = EmployeeViewModel.Instance;
         }
+
 
         public void DisplayQuestions(int sectionIndex, int questionCount)
         {
@@ -88,6 +97,11 @@ namespace StressCheckAvalonia.Views
             }
         }
 
+        public bool IsEmployeeInformationComplete()
+        {
+            var employeeInformationControl = this.FindControl<ContentControl>("EmployeeInformationControl").Content as EmployeeInformation;
+            return employeeInformationControl != null && EmployeeViewModel.Instance.IsInformationComplete();
+        }
 
         public bool AreAllQuestionsAnswered()
         {

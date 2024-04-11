@@ -6,7 +6,6 @@
              x:Class="StressCheckAvalonia.Views.AppTitle"
              x:DataType="local:SectionViewModel"
              Height="54"
-             VerticalAlignment="Top"
              HorizontalAlignment="Stretch">
 	<Grid>
 		<StackPanel Orientation="Horizontal"
