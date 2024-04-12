@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 
 namespace StressCheckAvalonia.Services
 {
@@ -12,14 +11,12 @@ namespace StressCheckAvalonia.Services
 
     public static class LevelCalculator
     {
-        public static LevelResult CalculateLevel(this List<int> scores, List<List<int>> values)
+        public static LevelResult CalculateLevel(this List<int> scores, List<int> values)
         {
-            bool method1 = scores[2] >= 77 || (scores[1] + scores[3] >= 76 && scores[2] >= 63);
+            bool method1 = scores[1] >= 77 || (scores[0] + scores[2] >= 76 && scores[1] >= 63);
+            bool method2 = values[1] <= 12 || (values[0] + values[2] <= 26 && values[1] <= 17);
 
-            List<int> totals = values.Select(value => value?.Sum() ?? 0).ToList();
-            bool method2 = totals[2] <= 12 || (totals[1] + totals[3] <= 26 && totals[2] <= 17);
-
-            return new LevelResult { Method1 = method1, Method2 = method2, Totals = totals };
+            return new LevelResult { Method1 = method1, Method2 = method2, Totals = values };
         }
     }
 }

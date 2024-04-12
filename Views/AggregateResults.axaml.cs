@@ -31,16 +31,17 @@ namespace StressCheckAvalonia.Views
 
             // Create TextBlock for Employee Level
             var scores = LoadSections.sections.Select(s => s.Scores).ToList();
-            var values = LoadSections.sections.Select(s => new List<int> { s.Values }).ToList();
+            var values = LoadSections.sections.Select(s => s.Values).ToList();
             var levelResult = LevelCalculator.CalculateLevel(scores, values);
-            EmployeeViewModel.Instance.Employee.Level = levelResult.Method1 && levelResult.Method2 ? "High" : "Low";
-            System.Diagnostics.Debug.WriteLine($"Employee.Level is set to {EmployeeViewModel.Instance.Employee.Level}");
+            System.Diagnostics.Debug.WriteLine($"Method1: {levelResult.Method1}, Method2: {levelResult.Method2}");
+            EmployeeViewModel.Instance.Level = levelResult.Method1 && levelResult.Method2 ? "High" : "Low";
+            System.Diagnostics.Debug.WriteLine($"Employee.Level is set to {EmployeeViewModel.Instance.Level}");
 
             var employeeLevelTextBlock = new TextBlock
             {
                 FontSize = 30,
-                Text = EmployeeViewModel.Instance.Employee.Level == "High" ? "高ストレス者です" : "低ストレス者です",
-                Foreground = new SolidColorBrush(EmployeeViewModel.Instance.Employee.Level == "High" ? Color.FromArgb(128, 255, 0, 0) : Color.FromArgb(128, 0, 0, 255)),
+                Text = EmployeeViewModel.Instance.Level == "High" ? "高ストレス者です" : "低ストレス者です",
+                Foreground = new SolidColorBrush(EmployeeViewModel.Instance.Level == "High" ? Color.FromArgb(128, 255, 0, 0) : Color.FromArgb(128, 0, 0, 255)),
                 HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
             };
             sectionPanel.Children.Add(employeeLevelTextBlock);
@@ -104,7 +105,7 @@ namespace StressCheckAvalonia.Views
                     {
                         Label = factor.Scale,
                         Value = factor.Value,
-                        Color = EmployeeViewModel.Instance.Employee.Level == "High" ? Color.FromArgb(128, 255, 0, 0) : Color.FromArgb(128, 0, 0, 255)
+                        Color = EmployeeViewModel.Instance.Level == "High" ? Color.FromArgb(128, 255, 0, 0) : Color.FromArgb(128, 0, 0, 255)
                     }).ToList(),
 
                     Width = 300, // Adjust size as needed

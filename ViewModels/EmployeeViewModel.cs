@@ -47,16 +47,13 @@ namespace StressCheckAvalonia.ViewModels
             }
         }
 
+        private string _level;
         public string Level
         {
-            get => _employee?.Level;
+            get => _level;
             set
             {
-                if (_employee != null)
-                {
-                    _employee.Level = value;
-                    this.RaisePropertyChanged();
-                }
+                this.RaiseAndSetIfChanged(ref _level, value);
             }
         }
 

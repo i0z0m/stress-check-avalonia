@@ -3,7 +3,6 @@ using StressCheckAvalonia.Services;
 using ReactiveUI;
 using System.Collections.Generic;
 using System.Linq;
-using StressCheckAvalonia.Views;
 
 namespace StressCheckAvalonia.ViewModels
 {
