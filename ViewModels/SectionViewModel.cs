@@ -97,9 +97,15 @@ namespace StressCheckAvalonia.ViewModels
             set
             {
                 this.RaiseAndSetIfChanged(ref _isInput, value);
+                this.RaisePropertyChanged(nameof(IsInputInverted));
                 this.RaisePropertyChanged(nameof(AppTitle));
                 this.RaisePropertyChanged(nameof(DescriptionText));
             }
+        }
+
+        public bool IsInputInverted
+        {
+            get { return !IsInput; }
         }
 
         private bool _isAggregated;

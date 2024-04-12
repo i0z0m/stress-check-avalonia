@@ -11,6 +11,7 @@ namespace StressCheckAvalonia.Views
         public BackButtons()
         {
             InitializeComponent();
+            DataContext = SectionViewModel.Instance;
         }
 
         public void ClickHandler(object sender, RoutedEventArgs args)

@@ -1,11 +1,13 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-		     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:local="clr-namespace:StressCheckAvalonia.Views"
-			 x:Class="StressCheckAvalonia.Views.BackButtons">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:StressCheckAvalonia.ViewModels"
+             x:Class="StressCheckAvalonia.Views.BackButtons"
+             x:DataType="local:SectionViewModel">
+
 	<StackPanel Orientation="Horizontal">
-		<Button x:Name="BackToTitleButton" Content="タイトルに戻る" Click="ClickHandler" Margin="0, 0, 10, 0" Width="180" Height="60" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18" />
-		<Button x:Name="BackOneScreenButton" Content="1つ前の画面へ" Click="ClickHandler" Width="180" Height="60" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18" />
+		<Button x:Name="BackToTitleButton" Content="タイトルに戻る" Click="ClickHandler" Margin="0, 0, 10, 0" Width="180" Height="60" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18" IsVisible="{Binding IsInputInverted}" />
+		<Button x:Name="BackOneScreenButton" Content="1つ前の画面へ" Click="ClickHandler" Width="180" Height="60" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18" IsVisible="{Binding IsInputInverted}" />
 	</StackPanel>
 </UserControl>
