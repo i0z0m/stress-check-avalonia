@@ -53,7 +53,7 @@ namespace StressCheckAvalonia.Views
                         QuestionViewModel = questionViewModel, // Pass the QuestionViewModel to the ChoiceButtons
                         QuestionIndex = i,
                         HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Right,
-                        Margin = new Thickness(0, 0, 53, 0)
+                        Margin = new Thickness(0, 0, 50, 0)
                     };
 
                     // Set the IsChecked property of the RadioButton corresponding to the selected choice
@@ -86,7 +86,7 @@ namespace StressCheckAvalonia.Views
                     {
                         BorderThickness = new Thickness(0, 0, 0, 1),
                         BorderBrush = Brushes.Gray,
-                        Margin = new Thickness(48, 0, 48, 8)
+                        Margin = new Thickness(50, 0, 50, 10)
                     };
                     QuestionsPanel.Children.Add(underline);
                 }
@@ -123,9 +123,6 @@ namespace StressCheckAvalonia.Views
 
                 // Hide the QuestionsPanel
                 QuestionsPanel.IsVisible = false;
-
-                // Hide the SectionDescription
-                SectionDescriptionControl.IsVisible = false;
 
                 // Set IsAggregated to true
                 SectionViewModel.Instance.IsAggregated = true;

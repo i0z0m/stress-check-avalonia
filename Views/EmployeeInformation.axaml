@@ -5,10 +5,10 @@
              xmlns:local="clr-namespace:StressCheckAvalonia.ViewModels"
              x:Class="StressCheckAvalonia.Views.EmployeeInformation"
              x:DataType="local:EmployeeViewModel">
-	<Grid Margin="53,0,53,0">
+	<Grid Margin="50,0,50,0">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="*"/>
-			<ColumnDefinition Width="53"/>
+			<ColumnDefinition Width="50"/>
 			<ColumnDefinition Width="*"/>
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>

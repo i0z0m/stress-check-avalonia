@@ -42,7 +42,6 @@ namespace StressCheckAvalonia.Views
                 Text = EmployeeViewModel.Instance.Employee.Level == "High" ? "高ストレス者です" : "低ストレス者です",
                 Foreground = new SolidColorBrush(EmployeeViewModel.Instance.Employee.Level == "High" ? Color.FromArgb(128, 255, 0, 0) : Color.FromArgb(128, 0, 0, 255)),
                 HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
-                Margin = new Thickness(0, 0, 0, 20)
             };
             sectionPanel.Children.Add(employeeLevelTextBlock);
 
