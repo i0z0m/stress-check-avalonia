@@ -12,7 +12,6 @@ namespace StressCheckAvalonia.Services
             Step = 1,
             Name = "仕事について",
             Description = "あなたの仕事についてうかがいます。4つの中から最もあてはまる選択ボタンを選んでください。（全17問）",
-            Next = "次へ",
             Questions = new List<Question>
             {
                 new Question { Id = 1, Text = "非常にたくさんの仕事をしなければならない", Score = 0, Reverse = true },
@@ -184,7 +183,6 @@ namespace StressCheckAvalonia.Services
             Step = 2,
             Name = "最近1か月の状態について",
             Description = "最近 1 か月間のあなたの状態についてうかがいます。4つの中から最もあてはまる選択ボタンを選んでください。（全29問）",
-            Next = "次へ",
             Questions = new List<Question>
             {
                 new Question { Id = 1, Text = "活気がわいてくる", Score = 0, Reverse = true },
@@ -324,7 +322,6 @@ namespace StressCheckAvalonia.Services
             Step = 3,
             Name = "周りの方々について",
             Description = "あなたの周りの方々についてうかがいます。4つの中から最もあてはまるものを選んでください。（全9問）",
-            Next = "次へ",
             Questions = new List<Question>
             {
                 new Question { Id = 1, Text = "次の人たちとはどのくらい気軽に話ができますか？上司", Score = 0, Reverse = false },
@@ -396,7 +393,6 @@ namespace StressCheckAvalonia.Services
             Step = 4,
             Name = "満足度について",
             Description = "あなたの満足度についてうかがいます。4つの中から最もあてはまるものを選んでください。（全2問）",
-            Next = "次へ",
             Questions = new List<Question>
             {
                 new Question { Id = 1, Text = "仕事に満足だ", Score = 0, Reverse = false },

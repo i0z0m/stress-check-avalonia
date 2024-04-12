@@ -22,7 +22,6 @@ namespace StressCheckAvalonia.Models
         public int Step { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public string Next { get; set; }
         public List<Question>? Questions { get; set; }
         public int Scores { get; set; }
         public List<string>? Choices { get; set; }

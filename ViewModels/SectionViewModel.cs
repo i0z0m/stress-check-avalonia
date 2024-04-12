@@ -111,6 +111,7 @@ namespace StressCheckAvalonia.ViewModels
                 this.RaiseAndSetIfChanged(ref _isAggregated, value);
                 this.RaisePropertyChanged(nameof(AppTitle));
                 this.RaisePropertyChanged(nameof(DescriptionText));
+                this.RaisePropertyChanged(nameof(NextButtonText));
             }
         }
 
@@ -170,6 +171,23 @@ namespace StressCheckAvalonia.ViewModels
                     return CurrentSection.Description;
                 }
             }
+        }
+
+        private string _nextButtonText;
+        public string NextButtonText
+        {
+            get
+            {
+                if (IsAggregated)
+                {
+                    return "•Û‘¶";
+                }
+                else
+                {
+                    return "ŽŸ‚Ö";
+                }
+            }
+            set { this.RaiseAndSetIfChanged(ref _nextButtonText, value); }
         }
     }
 }

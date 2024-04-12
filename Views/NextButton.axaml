@@ -1,11 +1,12 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-		     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:local="clr-namespace:StressCheckAvalonia.Views"
-			 x:Class="StressCheckAvalonia.Views.NextButton">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:StressCheckAvalonia.ViewModels"
+             x:Class="StressCheckAvalonia.Views.NextButton"
+             x:DataType="local:SectionViewModel">
 
 	<StackPanel Orientation="Horizontal">
-		<Button Content="次へ" Click="ClickHandler" Width="180" Height="60" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18" />
+		<Button Content="{Binding NextButtonText}" Click="ClickHandler" Width="180" Height="60" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18" />
 	</StackPanel>
 </UserControl>
