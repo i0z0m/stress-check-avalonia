@@ -13,17 +13,26 @@
                     Margin="0,8,0,0"
                     VerticalAlignment="Top"
                     HorizontalAlignment="Stretch">
+			<TextBlock Text="{Binding AppTitle}"
+					   FontSize="30"
+					   Margin="120,0,0,0"
+					   Foreground="White"
+					   IsVisible="{Binding IsSectionInactive}" />
 			<TextBlock Text="STEP"
-                       Margin="120,0,0,0"
-                       FontSize="30"
-                       Foreground="White" />
+					   Margin="120,0,0,0"
+					   FontSize="30"
+					   Foreground="White"
+					   IsVisible="{Binding IsSectionActive}" />
 			<TextBlock Text="{Binding CurrentSection.Step}"
-                       FontSize="30"
-                       Foreground="White" />
+					   FontSize="30"
+					   Foreground="White"
+					   IsVisible="{Binding IsSectionActive}" />
 			<TextBlock Text="{Binding CurrentSection.Name}"
-                       FontSize="30"
-                       Margin="24,0,0,0"
-                       Foreground="White" />
+					   FontSize="30"
+					   Margin="24,0,0,0"
+					   Foreground="White"
+					   IsVisible="{Binding IsSectionActive}" />
+
 		</StackPanel>
 		<Image Source="/Assets/icon.png"
                Width="64"

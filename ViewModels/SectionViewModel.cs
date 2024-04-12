@@ -36,7 +36,12 @@ namespace StressCheckAvalonia.ViewModels
         public Section CurrentSection
         {
             get { return _currentSection; }
-            set { this.RaiseAndSetIfChanged(ref _currentSection, value); }
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _currentSection, value);
+                this.RaisePropertyChanged(nameof(IsSectionActive));
+                this.RaisePropertyChanged(nameof(IsSectionInactive));
+            }
         }
 
         public void SetCurrentSection(int newSectionIndex)
@@ -56,6 +61,8 @@ namespace StressCheckAvalonia.ViewModels
                 if (_questionIndex != value)
                 {
                     _questionIndex = value;
+                    this.RaisePropertyChanged(nameof(IsSectionActive));
+                    this.RaisePropertyChanged(nameof(IsSectionInactive));
                 }
             }
         }
@@ -79,6 +86,67 @@ namespace StressCheckAvalonia.ViewModels
 
                 CurrentSection.Values = CurrentSection.Factors.Sum(factor => factor.Value);
             }
+        }
+
+        private bool _isInput;
+        public bool IsInput
+        {
+            get { return _isInput; }
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _isInput, value);
+                this.RaisePropertyChanged(nameof(AppTitle));
+            }
+        }
+
+        private bool _isAggregated;
+        public bool IsAggregated
+        {
+            get { return _isAggregated; }
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _isAggregated, value);
+                this.RaisePropertyChanged(nameof(AppTitle));
+            }
+        }
+
+        private string _appTitle;
+        public string AppTitle
+        {
+            get
+            {
+                if (IsInput)
+                {
+                    return "ストレスチェック開始";
+                }
+                else if (IsAggregated)
+                {
+                    return "ストレスチェック終了";
+                }
+                else
+                {
+                    return "ストレスチェック実施中";
+                }
+            }
+            set { this.RaiseAndSetIfChanged(ref _appTitle, value); }
+        }
+
+        private bool _isSectionActive;
+        public bool IsSectionActive
+        {
+            get { return _isSectionActive && CurrentSection != null && QuestionIndex > 0; }
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _isSectionActive, value);
+                IsSectionInactive = !value;
+            }
+        }
+
+        private bool _isSectionInactive;
+        public bool IsSectionInactive
+        {
+            get { return _isSectionInactive || !IsSectionActive; }
+            set { this.RaiseAndSetIfChanged(ref _isSectionInactive, value); }
         }
     }
 }

@@ -30,6 +30,8 @@ namespace StressCheckAvalonia.Views
                         {
                             mainWindow.AggregateResultsControl.IsVisible = false;
                         }
+                        // Set IsInput to true
+                        SectionViewModel.Instance.IsInput = true;
                     }
                     else if (button.Name == "BackOneScreenButton")
                     {
@@ -41,6 +43,9 @@ namespace StressCheckAvalonia.Views
                             {
                                 if (currentIndex > 0) // Check if it's not the first section
                                 {
+                                    // Set IsSectionActive to true when moving back to the previous section
+                                    SectionViewModel.Instance.IsSectionActive = true;
+
                                     // Update the score and values of the current section
                                     SectionViewModel.Instance.UpdateScores();
                                     SectionViewModel.Instance.UpdateValues();
@@ -58,10 +63,14 @@ namespace StressCheckAvalonia.Views
                                 }
                                 else
                                 {
+                                    // Set IsSectionActive to false when moving back to the title
+                                    SectionViewModel.Instance.IsSectionActive = false;
+
                                     // If it's the first section, show EmployeeInformationControl
                                     mainWindow.FindControl<StackPanel>("QuestionsPanel").IsVisible = false;
                                     mainWindow.FindControl<ContentControl>("EmployeeInformationControl").IsVisible = true;
-                                    return;
+                                    // Set IsInput to true
+                                    SectionViewModel.Instance.IsInput = true;
                                 }
                             }
                             else
@@ -83,11 +92,14 @@ namespace StressCheckAvalonia.Views
                             // Make sure the QuestionsPanel is visible
                             mainWindow.QuestionsPanel.IsVisible = true;
 
-                            //Make sure the SectionDescription is visible
+                            // Make sure the SectionDescription is visible
                             mainWindow.SectionDescriptionControl.IsVisible = true;
 
                             // Hide the AggregateResults
                             mainWindow.AggregateResultsControl.IsVisible = false;
+
+                            // Set IsAggregated to false
+                            SectionViewModel.Instance.IsAggregated = false;
                         }
                     }
                 }
