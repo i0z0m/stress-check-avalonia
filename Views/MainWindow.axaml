@@ -19,7 +19,7 @@
 		</Grid.RowDefinitions>
 		<local:AppHeader x:Name="AppHeaderControl" Grid.Row="0"/>
 		<local:AppTitle Grid.Row="1"/>
-		<local:SectionDescription x:Name="SectionDescriptionControl" Grid.Row="2" IsLastSection="True" />
+		<local:SectionDescription x:Name="SectionDescriptionControl" Grid.Row="2" />
 		<ContentControl x:Name="EmployeeInformationControl" Grid.Row="3" IsVisible="true" />
 		<StackPanel x:Name="QuestionsPanel" Grid.Row="3" IsVisible="false">
 		</StackPanel>

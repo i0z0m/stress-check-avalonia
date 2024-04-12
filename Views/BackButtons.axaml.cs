@@ -23,6 +23,12 @@ namespace StressCheckAvalonia.Views
                 {
                     if (button.Name == "BackToTitleButton")
                     {
+                        // Set IsAggregated to false
+                        SectionViewModel.Instance.IsAggregated = false;
+
+                        SectionViewModel.Instance.SetCurrentSection(0);
+                        mainWindow.QuestionStartIndex = 0;
+
                         // If 'Back to Title' button is clicked, show EmployeeInformationControl
                         mainWindow.FindControl<StackPanel>("QuestionsPanel").IsVisible = false;
                         mainWindow.FindControl<ContentControl>("EmployeeInformationControl").IsVisible = true;

@@ -3,6 +3,7 @@ using StressCheckAvalonia.Services;
 using ReactiveUI;
 using System.Collections.Generic;
 using System.Linq;
+using StressCheckAvalonia.Views;
 
 namespace StressCheckAvalonia.ViewModels
 {
@@ -41,6 +42,7 @@ namespace StressCheckAvalonia.ViewModels
                 this.RaiseAndSetIfChanged(ref _currentSection, value);
                 this.RaisePropertyChanged(nameof(IsSectionActive));
                 this.RaisePropertyChanged(nameof(IsSectionInactive));
+                this.RaisePropertyChanged(nameof(DescriptionText));
             }
         }
 
@@ -96,6 +98,7 @@ namespace StressCheckAvalonia.ViewModels
             {
                 this.RaiseAndSetIfChanged(ref _isInput, value);
                 this.RaisePropertyChanged(nameof(AppTitle));
+                this.RaisePropertyChanged(nameof(DescriptionText));
             }
         }
 
@@ -107,6 +110,7 @@ namespace StressCheckAvalonia.ViewModels
             {
                 this.RaiseAndSetIfChanged(ref _isAggregated, value);
                 this.RaisePropertyChanged(nameof(AppTitle));
+                this.RaisePropertyChanged(nameof(DescriptionText));
             }
         }
 
@@ -147,6 +151,25 @@ namespace StressCheckAvalonia.ViewModels
         {
             get { return _isSectionInactive || !IsSectionActive; }
             set { this.RaiseAndSetIfChanged(ref _isSectionInactive, value); }
+        }
+
+        public string DescriptionText
+        {
+            get
+            {
+                if (IsInput)
+                {
+                    return "必須事項を入力してください。";
+                }
+                else if (IsAggregated)
+                {
+                    return "これで質問は終わりです。お疲れ様でした。";
+                }
+                else
+                {
+                    return CurrentSection.Description;
+                }
+            }
         }
     }
 }

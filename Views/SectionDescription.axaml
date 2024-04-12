@@ -4,8 +4,8 @@
              x:Class="StressCheckAvalonia.Views.SectionDescription"
              x:DataType="local:SectionViewModel">
 
-    <TextBlock x:Name="DescriptionTextBlock"
-               Text="{Binding CurrentSection.Description}"
-               FontSize="18"
+	<TextBlock x:Name="DescriptionTextBlock"
+			   Text="{Binding DescriptionText}"
+			   FontSize="18"
 			   Margin="50,0,0,0"/>
 </UserControl>
