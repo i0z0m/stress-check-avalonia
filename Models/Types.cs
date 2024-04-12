@@ -9,7 +9,7 @@ namespace StressCheckAvalonia.Models
         public string Level { get; set; }
         public string Name { get; set; }
         public string Furigana { get; set; }
-        public DateTime Birthday { get; set; }
+        public DateTimeOffset Birthday { get; set; } // Changed from DateTime to DateTimeOffset
         public string ID { get; set; }
         public string Workplace { get; set; }
         public string? Email { get; set; }

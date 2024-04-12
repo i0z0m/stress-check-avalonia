@@ -32,8 +32,7 @@
 		<TextBlock Text="※フリガナ" FontSize="24" Grid.Row="3" Grid.Column="0"/>
 		<TextBox Text="{Binding Furigana}" Grid.Row="4" Grid.Column="0"/>
 		<TextBlock Text="※生年月日" FontSize="24" Grid.Row="5" Grid.Column="0"/>
-		<!-- <DatePicker x:Name="BirthdayDatePicker" SelectedDate="{Binding Birthday}" Grid.Row="6" Grid.Column="0"/> -->
-		<DatePicker x:Name="BirthdayDatePicker" Grid.Row="6" Grid.Column="0"/>
+		<DatePicker x:Name="BirthdayDatePicker" SelectedDate="{Binding Birthday}" Grid.Row="6" Grid.Column="0"/>
 		<TextBlock Text="※性別" FontSize="24" Grid.Row="7" Grid.Column="0"/>
 		<ComboBox SelectedItem="{Binding Gender}" Grid.Row="8" Grid.Column="0">
 			<ComboBoxItem>男性</ComboBoxItem>

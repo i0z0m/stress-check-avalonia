@@ -86,7 +86,7 @@ namespace StressCheckAvalonia.ViewModels
             }
         }
 
-        public DateTime Birthday
+        public DateTimeOffset Birthday
         {
             get => _employee?.Birthday ?? default;
             set
@@ -95,6 +95,10 @@ namespace StressCheckAvalonia.ViewModels
                 {
                     _employee.Birthday = value;
                     this.RaisePropertyChanged();
+                }
+                else
+                {
+                    throw new NullReferenceException("_employee is null");
                 }
             }
         }
