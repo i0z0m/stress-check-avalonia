@@ -19,6 +19,7 @@ namespace StressCheckAvalonia.ViewModels
         {
             CurrentSection = LoadSections.sections[0];
             QuestionViewModels = CurrentSection.Questions.Select(q => new QuestionViewModel(q)).ToList();
+            DisplayedQuestionViewModels = new List<QuestionViewModel>();
         }
 
         public static SectionViewModel Instance
@@ -193,6 +194,15 @@ namespace StressCheckAvalonia.ViewModels
                 }
             }
             set { this.RaiseAndSetIfChanged(ref _nextButtonText, value); }
+        }
+
+        // Add a new property to hold the currently displayed questions
+        public List<QuestionViewModel> DisplayedQuestionViewModels { get; set; }
+
+        public bool AreAllDisplayedQuestionsAnswered()
+        {
+            // Check if all currently displayed questions are answered
+            return DisplayedQuestionViewModels.All(q => q.IsAnswered);
         }
     }
 }

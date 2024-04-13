@@ -2,9 +2,6 @@ using StressCheckAvalonia.ViewModels;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia;
-using System.Linq;
-using StressCheckAvalonia.Models;
-using StressCheckAvalonia.Views;
 
 namespace StressCheckAvalonia.Views
 {
@@ -38,12 +35,18 @@ namespace StressCheckAvalonia.Views
             // Get the questions for the specified section
             var questions = SectionViewModel.Instance.Questions;
 
+            // Clear the DisplayedQuestionViewModels list
+            SectionViewModel.Instance.DisplayedQuestionViewModels.Clear();
+
             // Add each question and its corresponding choice buttons to the QuestionsPanel
             for (int i = QuestionStartIndex; i < QuestionStartIndex + QuestionsPerPage && i < questions.Count; i++)
             {
                 if (i < SectionViewModel.Instance.QuestionViewModels.Count)
                 {
                     var questionViewModel = SectionViewModel.Instance.QuestionViewModels[i];
+
+                    // Add the question to the DisplayedQuestionViewModels list
+                    SectionViewModel.Instance.DisplayedQuestionViewModels.Add(questionViewModel);
 
                     var questionText = new QuestionText
                     {
@@ -70,10 +73,10 @@ namespace StressCheckAvalonia.Views
                     var questionGrid = new Grid
                     {
                         ColumnDefinitions =
-                        {
-                            new ColumnDefinition(1, GridUnitType.Star),
-                            new ColumnDefinition(0, GridUnitType.Auto)
-                        }
+                {
+                    new ColumnDefinition(1, GridUnitType.Star),
+                    new ColumnDefinition(0, GridUnitType.Auto)
+                }
                     };
 
                     Grid.SetColumn(questionText, 0);
@@ -99,14 +102,6 @@ namespace StressCheckAvalonia.Views
         {
             var employeeInformationControl = this.FindControl<ContentControl>("EmployeeInformationControl").Content as EmployeeInformation;
             return employeeInformationControl != null && employeeInformationControl.IsInformationComplete();
-        }
-
-        public bool AreAllQuestionsAnswered()
-        {
-            return !QuestionsPanel.Children.OfType<Grid>()
-                .SelectMany(grid => grid.Children.OfType<ChoiceButtons>())
-                .Any(choiceButtons => Enumerable.Range(1, 4)
-                    .All(i => choiceButtons.FindControl<RadioButton>($"RadioButton{i}").IsChecked != true));
         }
 
         public bool AreAllQuestionsDisplayed()

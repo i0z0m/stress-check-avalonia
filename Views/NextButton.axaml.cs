@@ -46,61 +46,61 @@ namespace StressCheckAvalonia.Views
                         EmployeeViewModel.Instance.ValidateInput();
                     }
                 }
-                else if (mainWindow.AreAllQuestionsAnswered())
+                else if (SectionViewModel.Instance.AreAllDisplayedQuestionsAnswered())
                 {
                     // Set IsInput to false when you navigate away from the EmployeeInformationControl
                     SectionViewModel.Instance.IsInput = false;
 
-                        int currentIndex = LoadSections.sections.IndexOf(SectionViewModel.Instance.CurrentSection);
+                    int currentIndex = LoadSections.sections.IndexOf(SectionViewModel.Instance.CurrentSection);
 
-                        if (mainWindow.AreAllQuestionsDisplayed())
+                    if (mainWindow.AreAllQuestionsDisplayed())
+                    {
+                        // Update the score and values of the current section
+                        SectionViewModel.Instance.UpdateScores();
+                        SectionViewModel.Instance.UpdateValues();
+
+                        // Output the section score and values to the console for debugging
+                        System.Diagnostics.Debug.WriteLine($"Section Score: {SectionViewModel.Instance.CurrentSection.Scores}");
+                        System.Diagnostics.Debug.WriteLine($"Section Values: {SectionViewModel.Instance.CurrentSection.Values}");
+
+                        if (currentIndex < LoadSections.sections.Count - 1) // Check if it's not the last section
                         {
-                            // Update the score and values of the current section
-                            SectionViewModel.Instance.UpdateScores();
-                            SectionViewModel.Instance.UpdateValues();
+                            // Set IsSectionActive to true when moving to the next section
+                            SectionViewModel.Instance.IsSectionActive = true;
 
-                            // Output the section score and values to the console for debugging
-                            System.Diagnostics.Debug.WriteLine($"Section Score: {SectionViewModel.Instance.CurrentSection.Scores}");
-                            System.Diagnostics.Debug.WriteLine($"Section Values: {SectionViewModel.Instance.CurrentSection.Values}");
+                            // Increment the section index
+                            currentIndex++;
 
-                            if (currentIndex < LoadSections.sections.Count - 1) // Check if it's not the last section
-                            {
-                                // Set IsSectionActive to true when moving to the next section
-                                SectionViewModel.Instance.IsSectionActive = true;
-
-                                // Increment the section index
-                                currentIndex++;
-
-                                // Reset the question start index
-                                mainWindow.QuestionStartIndex = 0;
-                            }
-                            else // If it's the last section
-                            {
-                                // Set IsSectionActive to false when showing the results
-                                SectionViewModel.Instance.IsSectionActive = false;
-
-                                // Hide QuestionsPanel and show ResultsContent
-                                mainWindow.FindControl<StackPanel>("QuestionsPanel").IsVisible = false;
-                                mainWindow.FindControl<ContentControl>("ResultsContent").IsVisible = true;
-
-                                // Update the AppTitle
-                                SectionViewModel.Instance.IsAggregated = true;
-
-                                // Show the results
-                                mainWindow.ShowResults();
-                            }
+                            // Reset the question start index
+                            mainWindow.QuestionStartIndex = 0;
                         }
-                        else
+                        else // If it's the last section
                         {
-                            // Update the question start index
-                            mainWindow.QuestionStartIndex += mainWindow.QuestionsPerPage;
-                        }
+                            // Set IsSectionActive to false when showing the results
+                            SectionViewModel.Instance.IsSectionActive = false;
 
-                        // Load new section
-                        mainWindow.DisplayQuestions(currentIndex, mainWindow.QuestionsPerPage); // Display the next set of questions
-                        System.Diagnostics.Debug.WriteLine($"Loading section at index {currentIndex}");
+                            // Hide QuestionsPanel and show ResultsContent
+                            mainWindow.FindControl<StackPanel>("QuestionsPanel").IsVisible = false;
+                            mainWindow.FindControl<ContentControl>("ResultsContent").IsVisible = true;
+
+                            // Update the AppTitle
+                            SectionViewModel.Instance.IsAggregated = true;
+
+                            // Show the results
+                            mainWindow.ShowResults();
+                        }
                     }
+                    else
+                    {
+                        // Update the question start index
+                        mainWindow.QuestionStartIndex += mainWindow.QuestionsPerPage;
+                    }
+
+                    // Load new section
+                    mainWindow.DisplayQuestions(currentIndex, mainWindow.QuestionsPerPage); // Display the next set of questions
+                    System.Diagnostics.Debug.WriteLine($"Loading section at index {currentIndex}");
                 }
             }
         }
     }
+}
