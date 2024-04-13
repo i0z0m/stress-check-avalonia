@@ -3,6 +3,8 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia;
 using System.Linq;
+using StressCheckAvalonia.Models;
+using StressCheckAvalonia.Views;
 
 namespace StressCheckAvalonia.Views
 {
@@ -61,8 +63,8 @@ namespace StressCheckAvalonia.Views
                     if (selectedChoice >= 1 && selectedChoice <= 4)
                     {
                         var radioButton = choiceButtons.FindControl<RadioButton>($"RadioButton{selectedChoice}");
-                        radioButton.IsCheckedChanged -= choiceButtons.OnChoiceSelect;
                         radioButton.IsChecked = true;
+                        questionViewModel.HandleChoiceSelect(selectedChoice);
                     }
 
                     var questionGrid = new Grid

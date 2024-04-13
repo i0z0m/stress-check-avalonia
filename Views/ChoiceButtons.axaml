@@ -11,28 +11,24 @@
 					 Content="{Binding Choices[0]}"
 					 Foreground="Black"
 					 FontSize="18"
-					 Tag="1"
-					 Checked="OnChoiceSelect" />
+					 Tag="1" />
 		<RadioButton x:Name="RadioButton2"
 					 Content="{Binding Choices[1]}"
 					 Foreground="Black"
 					 FontSize="18"
 					 Margin="6,0,0,0"
-					 Tag="2"
-					 Checked="OnChoiceSelect" />
+					 Tag="2" />
 		<RadioButton x:Name="RadioButton3"
 					 Content="{Binding Choices[2]}"
 					 Foreground="Black"
 					 FontSize="18"
 					 Margin="6,0,0,0"
-					 Tag="3"
-					 Checked="OnChoiceSelect" />
+					 Tag="3" />
 		<RadioButton x:Name="RadioButton4"
 					 Content="{Binding Choices[3]}"
 					 Foreground="Black"
 					 FontSize="18"
 					 Margin="6,0,0,0"
-					 Tag="4"
-					 Checked="OnChoiceSelect" />
+					 Tag="4" />
 	</StackPanel>
 </UserControl>

@@ -2,7 +2,6 @@ using StressCheckAvalonia.ViewModels;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data;
-using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using ReactiveUI;
 using System;
@@ -53,7 +52,7 @@ namespace StressCheckAvalonia.Views
             var radioButton = this.FindControl<RadioButton>(radioButtonName);
             if (radioButton != null)
             {
-                radioButton.IsCheckedChanged += OnChoiceSelect;
+                radioButton.Checked += (sender, e) => QuestionViewModel.HandleChoiceSelect(int.Parse(radioButton.Tag.ToString()));
             }
         }
 
@@ -72,16 +71,6 @@ namespace StressCheckAvalonia.Views
             if (radioButton != null)
             {
                 radioButton.GroupName = QuestionIndex.ToString();
-            }
-        }
-        public void OnChoiceSelect(object? sender, RoutedEventArgs e)
-        {
-            var radioButton = sender as RadioButton;
-            if (radioButton != null && radioButton.IsChecked == true)
-            {
-                var choiceIndex = int.Parse(radioButton.Tag.ToString());
-                // Call HandleChoiceSelect on the QuestionViewModel instance
-                QuestionViewModel.HandleChoiceSelect(choiceIndex);
             }
         }
     }
