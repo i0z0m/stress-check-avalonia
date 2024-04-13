@@ -19,15 +19,12 @@ namespace StressCheckAvalonia.Views
             var mainWindow = this.FindAncestorOfType<MainWindow>();
             if (mainWindow != null)
             {
-                if (mainWindow.FindControl<ContentControl>("EmployeeInformationControl").IsVisible)
+                if (SectionViewModel.Instance.IsInput)
                 {
                     // Set IsSectionActive to true when moving to the questions
                     SectionViewModel.Instance.IsSectionActive = true;
 
-                    // Set IsInput to true
-                    SectionViewModel.Instance.IsInput = true;
-
-                    if (mainWindow.IsEmployeeInformationComplete())
+                    if (EmployeeViewModel.Instance.IsInformationComplete())
                     {
                         // Set IsInput to false
                         SectionViewModel.Instance.IsInput = false;

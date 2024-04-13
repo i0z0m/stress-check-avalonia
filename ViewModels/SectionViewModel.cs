@@ -196,6 +196,29 @@ namespace StressCheckAvalonia.ViewModels
             set { this.RaiseAndSetIfChanged(ref _nextButtonText, value); }
         }
 
+        public List<QuestionViewModel> GetDisplayedQuestions(int questionStartIndex, int questionsPerPage)
+        {
+            // Clear the DisplayedQuestionViewModels list
+            this.DisplayedQuestionViewModels.Clear();
+
+            // Add each question to the DisplayedQuestionViewModels list
+            for (int i = questionStartIndex; i < questionStartIndex + questionsPerPage && i < this.QuestionViewModels.Count; i++)
+            {
+                var questionViewModel = this.QuestionViewModels[i];
+
+                // Add the question to the DisplayedQuestionViewModels list
+                this.DisplayedQuestionViewModels.Add(questionViewModel);
+            }
+
+            return this.DisplayedQuestionViewModels;
+        }
+
+        public bool AreAllQuestionsDisplayed(int questionStartIndex, int questionsPerPage)
+        {
+            var questions = this.Questions;
+            return questionStartIndex + questionsPerPage >= questions.Count;
+        }
+
         // Add a new property to hold the currently displayed questions
         public List<QuestionViewModel> DisplayedQuestionViewModels { get; set; }
 

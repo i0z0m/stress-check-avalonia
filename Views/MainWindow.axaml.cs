@@ -33,80 +33,62 @@ namespace StressCheckAvalonia.Views
             QuestionsPanel.Children.Clear();
 
             // Get the questions for the specified section
-            var questions = SectionViewModel.Instance.Questions;
-
-            // Clear the DisplayedQuestionViewModels list
-            SectionViewModel.Instance.DisplayedQuestionViewModels.Clear();
+            var displayedQuestionViewModels = SectionViewModel.Instance.GetDisplayedQuestions(QuestionStartIndex, QuestionsPerPage);
 
             // Add each question and its corresponding choice buttons to the QuestionsPanel
-            for (int i = QuestionStartIndex; i < QuestionStartIndex + QuestionsPerPage && i < questions.Count; i++)
+            foreach (var questionViewModel in displayedQuestionViewModels)
             {
-                if (i < SectionViewModel.Instance.QuestionViewModels.Count)
+                var questionText = new QuestionText
                 {
-                    var questionViewModel = SectionViewModel.Instance.QuestionViewModels[i];
+                    DataContext = questionViewModel // Set the DataContext to the QuestionViewModel
+                };
 
-                    // Add the question to the DisplayedQuestionViewModels list
-                    SectionViewModel.Instance.DisplayedQuestionViewModels.Add(questionViewModel);
+                var choiceButtons = new ChoiceButtons
+                {
+                    DataContext = questionViewModel, // Set the DataContext to the QuestionViewModel
+                    HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Right,
+                    Margin = new Thickness(0, 0, 50, 0)
+                };
 
-                    var questionText = new QuestionText
+                // Set the IsChecked property of the RadioButton corresponding to the selected choice
+                var selectedChoice = questionViewModel.Question.Score;
+                if (selectedChoice >= 1 && selectedChoice <= 4)
+                {
+                    var radioButton = choiceButtons.FindControl<RadioButton>($"RadioButton{selectedChoice}");
+                    radioButton.IsChecked = true;
+                    questionViewModel.HandleChoiceSelect(selectedChoice);
+                }
+
+                var questionGrid = new Grid
+                {
+                    ColumnDefinitions =
                     {
-                        DataContext = questionViewModel // Set the DataContext to the QuestionViewModel
-                    };
-
-                    var choiceButtons = new ChoiceButtons
-                    {
-                        DataContext = questionViewModel, // Set the DataContext to the QuestionViewModel
-                        HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Right,
-                        Margin = new Thickness(0, 0, 50, 0)
-                    };
-
-                    // Set the IsChecked property of the RadioButton corresponding to the selected choice
-                    var selectedChoice = questionViewModel.Question.Score;
-                    if (selectedChoice >= 1 && selectedChoice <= 4)
-                    {
-                        var radioButton = choiceButtons.FindControl<RadioButton>($"RadioButton{selectedChoice}");
-                        radioButton.IsChecked = true;
-                        questionViewModel.HandleChoiceSelect(selectedChoice);
+                        new ColumnDefinition(1, GridUnitType.Star),
+                        new ColumnDefinition(0, GridUnitType.Auto)
                     }
+                };
 
-                    var questionGrid = new Grid
-                    {
-                        ColumnDefinitions =
+                Grid.SetColumn(questionText, 0);
+                Grid.SetColumn(choiceButtons, 1);
+
+                questionGrid.Children.Add(questionText);
+                questionGrid.Children.Add(choiceButtons);
+
+                QuestionsPanel.Children.Add(questionGrid);
+
+                var underline = new Border
                 {
-                    new ColumnDefinition(1, GridUnitType.Star),
-                    new ColumnDefinition(0, GridUnitType.Auto)
-                }
-                    };
-
-                    Grid.SetColumn(questionText, 0);
-                    Grid.SetColumn(choiceButtons, 1);
-
-                    questionGrid.Children.Add(questionText);
-                    questionGrid.Children.Add(choiceButtons);
-
-                    QuestionsPanel.Children.Add(questionGrid);
-
-                    var underline = new Border
-                    {
-                        BorderThickness = new Thickness(0, 0, 0, 1),
-                        BorderBrush = Brushes.Gray,
-                        Margin = new Thickness(50, 0, 50, 10)
-                    };
-                    QuestionsPanel.Children.Add(underline);
-                }
+                    BorderThickness = new Thickness(0, 0, 0, 1),
+                    BorderBrush = Brushes.Gray,
+                    Margin = new Thickness(50, 0, 50, 10)
+                };
+                QuestionsPanel.Children.Add(underline);
             }
-        }
-
-        public bool IsEmployeeInformationComplete()
-        {
-            var employeeInformationControl = this.FindControl<ContentControl>("EmployeeInformationControl").Content as EmployeeInformation;
-            return employeeInformationControl != null && employeeInformationControl.IsInformationComplete();
         }
 
         public bool AreAllQuestionsDisplayed()
         {
-            var questions = SectionViewModel.Instance.Questions;
-            return QuestionStartIndex + QuestionsPerPage >= questions.Count;
+            return SectionViewModel.Instance.AreAllQuestionsDisplayed(QuestionStartIndex, QuestionsPerPage);
         }
 
         public void ShowResults()
