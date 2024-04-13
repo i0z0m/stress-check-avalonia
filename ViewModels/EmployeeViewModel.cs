@@ -1,6 +1,7 @@
 ﻿using ReactiveUI;
 using StressCheckAvalonia.Models;
 using System;
+using Avalonia.Media;
 
 namespace StressCheckAvalonia.ViewModels
 {
@@ -43,8 +44,16 @@ namespace StressCheckAvalonia.ViewModels
                 {
                     _employee.Gender = value;
                     this.RaisePropertyChanged();
+                    GenderBackground = Brushes.White;
                 }
             }
+        }
+
+        private IBrush _genderBackground = Brushes.White;
+        public IBrush GenderBackground
+        {
+            get => _genderBackground;
+            private set => this.RaiseAndSetIfChanged(ref _genderBackground, value);
         }
 
         private string _level;
@@ -66,8 +75,16 @@ namespace StressCheckAvalonia.ViewModels
                 {
                     _employee.Name = value;
                     this.RaisePropertyChanged();
+                    NameBackground = Brushes.White;
                 }
             }
+        }
+
+        private IBrush _nameBackground = Brushes.White;
+        public IBrush NameBackground
+        {
+            get => _nameBackground;
+            private set => this.RaiseAndSetIfChanged(ref _nameBackground, value);
         }
 
         public string Furigana
@@ -79,8 +96,16 @@ namespace StressCheckAvalonia.ViewModels
                 {
                     _employee.Furigana = value;
                     this.RaisePropertyChanged();
+                    FuriganaBackground = Brushes.White;
                 }
             }
+        }
+
+        private IBrush _furiganaBackground = Brushes.White;
+        public IBrush FuriganaBackground
+        {
+            get => _furiganaBackground;
+            private set => this.RaiseAndSetIfChanged(ref _furiganaBackground, value);
         }
 
         public DateTimeOffset Birthday
@@ -109,8 +134,16 @@ namespace StressCheckAvalonia.ViewModels
                 {
                     _employee.ID = value;
                     this.RaisePropertyChanged();
+                    IDBackground = Brushes.White;
                 }
             }
+        }
+
+        private IBrush _idBackground = Brushes.White;
+        public IBrush IDBackground
+        {
+            get => _idBackground;
+            private set => this.RaiseAndSetIfChanged(ref _idBackground, value);
         }
 
         public string Workplace
@@ -122,8 +155,16 @@ namespace StressCheckAvalonia.ViewModels
                 {
                     _employee.Workplace = value;
                     this.RaisePropertyChanged();
+                    WorkplaceBackground = Brushes.White;
                 }
             }
+        }
+
+        private IBrush _workplaceBackground = Brushes.White;
+        public IBrush WorkplaceBackground
+        {
+            get => _workplaceBackground;
+            private set => this.RaiseAndSetIfChanged(ref _workplaceBackground, value);
         }
 
         public string Email
@@ -172,6 +213,34 @@ namespace StressCheckAvalonia.ViewModels
                    !string.IsNullOrEmpty(Furigana) &&
                    !string.IsNullOrEmpty(ID) &&
                    !string.IsNullOrEmpty(Workplace);
+        }
+
+        public void ValidateInput()
+        {
+            // Create a SolidColorBrush with the desired color
+            var errorBrush = new SolidColorBrush(Color.FromArgb(128, 255, 0, 0));
+
+            // Check each required field
+            if (string.IsNullOrWhiteSpace(Name))
+            {
+                NameBackground = errorBrush;
+            }
+            if (string.IsNullOrWhiteSpace(Furigana))
+            {
+                FuriganaBackground = errorBrush;
+            }
+            if (string.IsNullOrEmpty(Gender))
+            {
+                GenderBackground = errorBrush;
+            }
+            if (string.IsNullOrWhiteSpace(ID))
+            {
+                IDBackground = errorBrush;
+            }
+            if (string.IsNullOrWhiteSpace(Workplace))
+            {
+                WorkplaceBackground = errorBrush;
+            }
         }
     }
 }
