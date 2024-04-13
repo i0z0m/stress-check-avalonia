@@ -21,9 +21,6 @@ namespace StressCheckAvalonia.Views
             {
                 if (mainWindow.FindControl<ContentControl>("EmployeeInformationControl").IsVisible)
                 {
-                    // Validate the input fields in the EmployeeViewModel
-                    EmployeeViewModel.Instance.ValidateInput();
-
                     // Set IsSectionActive to true when moving to the questions
                     SectionViewModel.Instance.IsSectionActive = true;
 
@@ -45,7 +42,8 @@ namespace StressCheckAvalonia.Views
                     else
                     {
                         // Handle incomplete EmployeeInformation here
-                        // For example, show a message to the user
+                        // Validate the input fields in the EmployeeViewModel
+                        EmployeeViewModel.Instance.ValidateInput();
                     }
                 }
                 else if (mainWindow.AreAllQuestionsAnswered())

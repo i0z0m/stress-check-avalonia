@@ -17,5 +17,10 @@ namespace StressCheckAvalonia.Views
         {
             AvaloniaXamlLoader.Load(this);
         }
+
+        public bool IsInformationComplete()
+        {
+            return ((EmployeeViewModel)DataContext).IsInformationComplete();
+        }
     }
 }

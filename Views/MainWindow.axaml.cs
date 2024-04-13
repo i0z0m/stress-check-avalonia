@@ -96,7 +96,7 @@ namespace StressCheckAvalonia.Views
         public bool IsEmployeeInformationComplete()
         {
             var employeeInformationControl = this.FindControl<ContentControl>("EmployeeInformationControl").Content as EmployeeInformation;
-            return employeeInformationControl != null && EmployeeViewModel.Instance.IsInformationComplete();
+            return employeeInformationControl != null && employeeInformationControl.IsInformationComplete();
         }
 
         public bool AreAllQuestionsAnswered()
