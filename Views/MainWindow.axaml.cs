@@ -50,13 +50,12 @@ namespace StressCheckAvalonia.Views
 
                     var questionText = new QuestionText
                     {
-                        QuestionIndex = i
+                        DataContext = questionViewModel // Set the DataContext to the QuestionViewModel
                     };
 
                     var choiceButtons = new ChoiceButtons
                     {
-                        QuestionViewModel = questionViewModel, // Pass the QuestionViewModel to the ChoiceButtons
-                        QuestionIndex = i,
+                        DataContext = questionViewModel, // Set the DataContext to the QuestionViewModel
                         HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Right,
                         Margin = new Thickness(0, 0, 50, 0)
                     };

@@ -3,6 +3,7 @@ using StressCheckAvalonia.Services;
 using ReactiveUI;
 using System.Collections.Generic;
 using System.Linq;
+using StressCheckAvalonia.ViewModels;
 
 namespace StressCheckAvalonia.ViewModels
 {
@@ -18,7 +19,7 @@ namespace StressCheckAvalonia.ViewModels
         public SectionViewModel()
         {
             CurrentSection = LoadSections.sections[0];
-            QuestionViewModels = CurrentSection.Questions.Select(q => new QuestionViewModel(q)).ToList();
+            QuestionViewModels = CurrentSection.Questions.Select(q => new QuestionViewModel(q, this)).ToList();
             DisplayedQuestionViewModels = new List<QuestionViewModel>();
         }
 
@@ -51,7 +52,7 @@ namespace StressCheckAvalonia.ViewModels
             if (newSectionIndex >= 0 && newSectionIndex < LoadSections.sections.Count)
             {
                 CurrentSection = LoadSections.sections[newSectionIndex];
-                QuestionViewModels = CurrentSection.Questions.Select(q => new QuestionViewModel(q)).ToList();
+                QuestionViewModels = CurrentSection.Questions.Select(q => new QuestionViewModel(q, this)).ToList();
             }
         }
 

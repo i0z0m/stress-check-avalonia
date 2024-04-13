@@ -1,24 +1,26 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:local="clr-namespace:StressCheckAvalonia.ViewModels"
-			 x:Class="StressCheckAvalonia.Views.QuestionText"
-			 x:DataType="local:SectionViewModel">
+             xmlns:local="clr-namespace:StressCheckAvalonia.ViewModels"
+             x:Class="StressCheckAvalonia.Views.QuestionText"
+             x:DataType="local:QuestionViewModel">
 
 	<StackPanel Orientation="Horizontal"
-				Margin="50,6,0,0"
-				VerticalAlignment="Top"
-				HorizontalAlignment="Left">
+                Margin="50,6,0,0"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Left">
 		<TextBlock x:Name="QuestionIdTextBlock"
                    FontSize="18"
-                   Foreground="Black" />
+                   Foreground="Black"
+                   Text="{Binding Question.Id}" />
 		<TextBlock Text="."
-				   FontSize="18"
-				   Foreground="Black" />
+                   FontSize="18"
+                   Foreground="Black" />
 		<TextBlock x:Name="QuestionTextTextBlock"
                    FontSize="18"
-				   Margin="6,0,0,0"
-                   Foreground="Black" />
+                   Margin="6,0,0,0"
+                   Foreground="Black"
+                   Text="{Binding Question.Text}" />
 	</StackPanel>
 </UserControl>

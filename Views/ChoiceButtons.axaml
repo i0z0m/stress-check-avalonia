@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:StressCheckAvalonia.ViewModels"
              x:Class="StressCheckAvalonia.Views.ChoiceButtons"
-             x:DataType="local:SectionViewModel">
+             x:DataType="local:QuestionViewModel">
 
 	<StackPanel Orientation="Horizontal">
 		<RadioButton x:Name="RadioButton1"

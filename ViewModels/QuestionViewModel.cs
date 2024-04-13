@@ -1,14 +1,20 @@
 ﻿using StressCheckAvalonia.Models;
 using ReactiveUI;
+using System.Collections.Generic;
 
 namespace StressCheckAvalonia.ViewModels
 {
     public class QuestionViewModel : ReactiveObject
     {
-        public QuestionViewModel(Question question)
+        private SectionViewModel _sectionViewModel;
+
+        public QuestionViewModel(Question question, SectionViewModel sectionViewModel)
         {
             Question = question;
+            _sectionViewModel = sectionViewModel;
         }
+
+        public List<string> Choices => _sectionViewModel.Choices;
 
         private Question _question;
 
