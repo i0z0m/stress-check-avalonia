@@ -1,7 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using StressCheckAvalonia.ViewModels;
-using Avalonia.Media;
 
 namespace StressCheckAvalonia.Views
 {

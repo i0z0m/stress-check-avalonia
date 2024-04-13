@@ -6,7 +6,8 @@
              x:Class="StressCheckAvalonia.Views.ChoiceButtons"
              x:DataType="local:QuestionViewModel">
 
-	<StackPanel Orientation="Horizontal">
+	<StackPanel Orientation="Horizontal"
+				Background="{Binding Background}">
 		<RadioButton x:Name="RadioButton1"
 					 Content="{Binding Choices[0]}"
 					 Foreground="Black"
