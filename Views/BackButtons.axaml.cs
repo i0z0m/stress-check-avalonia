@@ -30,7 +30,7 @@ namespace StressCheckAvalonia.Views
                         SectionViewModel.Instance.IsAggregated = false;
 
                         SectionViewModel.Instance.SetCurrentSection(0);
-                        mainWindow.QuestionStartIndex = 0;
+                        SectionViewModel.Instance.QuestionStartIndex = 0;
 
                         // If 'Back to Title' button is clicked, show EmployeeInformationControl
                         mainWindow.FindControl<StackPanel>("QuestionsPanel").IsVisible = false;
@@ -48,7 +48,7 @@ namespace StressCheckAvalonia.Views
                         {
                             int currentIndex = LoadSections.sections.IndexOf(SectionViewModel.Instance.CurrentSection);
 
-                            if (mainWindow.QuestionStartIndex == 0)
+                            if (SectionViewModel.Instance.QuestionStartIndex == 0)
                             {
                                 if (currentIndex > 0) // Check if it's not the first section
                                 {
@@ -68,7 +68,7 @@ namespace StressCheckAvalonia.Views
 
                                     // Set the question start index to the first question of the last page of the previous section
                                     var previousSectionQuestionCount = LoadSections.sections[currentIndex].Questions.Count;
-                                    mainWindow.QuestionStartIndex = (previousSectionQuestionCount - 1) / mainWindow.QuestionsPerPage * mainWindow.QuestionsPerPage;
+                                    SectionViewModel.Instance.QuestionStartIndex = (previousSectionQuestionCount - 1) / SectionViewModel.Instance.QuestionsPerPage * SectionViewModel.Instance.QuestionsPerPage;
                                 }
                                 else
                                 {
@@ -85,11 +85,11 @@ namespace StressCheckAvalonia.Views
                             else
                             {
                                 // Update the question start index
-                                mainWindow.QuestionStartIndex -= mainWindow.QuestionsPerPage;
+                                SectionViewModel.Instance.QuestionStartIndex -= SectionViewModel.Instance.QuestionsPerPage;
                             }
 
                             // Load previous section or page
-                            mainWindow.DisplayQuestions(currentIndex, mainWindow.QuestionsPerPage); // Display the previous set of questions
+                            mainWindow.DisplayQuestions(currentIndex, SectionViewModel.Instance.QuestionsPerPage); // Display the previous set of questions
                         }
                         else if (mainWindow.AggregateResultsControl != null && mainWindow.AggregateResultsControl.IsVisible)
                         {
@@ -97,8 +97,8 @@ namespace StressCheckAvalonia.Views
 
                             // Display the last page of the last section
                             int lastSectionIndex = LoadSections.sections.Count - 1;
-                            mainWindow.DisplayQuestions(lastSectionIndex, mainWindow.QuestionsPerPage);
-                            mainWindow.QuestionStartIndex = (LoadSections.sections[lastSectionIndex].Questions.Count - 1) / mainWindow.QuestionsPerPage * mainWindow.QuestionsPerPage;
+                            mainWindow.DisplayQuestions(lastSectionIndex, SectionViewModel.Instance.QuestionsPerPage);
+                            SectionViewModel.Instance.QuestionStartIndex = (LoadSections.sections[lastSectionIndex].Questions.Count - 1) / SectionViewModel.Instance.QuestionsPerPage * SectionViewModel.Instance.QuestionsPerPage;
 
                             // Make sure the QuestionsPanel is visible
                             mainWindow.QuestionsPanel.IsVisible = true;

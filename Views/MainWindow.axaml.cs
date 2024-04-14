@@ -7,14 +7,13 @@ namespace StressCheckAvalonia.Views
 {
     public partial class MainWindow : Window
     {
-        public int QuestionStartIndex { get; set; }
-        public int QuestionsPerPage { get; } = 10;
         public AggregateResults AggregateResultsControl { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
             this.Title = "FLOSS版ストレスチェック実施プログラム 標準版（57項目）";
+            this.DataContext = SectionViewModel.Instance;
 
             // Instantiate EmployeeInformation control
             var employeeInformationControl = new EmployeeInformation();
@@ -33,7 +32,7 @@ namespace StressCheckAvalonia.Views
             QuestionsPanel.Children.Clear();
 
             // Get the questions for the specified section
-            var displayedQuestionViewModels = SectionViewModel.Instance.GetDisplayedQuestions(QuestionStartIndex, QuestionsPerPage);
+            var displayedQuestionViewModels = SectionViewModel.Instance.GetDisplayedQuestions();
 
             // Add each question and its corresponding choice buttons to the QuestionsPanel
             foreach (var questionViewModel in displayedQuestionViewModels)
@@ -84,11 +83,6 @@ namespace StressCheckAvalonia.Views
                 };
                 QuestionsPanel.Children.Add(underline);
             }
-        }
-
-        public bool AreAllQuestionsDisplayed()
-        {
-            return SectionViewModel.Instance.AreAllQuestionsDisplayed(QuestionStartIndex, QuestionsPerPage);
         }
 
         public void ShowResults()

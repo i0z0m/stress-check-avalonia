@@ -34,7 +34,7 @@ namespace StressCheckAvalonia.Views
                         mainWindow.FindControl<StackPanel>("QuestionsPanel").IsVisible = true;
 
                         // Display the first set of questions
-                        mainWindow.DisplayQuestions(0, mainWindow.QuestionsPerPage);
+                        mainWindow.DisplayQuestions(0, SectionViewModel.Instance.QuestionsPerPage);
                     }
                     else
                     {
@@ -60,7 +60,7 @@ namespace StressCheckAvalonia.Views
 
                         int currentIndex = LoadSections.sections.IndexOf(SectionViewModel.Instance.CurrentSection);
 
-                        if (mainWindow.AreAllQuestionsDisplayed())
+                        if (SectionViewModel.Instance.AreAllQuestionsDisplayed())
                         {
                             // Update the score and values of the current section
                             SectionViewModel.Instance.UpdateScores();
@@ -79,7 +79,7 @@ namespace StressCheckAvalonia.Views
                                 currentIndex++;
 
                                 // Reset the question start index
-                                mainWindow.QuestionStartIndex = 0;
+                                SectionViewModel.Instance.QuestionStartIndex = 0;
                             }
                             else // If it's the last section
                             {
@@ -100,11 +100,11 @@ namespace StressCheckAvalonia.Views
                         else
                         {
                             // Update the question start index
-                            mainWindow.QuestionStartIndex += mainWindow.QuestionsPerPage;
+                            SectionViewModel.Instance.QuestionStartIndex += SectionViewModel.Instance.QuestionsPerPage;
                         }
 
                         // Load new section
-                        mainWindow.DisplayQuestions(currentIndex, mainWindow.QuestionsPerPage); // Display the next set of questions
+                        mainWindow.DisplayQuestions(currentIndex, SectionViewModel.Instance.QuestionsPerPage); // Display the next set of questions
                         System.Diagnostics.Debug.WriteLine($"Loading section at index {currentIndex}");
                     }
                 }
