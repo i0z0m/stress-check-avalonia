@@ -24,6 +24,8 @@ namespace StressCheckAvalonia.Views
                 {
                     if (button.Name == "BackToTitleButton")
                     {
+                        // Set IsSectionActive to false when moving back to the title
+                        SectionViewModel.Instance.IsSectionActive = false;
                         // Set IsAggregated to false
                         SectionViewModel.Instance.IsAggregated = false;
 
@@ -91,6 +93,8 @@ namespace StressCheckAvalonia.Views
                         }
                         else if (mainWindow.AggregateResultsControl != null && mainWindow.AggregateResultsControl.IsVisible)
                         {
+                            SectionViewModel.Instance.IsSectionActive = true;
+
                             // Display the last page of the last section
                             int lastSectionIndex = LoadSections.sections.Count - 1;
                             mainWindow.DisplayQuestions(lastSectionIndex, mainWindow.QuestionsPerPage);

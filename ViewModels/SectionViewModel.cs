@@ -128,15 +128,15 @@ namespace StressCheckAvalonia.ViewModels
             {
                 if (IsInput)
                 {
-                    return "ƒXƒgƒŒƒXƒ`ƒFƒbƒNŠJn";
+                    return "ã‚¹ãƒˆãƒ¬ã‚¹ãƒã‚§ãƒƒã‚¯é–‹å§‹";
                 }
                 else if (IsAggregated)
                 {
-                    return "ƒXƒgƒŒƒXƒ`ƒFƒbƒNI—¹";
+                    return "ã‚¹ãƒˆãƒ¬ã‚¹ãƒã‚§ãƒƒã‚¯çµ‚äº†";
                 }
                 else
                 {
-                    return "ƒXƒgƒŒƒXƒ`ƒFƒbƒNÀ{’†";
+                    return "ã‚¹ãƒˆãƒ¬ã‚¹ãƒã‚§ãƒƒã‚¯å®Ÿæ–½ä¸­";
                 }
             }
             set { this.RaiseAndSetIfChanged(ref _appTitle, value); }
@@ -145,20 +145,15 @@ namespace StressCheckAvalonia.ViewModels
         private bool _isSectionActive;
         public bool IsSectionActive
         {
-            get { return _isSectionActive && CurrentSection != null && QuestionIndex > 0; }
+            get { return _isSectionActive; }
             set
             {
                 this.RaiseAndSetIfChanged(ref _isSectionActive, value);
-                IsSectionInactive = !value;
+                this.RaisePropertyChanged(nameof(IsSectionInactive));
             }
         }
 
-        private bool _isSectionInactive;
-        public bool IsSectionInactive
-        {
-            get { return _isSectionInactive || !IsSectionActive; }
-            set { this.RaiseAndSetIfChanged(ref _isSectionInactive, value); }
-        }
+        public bool IsSectionInactive => !IsSectionActive;
 
         public string DescriptionText
         {
@@ -166,11 +161,11 @@ namespace StressCheckAvalonia.ViewModels
             {
                 if (IsInput)
                 {
-                    return "•K{–€‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B";
+                    return "å¿…é ˆäº‹é …ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„ã€‚";
                 }
                 else if (IsAggregated)
                 {
-                    return "‚±‚ê‚Å¿–â‚ÍI‚í‚è‚Å‚·B‚¨”æ‚ê—l‚Å‚µ‚½B";
+                    return "ã“ã‚Œã§è³ªå•ã¯ã€çµ‚ã‚ã‚Šã§ã™ã€‚ãŠç–²ã‚Œã•ã¾ã§ã—ãŸã€‚";
                 }
                 else
                 {
@@ -186,11 +181,11 @@ namespace StressCheckAvalonia.ViewModels
             {
                 if (IsAggregated)
                 {
-                    return "•Û‘¶";
+                    return "ä¿å­˜";
                 }
                 else
                 {
-                    return "Ÿ‚Ö";
+                    return "æ¬¡ã¸";
                 }
             }
             set { this.RaiseAndSetIfChanged(ref _nextButtonText, value); }
