@@ -29,10 +29,6 @@ namespace StressCheckAvalonia.Views
                         // Set IsInput to false
                         SectionViewModel.Instance.IsInput = false;
 
-                        // Hide EmployeeInformationControl and show QuestionsPanel when NextButton is clicked
-                        mainWindow.FindControl<ContentControl>("EmployeeInformationControl").IsVisible = false;
-                        mainWindow.FindControl<StackPanel>("QuestionsPanel").IsVisible = true;
-
                         // Display the first set of questions
                         mainWindow.DisplayQuestions(0, SectionViewModel.Instance.QuestionsPerPage);
                     }
@@ -83,16 +79,6 @@ namespace StressCheckAvalonia.Views
                             }
                             else // If it's the last section
                             {
-                                // Set IsSectionActive to false when showing the results
-                                SectionViewModel.Instance.IsSectionActive = false;
-
-                                // Hide QuestionsPanel and show ResultsContent
-                                mainWindow.FindControl<StackPanel>("QuestionsPanel").IsVisible = false;
-                                mainWindow.FindControl<ContentControl>("ResultsContent").IsVisible = true;
-
-                                // Update the AppTitle
-                                SectionViewModel.Instance.IsAggregated = true;
-
                                 // Show the results
                                 mainWindow.ShowResults();
                             }

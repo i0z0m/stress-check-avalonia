@@ -93,8 +93,8 @@ namespace StressCheckAvalonia.Views
                 AggregateResultsControl = new AggregateResults();
                 AggregateResultsControl.DisplayResults(EmployeeViewModel.Instance.Employee);
 
-                // Hide the QuestionsPanel
-                QuestionsPanel.IsVisible = false;
+                // Set IsSectionActive to false when showing the results
+                SectionViewModel.Instance.IsSectionActive = false;
 
                 // Set IsAggregated to true
                 SectionViewModel.Instance.IsAggregated = true;

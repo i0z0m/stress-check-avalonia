@@ -32,19 +32,12 @@ namespace StressCheckAvalonia.Views
                         SectionViewModel.Instance.SetCurrentSection(0);
                         SectionViewModel.Instance.QuestionStartIndex = 0;
 
-                        // If 'Back to Title' button is clicked, show EmployeeInformationControl
-                        mainWindow.FindControl<StackPanel>("QuestionsPanel").IsVisible = false;
-                        mainWindow.FindControl<ContentControl>("EmployeeInformationControl").IsVisible = true;
-                        if (mainWindow.AggregateResultsControl != null)
-                        {
-                            mainWindow.AggregateResultsControl.IsVisible = false;
-                        }
                         // Set IsInput to true
                         SectionViewModel.Instance.IsInput = true;
                     }
                     else if (button.Name == "BackOneScreenButton")
                     {
-                        if (mainWindow.FindControl<StackPanel>("QuestionsPanel").IsVisible)
+                        if (SectionViewModel.Instance.IsSectionActive)
                         {
                             int currentIndex = LoadSections.sections.IndexOf(SectionViewModel.Instance.CurrentSection);
 
@@ -74,10 +67,6 @@ namespace StressCheckAvalonia.Views
                                 {
                                     // Set IsSectionActive to false when moving back to the title
                                     SectionViewModel.Instance.IsSectionActive = false;
-
-                                    // If it's the first section, show EmployeeInformationControl
-                                    mainWindow.FindControl<StackPanel>("QuestionsPanel").IsVisible = false;
-                                    mainWindow.FindControl<ContentControl>("EmployeeInformationControl").IsVisible = true;
                                     // Set IsInput to true
                                     SectionViewModel.Instance.IsInput = true;
                                 }
@@ -91,7 +80,7 @@ namespace StressCheckAvalonia.Views
                             // Load previous section or page
                             mainWindow.DisplayQuestions(currentIndex, SectionViewModel.Instance.QuestionsPerPage); // Display the previous set of questions
                         }
-                        else if (mainWindow.AggregateResultsControl != null && mainWindow.AggregateResultsControl.IsVisible)
+                        else if (mainWindow.AggregateResultsControl != null && SectionViewModel.Instance.IsAggregated)
                         {
                             SectionViewModel.Instance.IsSectionActive = true;
 
@@ -99,15 +88,6 @@ namespace StressCheckAvalonia.Views
                             int lastSectionIndex = LoadSections.sections.Count - 1;
                             mainWindow.DisplayQuestions(lastSectionIndex, SectionViewModel.Instance.QuestionsPerPage);
                             SectionViewModel.Instance.QuestionStartIndex = (LoadSections.sections[lastSectionIndex].Questions.Count - 1) / SectionViewModel.Instance.QuestionsPerPage * SectionViewModel.Instance.QuestionsPerPage;
-
-                            // Make sure the QuestionsPanel is visible
-                            mainWindow.QuestionsPanel.IsVisible = true;
-
-                            // Make sure the SectionDescription is visible
-                            mainWindow.SectionDescriptionControl.IsVisible = true;
-
-                            // Hide the AggregateResults
-                            mainWindow.AggregateResultsControl.IsVisible = false;
 
                             // Set IsAggregated to false
                             SectionViewModel.Instance.IsAggregated = false;
