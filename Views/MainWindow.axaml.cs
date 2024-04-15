@@ -7,8 +7,6 @@ namespace StressCheckAvalonia.Views
 {
     public partial class MainWindow : Window
     {
-        public AggregateResults? AggregateResultsControl { get; set; } = new AggregateResults();
-
         public MainWindow()
         {
             InitializeComponent();
@@ -16,10 +14,6 @@ namespace StressCheckAvalonia.Views
 
             // Set the MainWindow instance in StateViewModel
             StateViewModel.Instance.MainWindow = this;
-
-            // Instantiate EmployeeInformation control
-            var employeeInformationControl = new EmployeeInformation();
-            this.FindControl<ContentControl>("EmployeeInformationControl").Content = employeeInformationControl;
 
             // Set IsInput to true
             StateViewModel.Instance.HandleInputState();
@@ -81,18 +75,6 @@ namespace StressCheckAvalonia.Views
                     Margin = new Thickness(50, 0, 50, 10)
                 };
                 QuestionsPanel.Children.Add(underline);
-            }
-        }
-
-        public void ShowResults()
-        {
-            // Initialize AggregateResults
-            if (EmployeeViewModel.Instance?.Employee != null)
-            {
-                AggregateResultsControl.DisplayResults(EmployeeViewModel.Instance.Employee);
-
-                // Show the AggregateResults
-                ResultsContent.Content = AggregateResultsControl;
             }
         }
     }

@@ -26,7 +26,7 @@
 		</ContentControl>
 		<StackPanel x:Name="QuestionsPanel" Grid.Row="3" IsVisible="{Binding IsSectionActive}">
 		</StackPanel>
-		<ContentControl x:Name="ResultsContent" Grid.Row="3" IsVisible="{Binding IsAggregated}" />
+		<local:AggregateResults Grid.Row="3" />
 		<DockPanel Grid.Row="4" LastChildFill="False">
 			<local:BackButtons DockPanel.Dock="Left" Margin="50, 0, 0, 10" />
 			<local:NextButton DockPanel.Dock="Right" Margin="0, 0, 50, 10" />

@@ -5,6 +5,9 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
+using ReactiveUI;
+using System.Reactive;
+using System.Reactive.Linq;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,6 +21,21 @@ namespace StressCheckAvalonia.Views
         {
             InitializeComponent();
             DataContext = EmployeeViewModel.Instance;
+
+            // Subscribe to changes in the CurrentState property
+            StateViewModel.Instance.WhenAnyValue(x => x.CurrentState)
+                .Subscribe(Observer.Create<State>(state =>
+                {
+                    if (state == State.Aggregated)
+                    {
+                        DisplayResults(EmployeeViewModel.Instance.Employee);
+                        IsVisible = true;
+                    }
+                    else
+                    {
+                        IsVisible = false;
+                    }
+                }));
         }
 
         public void DisplayResults(Employee employee)

@@ -1,9 +1,10 @@
 ﻿using ReactiveUI;
 using StressCheckAvalonia.Models;
 using StressCheckAvalonia.Services;
-using StressCheckAvalonia.ViewModels;
 using StressCheckAvalonia.Views;
 using System;
+using System.Reactive;
+using System.Reactive.Linq;
 using System.Runtime.InteropServices;
 
 namespace StressCheckAvalonia.ViewModels
@@ -217,8 +218,6 @@ namespace StressCheckAvalonia.ViewModels
             if (!isBackAction && SectionViewModel.Instance.AreAllQuestionsDisplayed())
             {
                 CurrentState = State.Aggregated;
-                // Show the results
-                MainWindow.ShowResults();
             }
             else
             {
