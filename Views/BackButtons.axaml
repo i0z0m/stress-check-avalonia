@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:StressCheckAvalonia.ViewModels"
              x:Class="StressCheckAvalonia.Views.BackButtons"
-             x:DataType="local:SectionViewModel">
+             x:DataType="local:StateViewModel">
 
 	<StackPanel Orientation="Horizontal">
 		<Button x:Name="BackToTitleButton" Content="タイトルに戻る" Click="ClickHandler" Margin="0, 0, 10, 0" Width="180" Height="60" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18" IsVisible="{Binding IsInputInverted}" />

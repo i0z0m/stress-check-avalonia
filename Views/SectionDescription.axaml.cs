@@ -9,7 +9,7 @@ namespace StressCheckAvalonia.Views
         public SectionDescription()
         {
             InitializeComponent();
-            DataContext = SectionViewModel.Instance;
+            DataContext = StateViewModel.Instance;
         }
 
         private void InitializeComponent()

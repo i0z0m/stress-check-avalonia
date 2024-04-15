@@ -2,10 +2,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:StressCheckAvalonia.ViewModels"
              x:Class="StressCheckAvalonia.Views.SectionDescription"
-             x:DataType="local:SectionViewModel">
+             x:DataType="local:StateViewModel">
 
 	<TextBlock x:Name="DescriptionTextBlock"
-			   Text="{Binding DescriptionText}"
-			   FontSize="18"
-			   Margin="50,0,0,0"/>
+               Text="{Binding DescriptionText}"
+               FontSize="18"
+               Margin="50,0,0,0"/>
 </UserControl>

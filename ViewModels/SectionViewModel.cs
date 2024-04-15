@@ -40,9 +40,6 @@ namespace StressCheckAvalonia.ViewModels
             set
             {
                 this.RaiseAndSetIfChanged(ref _currentSection, value);
-                this.RaisePropertyChanged(nameof(IsSectionActive));
-                this.RaisePropertyChanged(nameof(IsSectionInactive));
-                this.RaisePropertyChanged(nameof(DescriptionText));
             }
         }
 
@@ -63,8 +60,6 @@ namespace StressCheckAvalonia.ViewModels
                 if (_questionIndex != value)
                 {
                     _questionIndex = value;
-                    this.RaisePropertyChanged(nameof(IsSectionActive));
-                    this.RaisePropertyChanged(nameof(IsSectionInactive));
                 }
             }
         }
@@ -88,98 +83,6 @@ namespace StressCheckAvalonia.ViewModels
 
                 CurrentSection.Values = CurrentSection.Factors.Sum(factor => factor.Value);
             }
-        }
-
-        private State _currentState;
-        public State CurrentState
-        {
-            get => _currentState;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _currentState, value);
-                this.RaisePropertyChanged(nameof(IsInput));
-                this.RaisePropertyChanged(nameof(IsSectionActive));
-                this.RaisePropertyChanged(nameof(IsAggregated));
-                this.RaisePropertyChanged(nameof(IsInputInverted));
-                this.RaisePropertyChanged(nameof(IsSectionInactive));
-                this.RaisePropertyChanged(nameof(AppTitle));
-                this.RaisePropertyChanged(nameof(DescriptionText));
-                this.RaisePropertyChanged(nameof(NextButtonText));
-            }
-        }
-
-        public bool IsInput
-        {
-            get => CurrentState == State.Input;
-        }
-        public bool IsInputInverted => !IsInput;
-
-        public bool IsSectionActive
-        {
-            get => CurrentState == State.SectionActive;
-        }
-        public bool IsSectionInactive => !IsSectionActive;
-
-        public bool IsAggregated
-        {
-            get => CurrentState == State.Aggregated;
-        }
-
-        private string _appTitle;
-        public string AppTitle
-        {
-            get
-            {
-                if (IsInput)
-                {
-                    return "ストレスチェック開始";
-                }
-                else if (IsAggregated)
-                {
-                    return "ストレスチェック終了";
-                }
-                else
-                {
-                    return "ストレスチェック実施中";
-                }
-            }
-            set { this.RaiseAndSetIfChanged(ref _appTitle, value); }
-        }
-
-        public string DescriptionText
-        {
-            get
-            {
-                if (IsInput)
-                {
-                    return "必須事項を入力してください。";
-                }
-                else if (IsAggregated)
-                {
-                    return "これで質問は、終わりです。お疲れさまでした。";
-                }
-                else
-                {
-                    return CurrentSection.Description;
-                }
-            }
-        }
-
-        private string _nextButtonText;
-        public string NextButtonText
-        {
-            get
-            {
-                if (IsAggregated)
-                {
-                    return "保存";
-                }
-                else
-                {
-                    return "次へ";
-                }
-            }
-            set { this.RaiseAndSetIfChanged(ref _nextButtonText, value); }
         }
 
         public int QuestionStartIndex { get; set; }

@@ -12,19 +12,18 @@ namespace StressCheckAvalonia.Views
         public NextButton()
         {
             InitializeComponent();
-            DataContext = SectionViewModel.Instance;
+            DataContext = StateViewModel.Instance;
         }
 
         public void ClickHandler(object sender, RoutedEventArgs args)
         {
             if (sender is Button && this.FindAncestorOfType<MainWindow>() is MainWindow mainWindow)
             {
-                if (SectionViewModel.Instance.IsInput)
+                if (StateViewModel.Instance.IsInput)
                 {
-                    SectionViewModel.Instance.CurrentState = State.SectionActive;
-
                     if (EmployeeViewModel.Instance.IsInformationComplete())
                     {
+                        StateViewModel.Instance.CurrentState = State.SectionActive;
                         // Display the first set of questions
                         mainWindow.DisplayQuestions(0, SectionViewModel.Instance.QuestionsPerPage);
                     }
@@ -61,13 +60,17 @@ namespace StressCheckAvalonia.Views
 
                             if (currentIndex < LoadSections.sections.Count - 1) // Check if it's not the last section
                             {
-                                SectionViewModel.Instance.CurrentState = State.SectionActive;
-
                                 // Increment the section index
                                 currentIndex++;
 
                                 // Reset the question start index
                                 SectionViewModel.Instance.QuestionStartIndex = 0;
+
+                                // Load new section
+                                mainWindow.DisplayQuestions(currentIndex, SectionViewModel.Instance.QuestionsPerPage); // Display the next set of questions
+
+                                // Set the current state to SectionActive after the new section is loaded
+                                StateViewModel.Instance.CurrentState = State.SectionActive;
                             }
                             else // If it's the last section
                             {

@@ -14,14 +14,14 @@ namespace StressCheckAvalonia.Views
         {
             InitializeComponent();
             this.Title = "FLOSS版ストレスチェック実施プログラム 標準版（57項目）";
-            this.DataContext = SectionViewModel.Instance;
+            this.DataContext = StateViewModel.Instance;
 
             // Instantiate EmployeeInformation control
             var employeeInformationControl = new EmployeeInformation();
             this.FindControl<ContentControl>("EmployeeInformationControl").Content = employeeInformationControl;
 
             // Set IsInput to true
-            SectionViewModel.Instance.CurrentState = State.Input;
+            StateViewModel.Instance.CurrentState = State.Input;
         }
 
         public void DisplayQuestions(int sectionIndex, int questionCount)
@@ -92,7 +92,7 @@ namespace StressCheckAvalonia.Views
                 AggregateResultsControl.DisplayResults(EmployeeViewModel.Instance.Employee);
 
                 // Set IsAggregaed to true
-                SectionViewModel.Instance.CurrentState = State.Aggregated;
+                StateViewModel.Instance.CurrentState = State.Aggregated;
 
                 // Show the AggregateResults
                 ResultsContent.Content = AggregateResultsControl;
