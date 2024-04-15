@@ -90,35 +90,39 @@ namespace StressCheckAvalonia.ViewModels
             }
         }
 
-        private bool _isInput;
-        public bool IsInput
+        private State _currentState;
+        public State CurrentState
         {
-            get { return _isInput; }
+            get => _currentState;
             set
             {
-                this.RaiseAndSetIfChanged(ref _isInput, value);
+                this.RaiseAndSetIfChanged(ref _currentState, value);
+                this.RaisePropertyChanged(nameof(IsInput));
+                this.RaisePropertyChanged(nameof(IsSectionActive));
+                this.RaisePropertyChanged(nameof(IsAggregated));
                 this.RaisePropertyChanged(nameof(IsInputInverted));
-                this.RaisePropertyChanged(nameof(AppTitle));
-                this.RaisePropertyChanged(nameof(DescriptionText));
-            }
-        }
-
-        public bool IsInputInverted
-        {
-            get { return !IsInput; }
-        }
-
-        private bool _isAggregated;
-        public bool IsAggregated
-        {
-            get { return _isAggregated; }
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _isAggregated, value);
+                this.RaisePropertyChanged(nameof(IsSectionInactive));
                 this.RaisePropertyChanged(nameof(AppTitle));
                 this.RaisePropertyChanged(nameof(DescriptionText));
                 this.RaisePropertyChanged(nameof(NextButtonText));
             }
+        }
+
+        public bool IsInput
+        {
+            get => CurrentState == State.Input;
+        }
+        public bool IsInputInverted => !IsInput;
+
+        public bool IsSectionActive
+        {
+            get => CurrentState == State.SectionActive;
+        }
+        public bool IsSectionInactive => !IsSectionActive;
+
+        public bool IsAggregated
+        {
+            get => CurrentState == State.Aggregated;
         }
 
         private string _appTitle;
@@ -141,19 +145,6 @@ namespace StressCheckAvalonia.ViewModels
             }
             set { this.RaiseAndSetIfChanged(ref _appTitle, value); }
         }
-
-        private bool _isSectionActive;
-        public bool IsSectionActive
-        {
-            get { return _isSectionActive; }
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _isSectionActive, value);
-                this.RaisePropertyChanged(nameof(IsSectionInactive));
-            }
-        }
-
-        public bool IsSectionInactive => !IsSectionActive;
 
         public string DescriptionText
         {

@@ -3,6 +3,13 @@ using System.Collections.Generic;
 
 namespace StressCheckAvalonia.Models
 {
+    public enum State
+    {
+        Input,
+        SectionActive,
+        Aggregated
+    }
+
     public class Employee
     {
         public string Gender { get; set; }

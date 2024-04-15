@@ -1,4 +1,5 @@
 using StressCheckAvalonia.ViewModels;
+using StressCheckAvalonia.Models;
 using StressCheckAvalonia.Services;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -20,14 +21,10 @@ namespace StressCheckAvalonia.Views
             {
                 if (SectionViewModel.Instance.IsInput)
                 {
-                    // Set IsSectionActive to true when moving to the questions
-                    SectionViewModel.Instance.IsSectionActive = true;
+                    SectionViewModel.Instance.CurrentState = State.SectionActive;
 
                     if (EmployeeViewModel.Instance.IsInformationComplete())
                     {
-                        // Set IsInput to false
-                        SectionViewModel.Instance.IsInput = false;
-
                         // Display the first set of questions
                         mainWindow.DisplayQuestions(0, SectionViewModel.Instance.QuestionsPerPage);
                     }
@@ -50,9 +47,6 @@ namespace StressCheckAvalonia.Views
                     }
                     else
                     {
-                        // Set IsInput to false when you navigate away from the EmployeeInformationControl
-                        SectionViewModel.Instance.IsInput = false;
-
                         int currentIndex = LoadSections.sections.IndexOf(SectionViewModel.Instance.CurrentSection);
 
                         if (SectionViewModel.Instance.AreAllQuestionsDisplayed())
@@ -67,8 +61,7 @@ namespace StressCheckAvalonia.Views
 
                             if (currentIndex < LoadSections.sections.Count - 1) // Check if it's not the last section
                             {
-                                // Set IsSectionActive to true when moving to the next section
-                                SectionViewModel.Instance.IsSectionActive = true;
+                                SectionViewModel.Instance.CurrentState = State.SectionActive;
 
                                 // Increment the section index
                                 currentIndex++;

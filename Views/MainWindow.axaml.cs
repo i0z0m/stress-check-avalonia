@@ -2,6 +2,7 @@ using StressCheckAvalonia.ViewModels;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia;
+using StressCheckAvalonia.Models;
 
 namespace StressCheckAvalonia.Views
 {
@@ -20,7 +21,7 @@ namespace StressCheckAvalonia.Views
             this.FindControl<ContentControl>("EmployeeInformationControl").Content = employeeInformationControl;
 
             // Set IsInput to true
-            SectionViewModel.Instance.IsInput = true;
+            SectionViewModel.Instance.CurrentState = State.Input;
         }
 
         public void DisplayQuestions(int sectionIndex, int questionCount)
@@ -90,11 +91,8 @@ namespace StressCheckAvalonia.Views
                 AggregateResultsControl = new AggregateResults();
                 AggregateResultsControl.DisplayResults(EmployeeViewModel.Instance.Employee);
 
-                // Set IsSectionActive to false when showing the results
-                SectionViewModel.Instance.IsSectionActive = false;
-
-                // Set IsAggregated to true
-                SectionViewModel.Instance.IsAggregated = true;
+                // Set IsAggregaed to true
+                SectionViewModel.Instance.CurrentState = State.Aggregated;
 
                 // Show the AggregateResults
                 ResultsContent.Content = AggregateResultsControl;

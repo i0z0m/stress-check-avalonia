@@ -3,6 +3,7 @@ using StressCheckAvalonia.ViewModels;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.VisualTree;
+using StressCheckAvalonia.Models;
 
 namespace StressCheckAvalonia.Views
 {
@@ -20,16 +21,9 @@ namespace StressCheckAvalonia.Views
             {
                 if (button.Name == "BackToTitleButton")
                 {
-                    // Set IsSectionActive to false when moving back to the title
-                    SectionViewModel.Instance.IsSectionActive = false;
-                    // Set IsAggregated to false
-                    SectionViewModel.Instance.IsAggregated = false;
-
+                    SectionViewModel.Instance.CurrentState = State.Input;
                     SectionViewModel.Instance.SetCurrentSection(0);
                     SectionViewModel.Instance.QuestionStartIndex = 0;
-
-                    // Set IsInput to true
-                    SectionViewModel.Instance.IsInput = true;
                 }
                 else if (button.Name == "BackOneScreenButton")
                 {
@@ -41,8 +35,7 @@ namespace StressCheckAvalonia.Views
                         {
                             if (currentIndex > 0) // Check if it's not the first section
                             {
-                                // Set IsSectionActive to true when moving back to the previous section
-                                SectionViewModel.Instance.IsSectionActive = true;
+                                SectionViewModel.Instance.CurrentState = State.SectionActive;
 
                                 // Update the score and values of the current section
                                 SectionViewModel.Instance.UpdateScores();
@@ -61,10 +54,7 @@ namespace StressCheckAvalonia.Views
                             }
                             else
                             {
-                                // Set IsSectionActive to false when moving back to the title
-                                SectionViewModel.Instance.IsSectionActive = false;
-                                // Set IsInput to true
-                                SectionViewModel.Instance.IsInput = true;
+                                SectionViewModel.Instance.CurrentState = State.Input;
                             }
                         }
                         else
@@ -78,15 +68,12 @@ namespace StressCheckAvalonia.Views
                     }
                     else if (mainWindow.AggregateResultsControl != null && SectionViewModel.Instance.IsAggregated)
                     {
-                        SectionViewModel.Instance.IsSectionActive = true;
+                        SectionViewModel.Instance.CurrentState = State.SectionActive;
 
                         // Display the last page of the last section
                         int lastSectionIndex = LoadSections.sections.Count - 1;
                         mainWindow.DisplayQuestions(lastSectionIndex, SectionViewModel.Instance.QuestionsPerPage);
                         SectionViewModel.Instance.QuestionStartIndex = (LoadSections.sections[lastSectionIndex].Questions.Count - 1) / SectionViewModel.Instance.QuestionsPerPage * SectionViewModel.Instance.QuestionsPerPage;
-
-                        // Set IsAggregated to false
-                        SectionViewModel.Instance.IsAggregated = false;
                     }
                 }
             }
