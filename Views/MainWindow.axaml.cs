@@ -25,17 +25,14 @@ namespace StressCheckAvalonia.Views
 
         public void DisplayQuestions(int sectionIndex, int questionCount)
         {
-            // Set the current section in the SectionViewModel
-            SectionViewModel.Instance.SetCurrentSection(sectionIndex);
+            // Update the displayed questions in the SectionViewModel
+            SectionViewModel.Instance.UpdateDisplayedQuestions(sectionIndex, questionCount);
 
             // Clear the existing questions
             QuestionsPanel.Children.Clear();
 
-            // Get the questions for the specified section
-            var displayedQuestionViewModels = SectionViewModel.Instance.GetDisplayedQuestions();
-
             // Add each question and its corresponding choice buttons to the QuestionsPanel
-            foreach (var questionViewModel in displayedQuestionViewModels)
+            foreach (var questionViewModel in SectionViewModel.Instance.DisplayedQuestionViewModels)
             {
                 var questionText = new QuestionText
                 {

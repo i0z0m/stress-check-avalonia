@@ -194,10 +194,13 @@ namespace StressCheckAvalonia.ViewModels
         public int QuestionStartIndex { get; set; }
         public int QuestionsPerPage { get; } = 10;
 
-        public List<QuestionViewModel> GetDisplayedQuestions()
+        public void UpdateDisplayedQuestions(int sectionIndex, int questionCount)
         {
-            // Clear the DisplayedQuestionViewModels list
-            this.DisplayedQuestionViewModels.Clear();
+            // Set the current section
+            SetCurrentSection(sectionIndex);
+
+            // Clear the existing questions
+            DisplayedQuestionViewModels.Clear();
 
             // Add each question to the DisplayedQuestionViewModels list
             for (int i = QuestionStartIndex; i < QuestionStartIndex + QuestionsPerPage && i < this.QuestionViewModels.Count; i++)
@@ -205,10 +208,8 @@ namespace StressCheckAvalonia.ViewModels
                 var questionViewModel = this.QuestionViewModels[i];
 
                 // Add the question to the DisplayedQuestionViewModels list
-                this.DisplayedQuestionViewModels.Add(questionViewModel);
+                DisplayedQuestionViewModels.Add(questionViewModel);
             }
-
-            return this.DisplayedQuestionViewModels;
         }
 
         public bool AreAllQuestionsDisplayed()

@@ -16,8 +16,7 @@ namespace StressCheckAvalonia.Views
 
         public void ClickHandler(object sender, RoutedEventArgs args)
         {
-            var mainWindow = this.FindAncestorOfType<MainWindow>();
-            if (mainWindow != null)
+            if (sender is Button && this.FindAncestorOfType<MainWindow>() is MainWindow mainWindow)
             {
                 if (SectionViewModel.Instance.IsInput)
                 {
