@@ -2,26 +2,27 @@ using StressCheckAvalonia.ViewModels;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia;
-using StressCheckAvalonia.Models;
 
 namespace StressCheckAvalonia.Views
 {
     public partial class MainWindow : Window
     {
-        public AggregateResults AggregateResultsControl { get; set; }
+        public AggregateResults? AggregateResultsControl { get; set; } = new AggregateResults();
 
         public MainWindow()
         {
             InitializeComponent();
-            this.Title = "FLOSS版ストレスチェック実施プログラム 標準版（57項目）";
             this.DataContext = StateViewModel.Instance;
+
+            // Set the MainWindow instance in StateViewModel
+            StateViewModel.Instance.MainWindow = this;
 
             // Instantiate EmployeeInformation control
             var employeeInformationControl = new EmployeeInformation();
             this.FindControl<ContentControl>("EmployeeInformationControl").Content = employeeInformationControl;
 
             // Set IsInput to true
-            StateViewModel.Instance.CurrentState = State.Input;
+            StateViewModel.Instance.HandleInputState();
         }
 
         public void DisplayQuestions(int sectionIndex, int questionCount)
@@ -59,10 +60,10 @@ namespace StressCheckAvalonia.Views
                 var questionGrid = new Grid
                 {
                     ColumnDefinitions =
-                    {
-                        new ColumnDefinition(1, GridUnitType.Star),
-                        new ColumnDefinition(0, GridUnitType.Auto)
-                    }
+                {
+                    new ColumnDefinition(1, GridUnitType.Star),
+                    new ColumnDefinition(0, GridUnitType.Auto)
+                }
                 };
 
                 Grid.SetColumn(questionText, 0);
@@ -88,11 +89,7 @@ namespace StressCheckAvalonia.Views
             // Initialize AggregateResults
             if (EmployeeViewModel.Instance?.Employee != null)
             {
-                AggregateResultsControl = new AggregateResults();
                 AggregateResultsControl.DisplayResults(EmployeeViewModel.Instance.Employee);
-
-                // Set IsAggregaed to true
-                StateViewModel.Instance.CurrentState = State.Aggregated;
 
                 // Show the AggregateResults
                 ResultsContent.Content = AggregateResultsControl;
