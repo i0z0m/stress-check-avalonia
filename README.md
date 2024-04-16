@@ -5,9 +5,11 @@
 ## Usage
 
 ```consol
-dotnet build
 dotnet run
 ```
+
+## Screenshot
+![StressCheckAvalonia](https://github.com/i0z0m/stress-check-avalonia/assets/8271553/e16c1733-96d6-45fe-8ffb-4ce2b381b39c)
 
 ## Acknowledgements
 
