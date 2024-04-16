@@ -2,6 +2,8 @@
 using StressCheckAvalonia.Models;
 using System;
 using Avalonia.Media;
+using StressCheckAvalonia.Services;
+using System.Collections.Generic;
 
 namespace StressCheckAvalonia.ViewModels
 {
@@ -63,7 +65,24 @@ namespace StressCheckAvalonia.ViewModels
             set
             {
                 this.RaiseAndSetIfChanged(ref _level, value);
+                LevelText = _level == "High" ? "高ストレス者です" : "低ストレス者です";
+                LevelColor = _level == "High" ? new SolidColorBrush(Color.FromArgb(128, 255, 0, 0)) : new SolidColorBrush(Color.FromArgb(128, 0, 0, 255));
             }
+        }
+
+        private string _levelText;
+
+        public string LevelText
+        {
+            get => _levelText;
+            private set => this.RaiseAndSetIfChanged(ref _levelText, value);
+        }
+
+        private IBrush _levelColor;
+        public IBrush LevelColor
+        {
+            get => _levelColor;
+            private set => this.RaiseAndSetIfChanged(ref _levelColor, value);
         }
 
         public string Name
@@ -242,5 +261,7 @@ namespace StressCheckAvalonia.ViewModels
                 WorkplaceBackground = errorBrush;
             }
         }
+
+        public List<Section> Sections => LoadSections.sections;
     }
 }

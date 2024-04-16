@@ -8,15 +8,12 @@ using Avalonia.Media;
 using ReactiveUI;
 using System.Reactive;
 using System.Reactive.Linq;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace StressCheckAvalonia.Views
 {
     public partial class AggregateResults : UserControl
     {
-        public List<Section> Sections { get; }
-
         public AggregateResults()
         {
             InitializeComponent();
@@ -54,15 +51,6 @@ namespace StressCheckAvalonia.Views
             System.Diagnostics.Debug.WriteLine($"Method1: {levelResult.Method1}, Method2: {levelResult.Method2}");
             EmployeeViewModel.Instance.Level = levelResult.Method1 && levelResult.Method2 ? "High" : "Low";
             System.Diagnostics.Debug.WriteLine($"Employee.Level is set to {EmployeeViewModel.Instance.Level}");
-
-            var employeeLevelTextBlock = new TextBlock
-            {
-                FontSize = 30,
-                Text = EmployeeViewModel.Instance.Level == "High" ? "高ストレス者です" : "低ストレス者です",
-                Foreground = new SolidColorBrush(EmployeeViewModel.Instance.Level == "High" ? Color.FromArgb(128, 255, 0, 0) : Color.FromArgb(128, 0, 0, 255)),
-                HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
-            };
-            sectionPanel.Children.Add(employeeLevelTextBlock);
 
             // Create Grid for each Section
             var grid = new Grid();

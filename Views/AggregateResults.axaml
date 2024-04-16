@@ -6,8 +6,14 @@
              x:Class="StressCheckAvalonia.Views.AggregateResults"
              x:DataType="local:EmployeeViewModel">
 
-	<StackPanel x:Name="SectionPanel"
-				HorizontalAlignment="Stretch">
+	<StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+		<TextBlock FontSize="30"
+			   Text="{Binding LevelText}"
+			   Foreground="{Binding LevelColor}"
+			   HorizontalAlignment="Center" />
+		<StackPanel x:Name="SectionPanel"
+                HorizontalAlignment="Stretch">
+		</StackPanel>
 	</StackPanel>
 
 </UserControl>
