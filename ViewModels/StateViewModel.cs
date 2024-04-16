@@ -3,8 +3,6 @@ using StressCheckAvalonia.Models;
 using StressCheckAvalonia.Services;
 using StressCheckAvalonia.Views;
 using System;
-using System.Reactive;
-using System.Reactive.Linq;
 using System.Runtime.InteropServices;
 
 namespace StressCheckAvalonia.ViewModels
@@ -105,7 +103,7 @@ namespace StressCheckAvalonia.ViewModels
                 return CurrentState switch
                 {
                     State.Input => "入力を完了して開始",
-                    State.SectionActive => "1つ先の画面へ進む",
+                    State.SectionActive => "1つ後の画面へ進む",
                     State.Aggregated => "結果を保存して終了",
                     _ => throw new InvalidOperationException("Undefined state for NextButtonText"),
                 };

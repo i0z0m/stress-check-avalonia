@@ -6,6 +6,7 @@
         xmlns:desc="clr-namespace:StressCheckAvalonia.ViewModels"
         mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="630"
         Width="1000" Height="630"
+		MinWidth="1000" MinHeight="630"
         x:Class="StressCheckAvalonia.Views.MainWindow"
 		x:DataType="desc:StateViewModel"
         Icon="/Assets/favicon.png"
@@ -28,8 +29,8 @@
 		</StackPanel>
 		<local:AggregateResults Grid.Row="3" />
 		<DockPanel Grid.Row="4" LastChildFill="False">
-			<local:BackButtons DockPanel.Dock="Left" Margin="50, 0, 0, 10" />
-			<local:NextButton DockPanel.Dock="Right" Margin="0, 0, 50, 10" />
+			<local:BackButtons DockPanel.Dock="Left" Margin="30, 0, 0, 10" />
+			<local:NextButton DockPanel.Dock="Right" Margin="0, 0, 30, 10" />
 		</DockPanel>
 	</Grid>
 </Window>

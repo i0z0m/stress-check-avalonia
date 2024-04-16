@@ -7,7 +7,7 @@
              x:DataType="local:QuestionViewModel">
 
 	<StackPanel Orientation="Horizontal"
-                Margin="50,6,0,0"
+                Margin="30,6,0,0"
                 VerticalAlignment="Top"
                 HorizontalAlignment="Left"
 				Background="{Binding Background}" >

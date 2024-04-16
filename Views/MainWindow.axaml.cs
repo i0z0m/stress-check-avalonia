@@ -32,14 +32,14 @@ namespace StressCheckAvalonia.Views
             {
                 var questionText = new QuestionText
                 {
-                    DataContext = questionViewModel // Set the DataContext to the QuestionViewModel
+                    DataContext = questionViewModel, // Set the DataContext to the QuestionViewModel
                 };
 
                 var choiceButtons = new ChoiceButtons
                 {
                     DataContext = questionViewModel, // Set the DataContext to the QuestionViewModel
                     HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Right,
-                    Margin = new Thickness(0, 0, 50, 0)
+                    Margin = new Thickness(0, 0, 30, 0)
                 };
 
                 // Set the IsChecked property of the RadioButton corresponding to the selected choice
@@ -72,7 +72,7 @@ namespace StressCheckAvalonia.Views
                 {
                     BorderThickness = new Thickness(0, 0, 0, 1),
                     BorderBrush = Brushes.Gray,
-                    Margin = new Thickness(50, 0, 50, 10)
+                    Margin = new Thickness(30, 0, 30, 10)
                 };
                 QuestionsPanel.Children.Add(underline);
             }

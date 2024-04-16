@@ -6,10 +6,10 @@
              x:Class="StressCheckAvalonia.Views.EmployeeInformation"
              x:DataType="local:EmployeeViewModel"
 			 x:Name="EmployeeInformationControl">
-	<Grid Margin="50,0,50,0">
+	<Grid Margin="30,0,30,0">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="*"/>
-			<ColumnDefinition Width="50"/>
+			<ColumnDefinition Width="30"/>
 			<ColumnDefinition Width="*"/>
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>

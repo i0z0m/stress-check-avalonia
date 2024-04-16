@@ -2,8 +2,6 @@
 using StressCheckAvalonia.Models;
 using System;
 using Avalonia.Media;
-using StressCheckAvalonia.Services;
-using System.Collections.Generic;
 
 namespace StressCheckAvalonia.ViewModels
 {
@@ -261,7 +259,5 @@ namespace StressCheckAvalonia.ViewModels
                 WorkplaceBackground = errorBrush;
             }
         }
-
-        public List<Section> Sections => LoadSections.sections;
     }
 }

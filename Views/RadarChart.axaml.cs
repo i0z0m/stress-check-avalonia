@@ -129,7 +129,13 @@ namespace StressCheckAvalonia.Views
 
                 var textWidth = formattedText.Width;
                 var textHeight = formattedText.Height;
-                var textPosition = new Point(labelPosition.X - textWidth / 2, labelPosition.Y - textHeight / 2);
+
+                // Adjust the label position to keep it within the canvas bounds
+                var adjustedLabelPosition = new Point(
+                    Math.Max(textWidth / 2, Math.Min(labelPosition.X, Bounds.Width - textWidth / 2)),
+                    Math.Max(textHeight / 2, Math.Min(labelPosition.Y, Bounds.Height - textHeight / 2)));
+
+                var textPosition = new Point(adjustedLabelPosition.X - textWidth / 2, adjustedLabelPosition.Y - textHeight / 2);
                 context.DrawText(formattedText, textPosition);
             }
         }
