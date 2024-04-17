@@ -3,15 +3,15 @@ using StressCheckAvalonia.Models;
 using StressCheckAvalonia.Services;
 using StressCheckAvalonia.Views;
 using System;
-using System.Runtime.InteropServices;
+using System.Linq;
 
 namespace StressCheckAvalonia.ViewModels
 {
     public class StateViewModel : ReactiveObject
     {
-        public MainWindow MainWindow { get; set; }
+        public MainWindow? MainWindow { get; set; }
 
-        private static StateViewModel _instance;
+        private static StateViewModel? _instance;
         private State _currentState;
 
         public static StateViewModel Instance
@@ -60,7 +60,7 @@ namespace StressCheckAvalonia.ViewModels
 
         public Section CurrentSection
         {
-            get => SectionViewModel.Instance.CurrentSection;
+            get => SectionViewModel.Instance.CurrentSection ?? new Section(null, null, null);
             set
             {
                 SectionViewModel.Instance.CurrentSection = value;
@@ -75,7 +75,7 @@ namespace StressCheckAvalonia.ViewModels
                 return CurrentState switch
                 {
                     State.Input => "ストレスチェック開始",
-                    State.SectionActive => $"STEP {CurrentSection.Step} {CurrentSection.Name}",
+                    State.SectionActive => CurrentSection != null ? $"STEP {CurrentSection.Step} {CurrentSection.Name}" : "",
                     State.Aggregated => "ストレスチェック終了",
                     _ => throw new InvalidOperationException("Undefined state for AppTitle"),
                 };
@@ -89,7 +89,7 @@ namespace StressCheckAvalonia.ViewModels
                 return CurrentState switch
                 {
                     State.Input => "必須事項を入力してください。",
-                    State.SectionActive => CurrentSection.Description,
+                    State.SectionActive => CurrentSection != null ? CurrentSection.Description : "",
                     State.Aggregated => "これで質問は、終わりです。お疲れさまでした。",
                     _ => throw new InvalidOperationException("Undefined state for DescriptionText"),
                 };
@@ -114,7 +114,7 @@ namespace StressCheckAvalonia.ViewModels
             if (EmployeeViewModel.Instance.IsInformationComplete())
             {
                 CurrentState = State.SectionActive;
-                MainWindow.DisplayQuestions(0, SectionViewModel.Instance.QuestionsPerPage);
+                MainWindow?.DisplayQuestions(0, SectionViewModel.Instance.QuestionsPerPage);
             }
             else if (shouldValidateInput)
             {
@@ -126,45 +126,33 @@ namespace StressCheckAvalonia.ViewModels
         public void HandleSectionActiveState(bool isNext)
         {
             var sectionViewModel = SectionViewModel.Instance;
-            int currentIndex = LoadSections.Sections.IndexOf(sectionViewModel.CurrentSection);
+            int currentIndex = sectionViewModel.CurrentSection != null ? LoadSections.Sections.IndexOf(sectionViewModel.CurrentSection) : -1;
 
             if (isNext)
             {
-                if (sectionViewModel.AreAllDisplayedQuestionsAnswered()) // Check if all currently displayed questions are answered
+                if (sectionViewModel.AreAllDisplayedQuestionsAnswered())
                 {
-                    // Update the score and values of the current section
                     sectionViewModel.UpdateScores();
                     sectionViewModel.UpdateValues();
 
-                    if (currentIndex < LoadSections.Sections.Count - 1 && sectionViewModel.AreAllQuestionsDisplayed()) // Check if it's not the last section and all questions are displayed
+                    if (currentIndex >= 0 && currentIndex < LoadSections.Sections.Count - 1 && sectionViewModel.AreAllQuestionsDisplayed())
                     {
-                        // Increment the section index
                         currentIndex++;
-
-                        // Reset the question start index
                         sectionViewModel.QuestionStartIndex = 0;
-
-                        // Load new section
-                        MainWindow.DisplayQuestions(currentIndex, sectionViewModel.QuestionsPerPage); // Display the next set of questions
-
-                        // Set the current state to SectionActive after the new section is loaded
+                        MainWindow?.DisplayQuestions(currentIndex, sectionViewModel.QuestionsPerPage);
                         CurrentState = State.SectionActive;
                     }
-                    else if (!sectionViewModel.AreAllQuestionsDisplayed()) // If not all questions are displayed
+                    else if (!sectionViewModel.AreAllQuestionsDisplayed())
                     {
-                        // Update the question start index
                         sectionViewModel.QuestionStartIndex += sectionViewModel.QuestionsPerPage;
-
-                        // Load new section
-                        MainWindow.DisplayQuestions(currentIndex, sectionViewModel.QuestionsPerPage); // Display the next set of questions
+                        MainWindow?.DisplayQuestions(currentIndex, sectionViewModel.QuestionsPerPage);
                     }
-                    else // If it's the last section and all questions are displayed
+                    else
                     {
-                        // Call HandleAggregatedState to show the results
                         HandleAggregatedState();
                     }
                 }
-                else // If not all currently displayed questions are answered
+                else
                 {
                     foreach (var questionViewModel in sectionViewModel.DisplayedQuestionViewModels)
                     {
@@ -172,27 +160,25 @@ namespace StressCheckAvalonia.ViewModels
                     }
                 }
             }
-            else // if it's a back action
+            else
             {
                 if (sectionViewModel.QuestionStartIndex == 0)
                 {
-                    if (currentIndex > 0) // Check if it's not the first section
+                    if (currentIndex > 0)
                     {
-                        // Update the score and values of the current section
                         sectionViewModel.UpdateScores();
                         sectionViewModel.UpdateValues();
 
-                        // Decrement the section index
                         currentIndex--;
 
-                        // Set the question start index to the first question of the last page of the previous section
-                        var previousSectionQuestionCount = LoadSections.Sections[currentIndex].Questions.Count;
-                        sectionViewModel.QuestionStartIndex = (previousSectionQuestionCount - 1) / sectionViewModel.QuestionsPerPage * sectionViewModel.QuestionsPerPage;
+                        var previousSection = LoadSections.Sections.ElementAtOrDefault(currentIndex);
+                        if (previousSection?.Questions != null)
+                        {
+                            var previousSectionQuestionCount = previousSection.Questions.Count;
+                            sectionViewModel.QuestionStartIndex = (previousSectionQuestionCount - 1) / sectionViewModel.QuestionsPerPage * sectionViewModel.QuestionsPerPage;
+                        }
 
-                        // Load previous section or page
-                        MainWindow.DisplayQuestions(currentIndex, sectionViewModel.QuestionsPerPage); // Display the previous set of questions
-
-                        // Set the current state to SectionActive after the new section is loaded
+                        MainWindow?.DisplayQuestions(currentIndex, sectionViewModel.QuestionsPerPage);
                         CurrentState = State.SectionActive;
                     }
                     else
@@ -202,11 +188,13 @@ namespace StressCheckAvalonia.ViewModels
                 }
                 else
                 {
-                    // Update the question start index
                     sectionViewModel.QuestionStartIndex -= sectionViewModel.QuestionsPerPage;
 
-                    // Load previous section or page
-                    MainWindow.DisplayQuestions(currentIndex, sectionViewModel.QuestionsPerPage); // Display the previous set of questions
+                    var currentSection = LoadSections.Sections.ElementAtOrDefault(currentIndex);
+                    if (currentSection?.Questions != null)
+                    {
+                        MainWindow?.DisplayQuestions(currentIndex, sectionViewModel.QuestionsPerPage);
+                    }
                 }
             }
         }
@@ -219,12 +207,12 @@ namespace StressCheckAvalonia.ViewModels
             }
             else
             {
-                // Display the last page of the last section
                 int lastSectionIndex = LoadSections.Sections.Count - 1;
-                MainWindow.DisplayQuestions(lastSectionIndex, SectionViewModel.Instance.QuestionsPerPage);
-                SectionViewModel.Instance.QuestionStartIndex = (LoadSections.Sections[lastSectionIndex].Questions.Count - 1) / SectionViewModel.Instance.QuestionsPerPage * SectionViewModel.Instance.QuestionsPerPage;
-
-                // Set the current state to SectionActive after the new section is loaded
+                if (lastSectionIndex >= 0 && LoadSections.Sections[lastSectionIndex]?.Questions != null)
+                {
+                    MainWindow?.DisplayQuestions(lastSectionIndex, SectionViewModel.Instance.QuestionsPerPage);
+                    SectionViewModel.Instance.QuestionStartIndex = (LoadSections.Sections[lastSectionIndex].Questions.Count - 1) / SectionViewModel.Instance.QuestionsPerPage * SectionViewModel.Instance.QuestionsPerPage;
+                }
                 CurrentState = State.SectionActive;
             }
         }
