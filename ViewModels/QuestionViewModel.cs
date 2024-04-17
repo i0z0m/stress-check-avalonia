@@ -2,6 +2,7 @@
 using ReactiveUI;
 using System.Collections.Generic;
 using Avalonia.Media;
+using System.Linq;
 
 namespace StressCheckAvalonia.ViewModels
 {
@@ -15,7 +16,7 @@ namespace StressCheckAvalonia.ViewModels
             _sectionViewModel = sectionViewModel;
         }
 
-        public List<string> Choices => _sectionViewModel.Choices;
+        public List<string> Choices => _sectionViewModel.Choices.ToList();
 
         private Question _question;
 

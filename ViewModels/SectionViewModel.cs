@@ -2,24 +2,25 @@ using StressCheckAvalonia.Models;
 using StressCheckAvalonia.Services;
 using ReactiveUI;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace StressCheckAvalonia.ViewModels
 {
     public class SectionViewModel : ReactiveObject
     {
-        private static SectionViewModel _instance;
+        private static SectionViewModel? _instance;
 
-        private Section _currentSection;
+        private Section? _currentSection;
         private int _questionIndex;
 
-        public List<QuestionViewModel> QuestionViewModels { get; private set; }
+        public ReadOnlyCollection<QuestionViewModel> QuestionViewModels { get; private set; }
 
         public SectionViewModel()
         {
-            CurrentSection = LoadSections.sections[0];
-            QuestionViewModels = CurrentSection.Questions.Select(q => new QuestionViewModel(q, this)).ToList();
-            DisplayedQuestionViewModels = new List<QuestionViewModel>();
+            CurrentSection = LoadSections.Sections[0];
+            QuestionViewModels = new ReadOnlyCollection<QuestionViewModel>(CurrentSection?.Questions?.Select(q => new QuestionViewModel(q, this)).ToList() ?? new List<QuestionViewModel>());
+            DisplayedQuestionViewModels = new ReadOnlyCollection<QuestionViewModel>(new List<QuestionViewModel>());
         }
 
         public static SectionViewModel Instance
@@ -34,7 +35,7 @@ namespace StressCheckAvalonia.ViewModels
             }
         }
 
-        public Section CurrentSection
+        public Section? CurrentSection
         {
             get { return _currentSection; }
             set
@@ -45,10 +46,10 @@ namespace StressCheckAvalonia.ViewModels
 
         public void SetCurrentSection(int newSectionIndex)
         {
-            if (newSectionIndex >= 0 && newSectionIndex < LoadSections.sections.Count)
+            if (newSectionIndex >= 0 && newSectionIndex < LoadSections.Sections.Count)
             {
-                CurrentSection = LoadSections.sections[newSectionIndex];
-                QuestionViewModels = CurrentSection.Questions.Select(q => new QuestionViewModel(q, this)).ToList();
+                CurrentSection = LoadSections.Sections[newSectionIndex];
+                QuestionViewModels = new ReadOnlyCollection<QuestionViewModel>(CurrentSection?.Questions?.Select(q => new QuestionViewModel(q, this)).ToList() ?? new List<QuestionViewModel>());
             }
         }
 
@@ -64,12 +65,12 @@ namespace StressCheckAvalonia.ViewModels
             }
         }
 
-        public List<Question> Questions => CurrentSection.Questions;
-        public List<string> Choices => CurrentSection.Choices;
+        public ReadOnlyCollection<Question>? Questions => CurrentSection?.Questions;
+        public ReadOnlyCollection<string>? Choices => CurrentSection?.Choices;
 
         public void UpdateScores()
         {
-            CurrentSection.Scores = Questions.CalculateScore();
+            CurrentSection.Scores = Questions.ToList().CalculateScore();
         }
 
         public void UpdateValues()
@@ -78,7 +79,7 @@ namespace StressCheckAvalonia.ViewModels
             {
                 foreach (var factor in CurrentSection.Factors)
                 {
-                    factor.Value = Questions.CalculateValue(factor);
+                    factor.Value = Questions.ToList().CalculateValue(factor);
                 }
 
                 CurrentSection.Values = CurrentSection.Factors.Sum(factor => factor.Value);
@@ -94,7 +95,7 @@ namespace StressCheckAvalonia.ViewModels
             SetCurrentSection(sectionIndex);
 
             // Clear the existing questions
-            DisplayedQuestionViewModels.Clear();
+            DisplayedQuestionViewModels = new ReadOnlyCollection<QuestionViewModel>(new List<QuestionViewModel>());
 
             // Add each question to the DisplayedQuestionViewModels list
             for (int i = QuestionStartIndex; i < QuestionStartIndex + QuestionsPerPage && i < this.QuestionViewModels.Count; i++)
@@ -102,18 +103,18 @@ namespace StressCheckAvalonia.ViewModels
                 var questionViewModel = this.QuestionViewModels[i];
 
                 // Add the question to the DisplayedQuestionViewModels list
-                DisplayedQuestionViewModels.Add(questionViewModel);
+                DisplayedQuestionViewModels = new ReadOnlyCollection<QuestionViewModel>(DisplayedQuestionViewModels.Concat(new[] { questionViewModel }).ToList());
             }
         }
 
         public bool AreAllQuestionsDisplayed()
         {
             var questions = this.Questions;
-            return QuestionStartIndex + QuestionsPerPage >= questions.Count;
+            return QuestionStartIndex + QuestionsPerPage >= questions?.Count;
         }
 
         // Add a new property to hold the currently displayed questions
-        public List<QuestionViewModel> DisplayedQuestionViewModels { get; set; }
+        public ReadOnlyCollection<QuestionViewModel> DisplayedQuestionViewModels { get; private set; }
 
         public bool AreAllDisplayedQuestionsAnswered()
         {

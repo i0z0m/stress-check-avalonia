@@ -126,7 +126,7 @@ namespace StressCheckAvalonia.ViewModels
         public void HandleSectionActiveState(bool isNext)
         {
             var sectionViewModel = SectionViewModel.Instance;
-            int currentIndex = LoadSections.sections.IndexOf(sectionViewModel.CurrentSection);
+            int currentIndex = LoadSections.Sections.IndexOf(sectionViewModel.CurrentSection);
 
             if (isNext)
             {
@@ -136,7 +136,7 @@ namespace StressCheckAvalonia.ViewModels
                     sectionViewModel.UpdateScores();
                     sectionViewModel.UpdateValues();
 
-                    if (currentIndex < LoadSections.sections.Count - 1 && sectionViewModel.AreAllQuestionsDisplayed()) // Check if it's not the last section and all questions are displayed
+                    if (currentIndex < LoadSections.Sections.Count - 1 && sectionViewModel.AreAllQuestionsDisplayed()) // Check if it's not the last section and all questions are displayed
                     {
                         // Increment the section index
                         currentIndex++;
@@ -166,7 +166,7 @@ namespace StressCheckAvalonia.ViewModels
                 }
                 else // If not all currently displayed questions are answered
                 {
-                    foreach (var questionViewModel in CollectionsMarshal.AsSpan(sectionViewModel.DisplayedQuestionViewModels))
+                    foreach (var questionViewModel in sectionViewModel.DisplayedQuestionViewModels)
                     {
                         questionViewModel.ValidateAnswered();
                     }
@@ -186,7 +186,7 @@ namespace StressCheckAvalonia.ViewModels
                         currentIndex--;
 
                         // Set the question start index to the first question of the last page of the previous section
-                        var previousSectionQuestionCount = LoadSections.sections[currentIndex].Questions.Count;
+                        var previousSectionQuestionCount = LoadSections.Sections[currentIndex].Questions.Count;
                         sectionViewModel.QuestionStartIndex = (previousSectionQuestionCount - 1) / sectionViewModel.QuestionsPerPage * sectionViewModel.QuestionsPerPage;
 
                         // Load previous section or page
@@ -220,9 +220,9 @@ namespace StressCheckAvalonia.ViewModels
             else
             {
                 // Display the last page of the last section
-                int lastSectionIndex = LoadSections.sections.Count - 1;
+                int lastSectionIndex = LoadSections.Sections.Count - 1;
                 MainWindow.DisplayQuestions(lastSectionIndex, SectionViewModel.Instance.QuestionsPerPage);
-                SectionViewModel.Instance.QuestionStartIndex = (LoadSections.sections[lastSectionIndex].Questions.Count - 1) / SectionViewModel.Instance.QuestionsPerPage * SectionViewModel.Instance.QuestionsPerPage;
+                SectionViewModel.Instance.QuestionStartIndex = (LoadSections.Sections[lastSectionIndex].Questions.Count - 1) / SectionViewModel.Instance.QuestionsPerPage * SectionViewModel.Instance.QuestionsPerPage;
 
                 // Set the current state to SectionActive after the new section is loaded
                 CurrentState = State.SectionActive;

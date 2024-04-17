@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace StressCheckAvalonia.Models
 {
@@ -12,13 +14,13 @@ namespace StressCheckAvalonia.Models
 
     public class Employee
     {
-        public string Gender { get; set; }
-        public string Level { get; set; }
-        public string Name { get; set; }
-        public string Furigana { get; set; }
-        public DateTimeOffset Birthday { get; set; } // Changed from DateTime to DateTimeOffset
-        public string ID { get; set; }
-        public string Workplace { get; set; }
+        public string Gender { get; set; } = string.Empty;
+        public string Level { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
+        public string Furigana { get; set; } = string.Empty;
+        public DateTimeOffset Birthday { get; set; }
+        public string ID { get; set; } = string.Empty;
+        public string Workplace { get; set; } = string.Empty;
         public string? Email { get; set; }
         public string? Phone { get; set; }
         public string? Extension { get; set; }
@@ -27,20 +29,27 @@ namespace StressCheckAvalonia.Models
     public class Section
     {
         public int Step { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public List<Question>? Questions { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public ReadOnlyCollection<Question>? Questions { get; }
         public int Scores { get; set; }
-        public List<string>? Choices { get; set; }
+        public ReadOnlyCollection<string>? Choices { get; }
         public string? Group { get; set; }
-        public List<Factor>? Factors { get; set; }
+        public ReadOnlyCollection<Factor>? Factors { get; }
         public int Values { get; set; }
+
+        public Section(IEnumerable<Question>? questions, IEnumerable<string>? choices, IEnumerable<Factor>? factors)
+        {
+            Questions = questions?.ToList().AsReadOnly();
+            Choices = choices?.ToList().AsReadOnly();
+            Factors = factors?.ToList().AsReadOnly();
+        }
     }
 
     public class Question
     {
         public int Id { get; set; }
-        public string Text { get; set; }
+        public string Text { get; set; } = string.Empty;
         public int Score { get; set; }
         public bool Reverse { get; set; }
     }
@@ -48,11 +57,17 @@ namespace StressCheckAvalonia.Models
     public class Factor
     {
         public int Point { get; set; }
-        public string Scale { get; set; }
+        public string Scale { get; set; } = string.Empty;
         public int Value { get; set; }
-        public string Type { get; set; }
-        public List<Rate>? Rates { get; set; }
-        public List<int>? Items { get; set; }
+        public string Type { get; set; } = string.Empty;
+        public ReadOnlyCollection<Rate>? Rates { get; }
+        public ReadOnlyCollection<int>? Items { get; }
+
+        public Factor(IEnumerable<Rate>? rates, IEnumerable<int>? items)
+        {
+            Rates = rates?.ToList().AsReadOnly();
+            Items = items?.ToList().AsReadOnly();
+        }
     }
 
     public class Rate

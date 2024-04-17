@@ -45,8 +45,8 @@ namespace StressCheckAvalonia.Views
             sectionPanel.Children.Clear();
 
             // Create TextBlock for Employee Level
-            var scores = LoadSections.sections.Select(s => s.Scores).ToList();
-            var values = LoadSections.sections.Select(s => s.Values).ToList();
+            var scores = LoadSections.Sections.Select(s => s.Scores).ToList();
+            var values = LoadSections.Sections.Select(s => s.Values).ToList();
             var levelResult = LevelCalculator.CalculateLevel(scores, values);
             System.Diagnostics.Debug.WriteLine($"Method1: {levelResult.Method1}, Method2: {levelResult.Method2}");
             EmployeeViewModel.Instance.Level = levelResult.Method1 && levelResult.Method2 ? "High" : "Low";
@@ -54,7 +54,7 @@ namespace StressCheckAvalonia.Views
 
             // Create Grid for each Section
             var grid = new Grid();
-            for (int i = 0; i < LoadSections.sections.Count - 1; i++) // Exclude the 4th section
+            for (int i = 0; i < LoadSections.Sections.Count - 1; i++) // Exclude the 4th section
             {
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
             }
@@ -64,7 +64,7 @@ namespace StressCheckAvalonia.Views
             grid.RowDefinitions.Add(new RowDefinition(0, GridUnitType.Auto));
 
             int columnIndex = 0;
-            foreach (var section in LoadSections.sections.Take(LoadSections.sections.Count - 1)) // Exclude the 4th section
+            foreach (var section in LoadSections.Sections.Take(LoadSections.Sections.Count - 1)) // Exclude the 4th section
             {
                 var sectionNameTextBlock = new TextBlock
                 {
