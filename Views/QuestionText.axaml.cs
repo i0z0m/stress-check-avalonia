@@ -1,6 +1,7 @@
 using StressCheckAvalonia.ViewModels;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using System.Globalization; // Ensure this namespace is included for CultureInfo
 
 namespace StressCheckAvalonia.Views
 {
@@ -26,14 +27,13 @@ namespace StressCheckAvalonia.Views
         {
             if (DataContext is QuestionViewModel viewModel)
             {
-                // Convert the Id to string and display it
                 var questionIdTextBlock = this.FindControl<TextBlock>("QuestionIdTextBlock");
                 if (questionIdTextBlock != null)
                 {
-                    questionIdTextBlock.Text = viewModel.Question.Id.ToString();
+                    // Use CultureInfo.InvariantCulture to ensure consistent behavior across locales
+                    questionIdTextBlock.Text = viewModel.Question.Id.ToString(CultureInfo.InvariantCulture);
                 }
 
-                // Display the Text of the displayed question
                 var questionTextTextBlock = this.FindControl<TextBlock>("QuestionTextTextBlock");
                 if (questionTextTextBlock != null)
                 {

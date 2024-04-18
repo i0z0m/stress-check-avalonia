@@ -1,6 +1,7 @@
 using StressCheckAvalonia.ViewModels;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using System.Globalization;
 
 namespace StressCheckAvalonia.Views
 {
@@ -26,7 +27,16 @@ namespace StressCheckAvalonia.Views
             var radioButton = this.FindControl<RadioButton>(radioButtonName);
             if (radioButton != null)
             {
-                radioButton.Checked += (sender, e) => HandleChoiceSelect(int.Parse(radioButton.Tag.ToString()));
+                radioButton.IsCheckedChanged += (sender, e) => {
+                    if (sender is RadioButton rb && rb.Tag != null)
+                    {
+                        var tagString = rb.Tag.ToString();
+                        if (int.TryParse(tagString, NumberStyles.Integer, CultureInfo.InvariantCulture, out int choiceValue))
+                        {
+                            HandleChoiceSelect(choiceValue);
+                        }
+                    }
+                };
             }
         }
 

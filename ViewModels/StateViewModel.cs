@@ -126,7 +126,10 @@ namespace StressCheckAvalonia.ViewModels
         public void HandleSectionActiveState(bool isNext)
         {
             var sectionViewModel = SectionViewModel.Instance;
-            int currentIndex = sectionViewModel.CurrentSection != null ? LoadSections.Sections.IndexOf(sectionViewModel.CurrentSection) : -1;
+            // Ensure the CurrentSection is not null before attempting to access it
+            if (sectionViewModel.CurrentSection == null) return;
+
+            int currentIndex = LoadSections.Sections.IndexOf(sectionViewModel.CurrentSection);
 
             if (isNext)
             {
@@ -208,10 +211,18 @@ namespace StressCheckAvalonia.ViewModels
             else
             {
                 int lastSectionIndex = LoadSections.Sections.Count - 1;
-                if (lastSectionIndex >= 0 && LoadSections.Sections[lastSectionIndex]?.Questions != null)
+                if (lastSectionIndex >= 0)
                 {
-                    MainWindow?.DisplayQuestions(lastSectionIndex, SectionViewModel.Instance.QuestionsPerPage);
-                    SectionViewModel.Instance.QuestionStartIndex = (LoadSections.Sections[lastSectionIndex].Questions.Count - 1) / SectionViewModel.Instance.QuestionsPerPage * SectionViewModel.Instance.QuestionsPerPage;
+                    var lastSection = LoadSections.Sections[lastSectionIndex];
+                    if (lastSection?.Questions != null)
+                    {
+                        MainWindow?.DisplayQuestions(lastSectionIndex, SectionViewModel.Instance.QuestionsPerPage);
+                        // Ensure lastSection.Questions is not null before accessing its properties
+                        if (lastSection.Questions != null)
+                        {
+                            SectionViewModel.Instance.QuestionStartIndex = (lastSection.Questions.Count - 1) / SectionViewModel.Instance.QuestionsPerPage * SectionViewModel.Instance.QuestionsPerPage;
+                        }
+                    }
                 }
                 CurrentState = State.SectionActive;
             }
