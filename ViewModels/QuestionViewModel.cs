@@ -13,7 +13,7 @@ namespace StressCheckAvalonia.ViewModels
         private Question _question = question;
         private IBrush _background = Brushes.White;
 
-        public ObservableCollection<string> Choices => new ObservableCollection<string>(_sectionViewModel.Choices ?? Enumerable.Empty<string>());
+        public ObservableCollection<string> Choices => new(_sectionViewModel.Choices ?? Enumerable.Empty<string>());
 
         public Question Question
         {
