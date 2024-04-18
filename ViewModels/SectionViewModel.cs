@@ -89,7 +89,7 @@ namespace StressCheckAvalonia.ViewModels
         public int QuestionStartIndex { get; set; }
         public int QuestionsPerPage { get; } = 10;
 
-        public void UpdateDisplayedQuestions(int sectionIndex, int questionCount)
+        public void UpdateDisplayedQuestions(int sectionIndex)
         {
             // Set the current section
             SetCurrentSection(sectionIndex);

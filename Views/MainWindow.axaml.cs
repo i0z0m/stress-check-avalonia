@@ -27,7 +27,7 @@ namespace StressCheckAvalonia.Views
             if (sectionViewModel != null)
             {
                 // Update the displayed questions in the SectionViewModel
-                sectionViewModel.UpdateDisplayedQuestions(sectionIndex, questionCount);
+                sectionViewModel.UpdateDisplayedQuestions(sectionIndex);
 
                 // Clear the existing questions
                 QuestionsPanel.Children.Clear();
