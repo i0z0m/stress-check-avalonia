@@ -3,6 +3,7 @@ using ReactiveUI;
 using System.Collections.Generic;
 using Avalonia.Media;
 using System.Linq;
+using System.Collections.ObjectModel;
 
 namespace StressCheckAvalonia.ViewModels
 {
@@ -19,7 +20,7 @@ namespace StressCheckAvalonia.ViewModels
             _background = Brushes.White;
         }
 
-        public List<string> Choices => _sectionViewModel.Choices?.ToList() ?? new List<string>();
+        public ObservableCollection<string> Choices => new ObservableCollection<string>(_sectionViewModel.Choices ?? Enumerable.Empty<string>());
 
         public Question Question
         {

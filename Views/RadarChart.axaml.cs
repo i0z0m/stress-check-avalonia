@@ -88,9 +88,9 @@ namespace StressCheckAvalonia.Views
                 context.DrawText(formattedText, new Point(center.X - textWidth / 2, center.Y - polygonRadius - textHeight));
             }
 
-            foreach (var item in Items)
+            foreach (ref readonly var item in CollectionsMarshal.AsSpan(Items.ToList()))
             {
-                var angleDegree = points.Count * angleIncrement - 90.0; // Start from the top (-90 degrees)
+                var angleDegree = points.Count * angleIncrement - 90.0;
                 var angleRadian = Math.PI * angleDegree / 180.0;
                 var point = new Point(center.X + Math.Cos(angleRadian) * radius * (item.Value / 5), center.Y + Math.Sin(angleRadian) * radius * (item.Value / 5));
                 points.Add(point);
@@ -109,7 +109,7 @@ namespace StressCheckAvalonia.Views
 
             context.DrawGeometry(new SolidColorBrush(Items.First().Color), new Pen(new SolidColorBrush(Items.First().Color), 1.5), geometry);
 
-            foreach (Point point in CollectionsMarshal.AsSpan(points))
+            foreach (ref readonly Point point in CollectionsMarshal.AsSpan(points))
             {
                 context.DrawEllipse(new SolidColorBrush(Items.First().Color), null, point, 4, 4);
             }

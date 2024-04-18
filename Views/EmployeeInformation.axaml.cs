@@ -19,7 +19,7 @@ namespace StressCheckAvalonia.Views
 
         public bool IsInformationComplete()
         {
-            var employeeViewModel = (EmployeeViewModel)DataContext;
+            var employeeViewModel = DataContext as EmployeeViewModel;
             return employeeViewModel?.IsInformationComplete() ?? false;
         }
     }

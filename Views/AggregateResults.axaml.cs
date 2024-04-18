@@ -21,37 +21,37 @@ namespace StressCheckAvalonia.Views
 
             // Subscribe to changes in the CurrentState property
             var stateViewModel = StateViewModel.Instance;
-            if (stateViewModel != null)
-            {
-                stateViewModel.WhenAnyValue(x => x.CurrentState)
-                    .Subscribe(Observer.Create<State>(state =>
+            stateViewModel?.WhenAnyValue(x => x.CurrentState)
+                .Subscribe(Observer.Create<State>(state =>
+                {
+                    if (state == State.Aggregated)
                     {
-                        if (state == State.Aggregated)
+                        var employeeViewModel = EmployeeViewModel.Instance;
+                        if (employeeViewModel?.Employee != null)
                         {
-                            var employeeViewModel = EmployeeViewModel.Instance;
-                            if (employeeViewModel?.Employee != null)
-                            {
-                                DisplayResults(employeeViewModel.Employee);
-                            }
-                            IsVisible = true;
+                            DisplayResults(employeeViewModel.Employee);
                         }
-                        else
-                        {
-                            IsVisible = false;
-                        }
-                    }));
-            }
+                        IsVisible = true;
+                    }
+                    else
+                    {
+                        IsVisible = false;
+                    }
+                }));
         }
 
         public void DisplayResults(Employee employee)
         {
+            if (employee == null) return; // Add check to ensure employee is not null
+
             var employeeViewModel = EmployeeViewModel.Instance;
             if (employeeViewModel != null)
             {
-                employeeViewModel.Employee = employee; // Update the EmployeeViewModel's Employee
+                employeeViewModel.Employee = employee; // Safely update the EmployeeViewModel's Employee
             }
 
             var sectionPanel = this.FindControl<StackPanel>("SectionPanel");
+            if (sectionPanel == null) return; // Ensure sectionPanel is not null
 
             // Clear the sectionPanel before adding new elements
             sectionPanel.Children.Clear();
@@ -60,12 +60,10 @@ namespace StressCheckAvalonia.Views
             var scores = LoadSections.Sections.Select(s => s.Scores).ToList();
             var values = LoadSections.Sections.Select(s => s.Values).ToList();
             var levelResult = LevelCalculator.CalculateLevel(scores, values);
-            System.Diagnostics.Debug.WriteLine($"Method1: {levelResult.Method1}, Method2: {levelResult.Method2}");
 
             if (employeeViewModel != null)
             {
                 employeeViewModel.Level = levelResult.Method1 && levelResult.Method2 ? "High" : "Low";
-                System.Diagnostics.Debug.WriteLine($"Employee.Level is set to {employeeViewModel.Level}");
             }
 
             // Create Grid for each Section
