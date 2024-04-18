@@ -38,7 +38,7 @@ namespace StressCheckAvalonia.Views
 
             ArgumentNullException.ThrowIfNull(context);
 
-            if (Items == null || !Items.Any()) return;
+            if (Items?.Any() != true) return;
 
             var center = new Point(Bounds.Width / 2, Bounds.Height / 2);
             var radius = Math.Min(Bounds.Width, Bounds.Height) / 2 * 0.8; // Use 80% of the smallest dimension
