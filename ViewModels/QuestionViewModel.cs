@@ -8,17 +8,18 @@ namespace StressCheckAvalonia.ViewModels
 {
     public class QuestionViewModel : ReactiveObject
     {
-        private SectionViewModel _sectionViewModel;
+        private readonly SectionViewModel _sectionViewModel;
+        private Question _question;
+        private IBrush _background;
 
         public QuestionViewModel(Question question, SectionViewModel sectionViewModel)
         {
-            Question = question;
+            _question = question;
             _sectionViewModel = sectionViewModel;
+            _background = Brushes.White;
         }
 
-        public List<string> Choices => _sectionViewModel.Choices.ToList();
-
-        private Question _question;
+        public List<string> Choices => _sectionViewModel.Choices?.ToList() ?? new List<string>();
 
         public Question Question
         {
@@ -33,7 +34,6 @@ namespace StressCheckAvalonia.ViewModels
             set { this.RaiseAndSetIfChanged(ref _isAnswered, value); }
         }
 
-        private IBrush _background;
         public IBrush Background
         {
             get => _background;

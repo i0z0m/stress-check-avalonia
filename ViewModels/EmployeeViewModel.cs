@@ -7,7 +7,7 @@ namespace StressCheckAvalonia.ViewModels
 {
     public class EmployeeViewModel : ReactiveObject
     {
-        private static EmployeeViewModel _instance;
+        private static EmployeeViewModel? _instance;
         public static EmployeeViewModel Instance
         {
             get
@@ -22,6 +22,9 @@ namespace StressCheckAvalonia.ViewModels
         private EmployeeViewModel()
         {
             _employee = new Employee { Birthday = new DateTime(2000, 1, 1) };
+            _level = string.Empty;
+            _levelText = string.Empty;
+            _levelColor = Brushes.Transparent;
         }
 
         private Employee _employee;
@@ -35,14 +38,14 @@ namespace StressCheckAvalonia.ViewModels
             }
         }
 
-        public string Gender
+        public string? Gender
         {
-            get => _employee?.Gender;
+            get => _employee.Gender;
             set
             {
-                if (_employee != null)
+                if (_employee.Gender != value)
                 {
-                    _employee.Gender = value;
+                    _employee.Gender = value ?? string.Empty;
                     this.RaisePropertyChanged();
                     GenderBackground = Brushes.White;
                 }
@@ -69,7 +72,6 @@ namespace StressCheckAvalonia.ViewModels
         }
 
         private string _levelText;
-
         public string LevelText
         {
             get => _levelText;
@@ -83,14 +85,14 @@ namespace StressCheckAvalonia.ViewModels
             private set => this.RaiseAndSetIfChanged(ref _levelColor, value);
         }
 
-        public string Name
+        public string? Name
         {
-            get => _employee?.Name;
+            get => _employee.Name;
             set
             {
-                if (_employee != null)
+                if (_employee.Name != value)
                 {
-                    _employee.Name = value;
+                    _employee.Name = value ?? string.Empty;
                     this.RaisePropertyChanged();
                     NameBackground = Brushes.White;
                 }
@@ -104,14 +106,14 @@ namespace StressCheckAvalonia.ViewModels
             private set => this.RaiseAndSetIfChanged(ref _nameBackground, value);
         }
 
-        public string Furigana
+        public string? Furigana
         {
-            get => _employee?.Furigana;
+            get => _employee.Furigana;
             set
             {
-                if (_employee != null)
+                if (_employee.Furigana != value)
                 {
-                    _employee.Furigana = value;
+                    _employee.Furigana = value ?? string.Empty;
                     this.RaisePropertyChanged();
                     FuriganaBackground = Brushes.White;
                 }
@@ -127,29 +129,25 @@ namespace StressCheckAvalonia.ViewModels
 
         public DateTimeOffset Birthday
         {
-            get => _employee?.Birthday ?? default;
+            get => _employee.Birthday;
             set
             {
-                if (_employee != null)
+                if (_employee.Birthday != value)
                 {
                     _employee.Birthday = value;
                     this.RaisePropertyChanged();
                 }
-                else
-                {
-                    throw new NullReferenceException("_employee is null");
-                }
             }
         }
 
-        public string ID
+        public string? ID
         {
-            get => _employee?.ID;
+            get => _employee.ID;
             set
             {
-                if (_employee != null)
+                if (_employee.ID != value)
                 {
-                    _employee.ID = value;
+                    _employee.ID = value ?? string.Empty;
                     this.RaisePropertyChanged();
                     IDBackground = Brushes.White;
                 }
@@ -163,14 +161,14 @@ namespace StressCheckAvalonia.ViewModels
             private set => this.RaiseAndSetIfChanged(ref _idBackground, value);
         }
 
-        public string Workplace
+        public string? Workplace
         {
-            get => _employee?.Workplace;
+            get => _employee.Workplace;
             set
             {
-                if (_employee != null)
+                if (_employee.Workplace != value)
                 {
-                    _employee.Workplace = value;
+                    _employee.Workplace = value ?? string.Empty;
                     this.RaisePropertyChanged();
                     WorkplaceBackground = Brushes.White;
                 }
@@ -184,12 +182,12 @@ namespace StressCheckAvalonia.ViewModels
             private set => this.RaiseAndSetIfChanged(ref _workplaceBackground, value);
         }
 
-        public string Email
+        public string? Email
         {
-            get => _employee?.Email;
+            get => _employee.Email;
             set
             {
-                if (_employee != null)
+                if (_employee.Email != value)
                 {
                     _employee.Email = value;
                     this.RaisePropertyChanged();
@@ -197,12 +195,12 @@ namespace StressCheckAvalonia.ViewModels
             }
         }
 
-        public string Phone
+        public string? Phone
         {
-            get => _employee?.Phone;
+            get => _employee.Phone;
             set
             {
-                if (_employee != null)
+                if (_employee.Phone != value)
                 {
                     _employee.Phone = value;
                     this.RaisePropertyChanged();
@@ -210,12 +208,12 @@ namespace StressCheckAvalonia.ViewModels
             }
         }
 
-        public string Extension
+        public string? Extension
         {
-            get => _employee?.Extension;
+            get => _employee.Extension;
             set
             {
-                if (_employee != null)
+                if (_employee.Extension != value)
                 {
                     _employee.Extension = value;
                     this.RaisePropertyChanged();
