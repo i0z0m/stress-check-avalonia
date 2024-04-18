@@ -19,8 +19,8 @@ namespace StressCheckAvalonia.ViewModels
         public SectionViewModel()
         {
             CurrentSection = LoadSections.Sections[0];
-            _questionViewModels = new ReadOnlyCollection<QuestionViewModel>(CurrentSection?.Questions?.Select(q => new QuestionViewModel(q, this)).ToList() ?? new List<QuestionViewModel>());
-            _displayedQuestionViewModels = new ReadOnlyCollection<QuestionViewModel>(new List<QuestionViewModel>());
+            _questionViewModels = new ReadOnlyCollection<QuestionViewModel>(CurrentSection?.Questions?.Select(q => new QuestionViewModel(q, this)).ToList() ?? []);
+            _displayedQuestionViewModels = new ReadOnlyCollection<QuestionViewModel>([]);
         }
 
         public static SectionViewModel Instance
@@ -49,7 +49,7 @@ namespace StressCheckAvalonia.ViewModels
             if (newSectionIndex >= 0 && newSectionIndex < LoadSections.Sections.Count)
             {
                 CurrentSection = LoadSections.Sections[newSectionIndex];
-                _questionViewModels = new ReadOnlyCollection<QuestionViewModel>(CurrentSection?.Questions?.Select(q => new QuestionViewModel(q, this)).ToList() ?? new List<QuestionViewModel>());
+                _questionViewModels = new ReadOnlyCollection<QuestionViewModel>(CurrentSection?.Questions?.Select(q => new QuestionViewModel(q, this)).ToList() ?? []);
             }
         }
 
@@ -98,7 +98,7 @@ namespace StressCheckAvalonia.ViewModels
             SetCurrentSection(sectionIndex);
 
             // Clear the existing questions
-            _displayedQuestionViewModels = new ReadOnlyCollection<QuestionViewModel>(new List<QuestionViewModel>());
+            _displayedQuestionViewModels = new ReadOnlyCollection<QuestionViewModel>([]);
 
             // Add each question to the DisplayedQuestionViewModels list
             for (int i = QuestionStartIndex; i < QuestionStartIndex + QuestionsPerPage && i < _questionViewModels.Count; i++)
@@ -106,7 +106,7 @@ namespace StressCheckAvalonia.ViewModels
                 var questionViewModel = _questionViewModels[i];
 
                 // Add the question to the DisplayedQuestionViewModels list
-                _displayedQuestionViewModels = new ReadOnlyCollection<QuestionViewModel>(_displayedQuestionViewModels.Concat(new[] { questionViewModel }).ToList());
+                _displayedQuestionViewModels = new ReadOnlyCollection<QuestionViewModel>(_displayedQuestionViewModels.Concat([questionViewModel]).ToList());
             }
         }
 
