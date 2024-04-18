@@ -5,12 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace StressCheckAvalonia.Views
 {
     public class RadarChartData
     {
-        public string Label { get; set; }
+        public string? Label { get; set; }
         public double Value { get; set; }
         public Color Color { get; set; }
     }
@@ -34,6 +35,8 @@ namespace StressCheckAvalonia.Views
         public override void Render(DrawingContext context)
         {
             base.Render(context);
+
+            ArgumentNullException.ThrowIfNull(context);
 
             if (Items == null || !Items.Any()) return;
 
@@ -73,8 +76,8 @@ namespace StressCheckAvalonia.Views
 
                 var typeface = new Typeface("Arial", FontStyle.Normal, FontWeight.Normal);
                 var formattedText = new FormattedText(
-                    i.ToString(),
-                    CultureInfo.CurrentCulture,
+                    i.ToString(CultureInfo.InvariantCulture),
+                    CultureInfo.InvariantCulture,
                     FlowDirection.LeftToRight,
                     typeface,
                     12,
@@ -106,7 +109,7 @@ namespace StressCheckAvalonia.Views
 
             context.DrawGeometry(new SolidColorBrush(Items.First().Color), new Pen(new SolidColorBrush(Items.First().Color), 1.5), geometry);
 
-            foreach (var point in points)
+            foreach (Point point in CollectionsMarshal.AsSpan(points))
             {
                 context.DrawEllipse(new SolidColorBrush(Items.First().Color), null, point, 4, 4);
             }
@@ -120,8 +123,8 @@ namespace StressCheckAvalonia.Views
 
                 var typeface = new Typeface("Arial", FontStyle.Normal, FontWeight.Normal);
                 var formattedText = new FormattedText(
-                    item.Label,
-                    CultureInfo.CurrentCulture,
+                    item.Label ?? string.Empty,
+                    CultureInfo.InvariantCulture,
                     FlowDirection.LeftToRight,
                     typeface,
                     12,

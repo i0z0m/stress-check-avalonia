@@ -20,24 +20,36 @@ namespace StressCheckAvalonia.Views
             DataContext = EmployeeViewModel.Instance;
 
             // Subscribe to changes in the CurrentState property
-            StateViewModel.Instance.WhenAnyValue(x => x.CurrentState)
-                .Subscribe(Observer.Create<State>(state =>
-                {
-                    if (state == State.Aggregated)
+            var stateViewModel = StateViewModel.Instance;
+            if (stateViewModel != null)
+            {
+                stateViewModel.WhenAnyValue(x => x.CurrentState)
+                    .Subscribe(Observer.Create<State>(state =>
                     {
-                        DisplayResults(EmployeeViewModel.Instance.Employee);
-                        IsVisible = true;
-                    }
-                    else
-                    {
-                        IsVisible = false;
-                    }
-                }));
+                        if (state == State.Aggregated)
+                        {
+                            var employeeViewModel = EmployeeViewModel.Instance;
+                            if (employeeViewModel?.Employee != null)
+                            {
+                                DisplayResults(employeeViewModel.Employee);
+                            }
+                            IsVisible = true;
+                        }
+                        else
+                        {
+                            IsVisible = false;
+                        }
+                    }));
+            }
         }
 
         public void DisplayResults(Employee employee)
         {
-            EmployeeViewModel.Instance.Employee = employee; // Update the EmployeeViewModel's Employee
+            var employeeViewModel = EmployeeViewModel.Instance;
+            if (employeeViewModel != null)
+            {
+                employeeViewModel.Employee = employee; // Update the EmployeeViewModel's Employee
+            }
 
             var sectionPanel = this.FindControl<StackPanel>("SectionPanel");
 
@@ -49,8 +61,12 @@ namespace StressCheckAvalonia.Views
             var values = LoadSections.Sections.Select(s => s.Values).ToList();
             var levelResult = LevelCalculator.CalculateLevel(scores, values);
             System.Diagnostics.Debug.WriteLine($"Method1: {levelResult.Method1}, Method2: {levelResult.Method2}");
-            EmployeeViewModel.Instance.Level = levelResult.Method1 && levelResult.Method2 ? "High" : "Low";
-            System.Diagnostics.Debug.WriteLine($"Employee.Level is set to {EmployeeViewModel.Instance.Level}");
+
+            if (employeeViewModel != null)
+            {
+                employeeViewModel.Level = levelResult.Method1 && levelResult.Method2 ? "High" : "Low";
+                System.Diagnostics.Debug.WriteLine($"Employee.Level is set to {employeeViewModel.Level}");
+            }
 
             // Create Grid for each Section
             var grid = new Grid();
@@ -103,25 +119,27 @@ namespace StressCheckAvalonia.Views
                 Grid.SetRow(sectionGroupTextBlock, 3);
                 grid.Children.Add(sectionGroupTextBlock);
 
-                // Add RadarChart for this section here
-                // Assume this part is inside the DisplayResults method or a similar context
-                var radarChart = new RadarChart
+                if (section.Factors != null)
                 {
-                    Items = section.Factors.Select(factor => new RadarChartData
+                    // Add RadarChart for this section here
+                    var radarChart = new RadarChart
                     {
-                        Label = factor.Scale,
-                        Value = factor.Value,
-                        Color = EmployeeViewModel.Instance.Level == "High" ? Color.FromArgb(128, 255, 0, 0) : Color.FromArgb(128, 0, 0, 255)
-                    }).ToList(),
+                        Items = section.Factors.Select(factor => new RadarChartData
+                        {
+                            Label = factor.Scale,
+                            Value = factor.Value,
+                            Color = employeeViewModel?.Level == "High" ? Color.FromArgb(128, 255, 0, 0) : Color.FromArgb(128, 0, 0, 255)
+                        }).ToList(),
 
-                    Width = 300, // Adjust size as needed
-                    Height = 300,
-                    Margin = new Thickness(20)
-                };
+                        Width = 300, // Adjust size as needed
+                        Height = 300,
+                        Margin = new Thickness(20)
+                    };
 
-                Grid.SetColumn(radarChart, columnIndex);
-                Grid.SetRow(radarChart, 4);
-                grid.Children.Add(radarChart);
+                    Grid.SetColumn(radarChart, columnIndex);
+                    Grid.SetRow(radarChart, 4);
+                    grid.Children.Add(radarChart);
+                }
 
                 columnIndex++;
             }
