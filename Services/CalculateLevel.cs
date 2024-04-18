@@ -3,18 +3,11 @@ using System.Collections.Generic;
 
 namespace StressCheckAvalonia.Services
 {
-    public class LevelResult
+    public class LevelResult(bool method1, bool method2, IReadOnlyList<int> totals)
     {
-        public bool Method1 { get; set; }
-        public bool Method2 { get; set; }
-        public IReadOnlyList<int> Totals { get; }
-
-        public LevelResult(bool method1, bool method2, IReadOnlyList<int> totals)
-        {
-            Method1 = method1;
-            Method2 = method2;
-            Totals = totals;
-        }
+        public bool Method1 { get; set; } = method1;
+        public bool Method2 { get; set; } = method2;
+        public IReadOnlyList<int> Totals { get; } = totals;
     }
 
     public static class LevelCalculator

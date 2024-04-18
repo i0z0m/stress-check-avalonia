@@ -26,24 +26,17 @@ namespace StressCheckAvalonia.Models
         public string? Extension { get; set; }
     }
 
-    public class Section
+    public class Section(IEnumerable<Question>? questions, IEnumerable<string>? choices, IEnumerable<Factor>? factors)
     {
         public int Step { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public ReadOnlyCollection<Question>? Questions { get; }
+        public ReadOnlyCollection<Question>? Questions { get; } = questions?.ToList().AsReadOnly();
         public int Scores { get; set; }
-        public ReadOnlyCollection<string>? Choices { get; }
+        public ReadOnlyCollection<string>? Choices { get; } = choices?.ToList().AsReadOnly();
         public string? Group { get; set; }
-        public ReadOnlyCollection<Factor>? Factors { get; }
+        public ReadOnlyCollection<Factor>? Factors { get; } = factors?.ToList().AsReadOnly();
         public int Values { get; set; }
-
-        public Section(IEnumerable<Question>? questions, IEnumerable<string>? choices, IEnumerable<Factor>? factors)
-        {
-            Questions = questions?.ToList().AsReadOnly();
-            Choices = choices?.ToList().AsReadOnly();
-            Factors = factors?.ToList().AsReadOnly();
-        }
     }
 
     public class Question
@@ -54,20 +47,14 @@ namespace StressCheckAvalonia.Models
         public bool Reverse { get; set; }
     }
 
-    public class Factor
+    public class Factor(IEnumerable<Rate>? rates, IEnumerable<int>? items)
     {
         public int Point { get; set; }
         public string Scale { get; set; } = string.Empty;
         public int Value { get; set; }
         public string Type { get; set; } = string.Empty;
-        public ReadOnlyCollection<Rate>? Rates { get; }
-        public ReadOnlyCollection<int>? Items { get; }
-
-        public Factor(IEnumerable<Rate>? rates, IEnumerable<int>? items)
-        {
-            Rates = rates?.ToList().AsReadOnly();
-            Items = items?.ToList().AsReadOnly();
-        }
+        public ReadOnlyCollection<Rate>? Rates { get; } = rates?.ToList().AsReadOnly();
+        public ReadOnlyCollection<int>? Items { get; } = items?.ToList().AsReadOnly();
     }
 
     public class Rate

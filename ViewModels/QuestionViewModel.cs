@@ -7,18 +7,11 @@ using System.Collections.ObjectModel;
 
 namespace StressCheckAvalonia.ViewModels
 {
-    public class QuestionViewModel : ReactiveObject
+    public class QuestionViewModel(Question question, SectionViewModel sectionViewModel) : ReactiveObject
     {
-        private readonly SectionViewModel _sectionViewModel;
-        private Question _question;
-        private IBrush _background;
-
-        public QuestionViewModel(Question question, SectionViewModel sectionViewModel)
-        {
-            _question = question;
-            _sectionViewModel = sectionViewModel;
-            _background = Brushes.White;
-        }
+        private readonly SectionViewModel _sectionViewModel = sectionViewModel;
+        private Question _question = question;
+        private IBrush _background = Brushes.White;
 
         public ObservableCollection<string> Choices => new ObservableCollection<string>(_sectionViewModel.Choices ?? Enumerable.Empty<string>());
 
