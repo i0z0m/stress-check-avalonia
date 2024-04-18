@@ -99,7 +99,7 @@ namespace StressCheckAvalonia.Views
             var geometry = new StreamGeometry();
             using (var ctx = geometry.Open())
             {
-                ctx.BeginFigure(points.First(), isFilled: true);
+                ctx.BeginFigure(points[0], isFilled: true);
                 foreach (var point in points.Skip(1))
                 {
                     ctx.LineTo(point);
