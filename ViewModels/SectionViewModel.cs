@@ -94,17 +94,17 @@ namespace StressCheckAvalonia.ViewModels
             // Set the current section
             SetCurrentSection(sectionIndex);
 
-            // Clear the existing questions
-            _displayedQuestionViewModels = new ReadOnlyCollection<QuestionViewModel>([]);
+            // Use a mutable list to manage question view models temporarily
+            var updatedDisplayedQuestions = new List<QuestionViewModel>();
 
-            // Add each question to the DisplayedQuestionViewModels list
+            // Populate the list with the range of questions to be displayed
             for (int i = QuestionStartIndex; i < QuestionStartIndex + QuestionsPerPage && i < _questionViewModels.Count; i++)
             {
-                var questionViewModel = _questionViewModels[i];
-
-                // Add the question to the DisplayedQuestionViewModels list
-                _displayedQuestionViewModels = new ReadOnlyCollection<QuestionViewModel>(_displayedQuestionViewModels.Concat([questionViewModel]).ToList());
+                updatedDisplayedQuestions.Add(_questionViewModels[i]);
             }
+
+            // Convert the list to a ReadOnlyCollection to assign back to _displayedQuestionViewModels
+            _displayedQuestionViewModels = new ReadOnlyCollection<QuestionViewModel>(updatedDisplayedQuestions);
         }
 
         public bool AreAllQuestionsDisplayed()
