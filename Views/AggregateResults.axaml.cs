@@ -59,7 +59,7 @@ namespace StressCheckAvalonia.Views
             // Create TextBlock for Employee Level
             var scores = LoadSections.Sections.Select(s => s.Scores).ToList();
             var values = LoadSections.Sections.Select(s => s.Values).ToList();
-            var levelResult = LevelCalculator.CalculateLevel(scores, values);
+            var levelResult = scores.CalculateLevel(values);
 
             if (employeeViewModel != null)
             {
