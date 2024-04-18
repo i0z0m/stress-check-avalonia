@@ -18,10 +18,7 @@ namespace StressCheckAvalonia.ViewModels
         {
             get
             {
-                if (_instance == null)
-                {
-                    _instance = new StateViewModel();
-                }
+                _instance ??= new StateViewModel();
                 return _instance;
             }
         }

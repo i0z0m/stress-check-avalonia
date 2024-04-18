@@ -27,10 +27,7 @@ namespace StressCheckAvalonia.ViewModels
         {
             get
             {
-                if (_instance == null)
-                {
-                    _instance = new SectionViewModel();
-                }
+                _instance ??= new SectionViewModel();
                 return _instance;
             }
         }
