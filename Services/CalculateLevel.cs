@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace StressCheckAvalonia.Services
@@ -6,9 +7,9 @@ namespace StressCheckAvalonia.Services
     {
         public bool Method1 { get; set; }
         public bool Method2 { get; set; }
-        public List<int> Totals { get; }
+        public IReadOnlyList<int> Totals { get; }
 
-        public LevelResult(bool method1, bool method2, List<int> totals)
+        public LevelResult(bool method1, bool method2, IReadOnlyList<int> totals)
         {
             Method1 = method1;
             Method2 = method2;
@@ -18,8 +19,12 @@ namespace StressCheckAvalonia.Services
 
     public static class LevelCalculator
     {
-        public static LevelResult CalculateLevel(this List<int> scores, List<int> values)
+        public static LevelResult CalculateLevel(this IReadOnlyList<int> scores, IReadOnlyList<int> values)
         {
+            ArgumentNullException.ThrowIfNull(scores);
+
+            ArgumentNullException.ThrowIfNull(values);
+
             bool method1 = scores[1] >= 77 || (scores[0] + scores[2] >= 76 && scores[1] >= 63);
             bool method2 = values[1] <= 12 || (values[0] + values[2] <= 26 && values[1] <= 17);
 

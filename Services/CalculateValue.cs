@@ -1,4 +1,5 @@
 using StressCheckAvalonia.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,14 +20,19 @@ namespace StressCheckAvalonia.Services
 
         private static int CalculateComplexPattern(List<Question> questions)
         {
-            int subtractionTotal = CalculateSubtractionPattern(questions.GetRange(0, questions.Count - 1));
-            int additionScore = CalculateAdditionPattern(questions.GetRange(questions.Count - 1, 1));
-
-            return subtractionTotal + additionScore;
+            if (questions.Count > 1)
+            {
+                int subtractionTotal = CalculateSubtractionPattern(questions.GetRange(0, questions.Count - 1));
+                int additionScore = CalculateAdditionPattern(questions.GetRange(questions.Count - 1, 1));
+                return subtractionTotal + additionScore;
+            }
+            return 0;
         }
 
         public static int CalculateValue(this List<Question> questions, Factor factor)
         {
+            ArgumentNullException.ThrowIfNull(factor);
+
             List<Question> filteredQuestions = questions.Where(question => factor.Items?.Contains(question.Id) ?? false).ToList();
             int score = 0;
 
@@ -38,8 +44,8 @@ namespace StressCheckAvalonia.Services
                 _ => 0
             };
 
-            Rate rate = factor.Rates?.FirstOrDefault(rate => score >= rate.Min && score <= rate.Max);
-            return rate != null ? rate.Value : 0;
+            Rate? rate = factor.Rates?.FirstOrDefault(rate => score >= rate.Min && score <= rate.Max);
+            return rate?.Value ?? 0;
         }
     }
 }
