@@ -7,6 +7,9 @@
         x:Class="StressCheckAvalonia.Views.MainWindow"
 		x:DataType="desc:StateViewModel"
         Icon="/Assets/favicon.png"
+		mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="630"
+        Width="1000" Height="630"
+		MinWidth="1000" MinHeight="630"
         Title="FLOSS版ストレスチェック実施プログラム 標準版（57項目）">
 	<Grid>
 		<Grid.RowDefinitions>
