@@ -1,6 +1,5 @@
 ﻿using StressCheckAvalonia.Models;
 using ReactiveUI;
-using System.Collections.Generic;
 using Avalonia.Media;
 using System.Linq;
 using System.Collections.ObjectModel;
@@ -11,7 +10,7 @@ namespace StressCheckAvalonia.ViewModels
     {
         private readonly SectionViewModel _sectionViewModel = sectionViewModel;
         private Question _question = question;
-        private IBrush _background = Brushes.White;
+        private IBrush _background = Brushes.Transparent;
 
         public ObservableCollection<string> Choices => new(_sectionViewModel.Choices ?? Enumerable.Empty<string>());
 
@@ -40,8 +39,8 @@ namespace StressCheckAvalonia.ViewModels
             Question.Score = choiceValue;
             IsAnswered = true; // Set IsAnswered to true when a choice is selected
 
-            // Set the background color to white
-            Background = Brushes.White;
+            // Set the background color to transparent
+            Background = Brushes.Transparent;
 
             // Output the updated score to the console for debugging
             System.Diagnostics.Debug.WriteLine($"Question ID: {Question.Id}, Updated Score: {Question.Score}");

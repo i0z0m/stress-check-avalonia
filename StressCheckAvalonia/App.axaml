@@ -14,11 +14,7 @@
 				<ColorPaletteResources x:Key="Dark" Accent="#ff34854d" AltHigh="Black" AltLow="Black" AltMedium="Black" AltMediumHigh="Black" AltMediumLow="Black" BaseHigh="White" BaseLow="#ff784834" BaseMedium="#ffc5a294" BaseMediumHigh="#ffd8b8ac" BaseMediumLow="#ff9e7564" ChromeAltLow="#ffd8b8ac" ChromeBlackHigh="Black" ChromeBlackLow="#ffd8b8ac" ChromeBlackMedium="Black" ChromeBlackMediumLow="Black" ChromeDisabledHigh="#ff784834" ChromeDisabledLow="#ffc5a294" ChromeGray="#ffb28b7c" ChromeHigh="#ffb28b7c" ChromeLow="#ff46150a" ChromeMedium="#ff532215" ChromeMediumLow="#ff6c3b2a" ChromeWhite="White" ListLow="#ff532215" ListMedium="#ff784834" RegionColor="#ff353819" />
 			</FluentTheme.Palettes>
 		</FluentTheme>
-		<Style Selector="Window">
-			<Setter Property="Background" Value="White"/>
-		</Style>
 		<Style Selector="TextBlock">
-			<Setter Property="Foreground" Value="Black"/>
 			<Setter Property="FontFamily" Value="{StaticResource MeiryoUI}"/>
 		</Style>
 		<Style Selector="Button">
