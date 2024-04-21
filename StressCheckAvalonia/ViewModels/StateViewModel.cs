@@ -9,7 +9,7 @@ namespace StressCheckAvalonia.ViewModels
 {
     public class StateViewModel : ReactiveObject
     {
-        public MainWindow? MainWindow { get; set; }
+        public MainView? MainView { get; set; }
 
         private static StateViewModel? _instance;
         private State _currentState;
@@ -111,7 +111,7 @@ namespace StressCheckAvalonia.ViewModels
             if (EmployeeViewModel.Instance.IsInformationComplete())
             {
                 CurrentState = State.SectionActive;
-                MainWindow?.DisplayQuestions(0, SectionViewModel.Instance.QuestionsPerPage);
+                MainView?.DisplayQuestions(0, SectionViewModel.Instance.QuestionsPerPage);
             }
             else if (shouldValidateInput)
             {
@@ -139,13 +139,13 @@ namespace StressCheckAvalonia.ViewModels
                     {
                         currentIndex++;
                         sectionViewModel.QuestionStartIndex = 0;
-                        MainWindow?.DisplayQuestions(currentIndex, sectionViewModel.QuestionsPerPage);
+                        MainView?.DisplayQuestions(currentIndex, sectionViewModel.QuestionsPerPage);
                         CurrentState = State.SectionActive;
                     }
                     else if (!sectionViewModel.AreAllQuestionsDisplayed())
                     {
                         sectionViewModel.QuestionStartIndex += sectionViewModel.QuestionsPerPage;
-                        MainWindow?.DisplayQuestions(currentIndex, sectionViewModel.QuestionsPerPage);
+                        MainView?.DisplayQuestions(currentIndex, sectionViewModel.QuestionsPerPage);
                     }
                     else
                     {
@@ -178,7 +178,7 @@ namespace StressCheckAvalonia.ViewModels
                             sectionViewModel.QuestionStartIndex = (previousSectionQuestionCount - 1) / sectionViewModel.QuestionsPerPage * sectionViewModel.QuestionsPerPage;
                         }
 
-                        MainWindow?.DisplayQuestions(currentIndex, sectionViewModel.QuestionsPerPage);
+                        MainView?.DisplayQuestions(currentIndex, sectionViewModel.QuestionsPerPage);
                         CurrentState = State.SectionActive;
                     }
                     else
@@ -193,7 +193,7 @@ namespace StressCheckAvalonia.ViewModels
                     var currentSection = LoadSections.Sections.ElementAtOrDefault(currentIndex);
                     if (currentSection?.Questions != null)
                     {
-                        MainWindow?.DisplayQuestions(currentIndex, sectionViewModel.QuestionsPerPage);
+                        MainView?.DisplayQuestions(currentIndex, sectionViewModel.QuestionsPerPage);
                     }
                 }
             }
@@ -213,7 +213,7 @@ namespace StressCheckAvalonia.ViewModels
                     var lastSection = LoadSections.Sections[lastSectionIndex];
                     if (lastSection?.Questions != null)
                     {
-                        MainWindow?.DisplayQuestions(lastSectionIndex, SectionViewModel.Instance.QuestionsPerPage);
+                        MainView?.DisplayQuestions(lastSectionIndex, SectionViewModel.Instance.QuestionsPerPage);
                         // Ensure lastSection.Questions is not null before accessing its properties
                         if (lastSection.Questions != null)
                         {
