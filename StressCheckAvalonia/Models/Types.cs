@@ -22,7 +22,9 @@ namespace StressCheckAvalonia.Models
         public string ID { get; set; } = string.Empty;
         public string Workplace { get; set; } = string.Empty;
         public string? Email { get; set; }
-        public string? Phone { get; set; }
+        public string Phone1 { get; set; } = string.Empty;
+        public string Phone2 { get; set; } = string.Empty;
+        public string Phone3 { get; set; } = string.Empty;
         public string? Extension { get; set; }
     }
 

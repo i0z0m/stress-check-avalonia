@@ -2,6 +2,7 @@
 using StressCheckAvalonia.Models;
 using System;
 using Avalonia.Media;
+using System.Linq;
 
 namespace StressCheckAvalonia.ViewModels
 {
@@ -106,14 +107,23 @@ namespace StressCheckAvalonia.ViewModels
             private set => this.RaiseAndSetIfChanged(ref _nameBackground, value);
         }
 
+        private string ConvertToKatakana(string input)
+        {
+            // Ensure only Katakana is allowed, or convert from Hiragana to Katakana
+            // This is just an example conversion; adjust according to your exact requirements
+            return string.Concat(input.Select(c =>
+                (c >= 'ぁ' && c <= 'ん') ? (char)(c - 'ぁ' + 'ァ') : c));
+        }
+
         public string? Furigana
         {
             get => _employee.Furigana;
             set
             {
-                if (_employee.Furigana != value)
+                var katakanaValue = ConvertToKatakana(value ?? string.Empty);
+                if (katakanaValue.All(c => (c >= 'ァ' && c <= 'ヶ') || char.IsWhiteSpace(c) || (c >= 'ー' && c <= 'ヿ')))
                 {
-                    _employee.Furigana = value ?? string.Empty;
+                    _employee.Furigana = katakanaValue;
                     this.RaisePropertyChanged();
                     FuriganaBackground = Brushes.White;
                 }
@@ -195,14 +205,40 @@ namespace StressCheckAvalonia.ViewModels
             }
         }
 
-        public string? Phone
+        public string? Phone1
         {
-            get => _employee.Phone;
+            get => _employee.Phone1;
             set
             {
-                if (_employee.Phone != value)
+                if (value != null && value.All(c => c >= '0' && c <= '9') && value.Length <= 4)
                 {
-                    _employee.Phone = value;
+                    _employee.Phone1 = value;
+                    this.RaisePropertyChanged();
+                }
+            }
+        }
+
+        public string? Phone2
+        {
+            get => _employee.Phone2;
+            set
+            {
+                if (value != null && value.All(c => c >= '0' && c <= '9') && value.Length <= 4)
+                {
+                    _employee.Phone2 = value;
+                    this.RaisePropertyChanged();
+                }
+            }
+        }
+
+        public string? Phone3
+        {
+            get => _employee.Phone3;
+            set
+            {
+                if (value != null && value.All(c => c >= '0' && c <= '9') && value.Length <= 4)
+                {
+                    _employee.Phone3 = value;
                     this.RaisePropertyChanged();
                 }
             }
@@ -213,7 +249,7 @@ namespace StressCheckAvalonia.ViewModels
             get => _employee.Extension;
             set
             {
-                if (_employee.Extension != value)
+                if (value != null && value.All(c => c >= '0' && c <= '9'))
                 {
                     _employee.Extension = value;
                     this.RaisePropertyChanged();
@@ -232,30 +268,17 @@ namespace StressCheckAvalonia.ViewModels
 
         public void ValidateInput()
         {
-            // Create a SolidColorBrush with the desired color
             var errorBrush = new SolidColorBrush(Color.FromArgb(128, 255, 0, 0));
-
-            // Check each required field
             if (string.IsNullOrWhiteSpace(Name))
-            {
                 NameBackground = errorBrush;
-            }
             if (string.IsNullOrWhiteSpace(Furigana))
-            {
                 FuriganaBackground = errorBrush;
-            }
             if (string.IsNullOrEmpty(Gender))
-            {
                 GenderBackground = errorBrush;
-            }
             if (string.IsNullOrWhiteSpace(ID))
-            {
                 IDBackground = errorBrush;
-            }
             if (string.IsNullOrWhiteSpace(Workplace))
-            {
                 WorkplaceBackground = errorBrush;
-            }
         }
     }
 }

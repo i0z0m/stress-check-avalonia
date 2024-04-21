@@ -35,12 +35,12 @@
 			<TextBlock Text="※" Foreground="Red" FontSize="24"/>
 			<TextBlock Text="氏名" FontSize="24"/>
 		</StackPanel>
-		<TextBox x:Name="NameTextBox" Text="{Binding Name}" Background="{Binding NameBackground}" Grid.Row="2" Grid.Column="0"/>
+		<TextBox x:Name="NameTextBox" Text="{Binding Name}" Background="{Binding NameBackground}" Watermark="どんな文字でも入力できます。" Grid.Row="2" Grid.Column="0"/>
 		<StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0">
 			<TextBlock Text="※" Foreground="Red" FontSize="24"/>
 			<TextBlock Text="フリガナ" FontSize="24"/>
 		</StackPanel>
-		<TextBox x:Name="FuriganaTextBox" Text="{Binding Furigana}" Background="{Binding FuriganaBackground}" Grid.Row="4" Grid.Column="0"/>
+		<TextBox x:Name="FuriganaTextBox" Text="{Binding Furigana}" Background="{Binding FuriganaBackground}" Watermark="カタカナか平仮名のみ入力できます。平仮名はカタカナに変換されます。" Grid.Row="4" Grid.Column="0"/>
 		<StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="0">
 			<TextBlock Text="※" Foreground="Red" FontSize="24"/>
 			<TextBlock Text="生年月日" FontSize="24"/>
@@ -58,19 +58,25 @@
 			<TextBlock Text="※" Foreground="Red" FontSize="24"/>
 			<TextBlock Text="社員ID" FontSize="24"/>
 		</StackPanel>
-		<TextBox x:Name="IdTextBox" Text="{Binding ID}" Background="{Binding IDBackground}" Grid.Row="10" Grid.Column="0"/>
+		<TextBox x:Name="IdTextBox" Text="{Binding ID}" Background="{Binding IDBackground}" Watermark="どんな文字でも入力できます。" Grid.Row="10" Grid.Column="0"/>
 		<TextBlock Text="産業保健スタッフがチェック後にフォローを行う場合の連絡先" Foreground="Black" FontSize="18" Grid.Row="0" Grid.Column="2"/>
 		<TextBlock Text="メールアドレス" FontSize="24" Grid.Row="1" Grid.Column="2"/>
-		<TextBox Text="{Binding Email}" Grid.Row="2" Grid.Column="2"/>
+		<TextBox Text="{Binding Email}" Watermark="どんな文字でも入力できます。" Grid.Row="2" Grid.Column="2"/>
 		<TextBlock Text="電話番号" FontSize="24" Grid.Row="3" Grid.Column="2"/>
-		<TextBox Text="{Binding Phone}" Grid.Row="4" Grid.Column="2"/>
+		<StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="2">
+			<TextBox Text="{Binding Phone1}" Watermark="半角数字"/>
+			<TextBlock Text="-" VerticalAlignment="Center"/>
+			<TextBox Text="{Binding Phone2}" Watermark="半角数字"/>
+			<TextBlock Text="-" VerticalAlignment="Center"/>
+			<TextBox Text="{Binding Phone3}" Watermark="半角数字"/>
+		</StackPanel>
 		<TextBlock Text="内線番号" FontSize="24" Grid.Row="5" Grid.Column="2"/>
-		<TextBox Text="{Binding Extension}" Grid.Row="6" Grid.Column="2"/>
+		<TextBox Text="{Binding Extension}" Watermark="半角数字のみ入力できます。" Grid.Row="6" Grid.Column="2"/>
 		<StackPanel Orientation="Horizontal" Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3">
 			<TextBlock Text="※" Foreground="Red" FontSize="24"/>
 			<TextBlock Text="職場名" FontSize="24"/>
 		</StackPanel>
-		<TextBox x:Name="WorkplaceTextBox" Text="{Binding Workplace}" Background="{Binding WorkplaceBackground}" Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="3"/>
+		<TextBox x:Name="WorkplaceTextBox" Text="{Binding Workplace}" Background="{Binding WorkplaceBackground}" Watermark="どんな文字でも入力できます。" Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="3"/>
 	</Grid>
 </UserControl>
 
