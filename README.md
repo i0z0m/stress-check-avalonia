@@ -9,7 +9,7 @@ cd StressCheckAvalonia.Desktop
 dotnet run
 ```
 
-[Web Assembly 版](https://ashy-rock-092f7a600.5.azurestaticapps.net/)もご利用いただけますが、まだ不具合が多い（日本語の文字化け、選択肢を変更できない等）です。これらの不具合がないデスクトップ版をご利用ください。Webで使いたいなら[React 版](https://github.com/i0z0m/stress-check-react)をご利用ください。
+[Web Assembly 版](https://ashy-rock-092f7a600.5.azurestaticapps.net/)もご利用いただけますが、まだ不具合が多い（日本語の文字化け、選択肢を変更できない等）です。これらの不具合がない[デスクトップ版](https://github.com/i0z0m/stress-check-avalonia/releases/tag/0.0.1)をご利用ください。Web で使いたいなら[React 版](https://github.com/i0z0m/stress-check-react)をご利用ください。
 
 ## Screenshot
 
