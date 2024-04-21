@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StressCheckAvalonia.Views"
         x:Class="StressCheckAvalonia.Views.MainWindow"
-        Icon="/Assets/favicon.png"
+        Icon="/Assets/Images/favicon.png"
 		mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="630"
         Width="1000" Height="630"
 		MinWidth="1000" MinHeight="630"

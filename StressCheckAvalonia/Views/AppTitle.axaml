@@ -11,6 +11,6 @@
 		<StackPanel Orientation="Horizontal" Background="#89c548" Margin="0,8,0,0" VerticalAlignment="Top" HorizontalAlignment="Stretch">
 			<TextBlock Text="{Binding AppTitle}" FontSize="30" Margin="90,0,0,0" Foreground="White" />
 		</StackPanel>
-		<Image Source="/Assets/icon.png" Width="64" Height="64" Margin="20,0,0,0" HorizontalAlignment="Left"/>
+		<Image Source="/Assets/Images/icon.png" Width="64" Height="64" Margin="20,0,0,0" HorizontalAlignment="Left"/>
 	</Grid>
 </UserControl>

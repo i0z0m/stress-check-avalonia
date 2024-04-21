@@ -2,6 +2,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="StressCheckAvalonia.App"
              RequestedThemeVariant="Light">
+	<Application.Resources>
+		<FontFamily x:Key="MeiryoUI">
+			avares://StressCheckAvalonia/Assets/Fonts/MeiryoUI.ttf#Meiryo UI
+		</FontFamily>
+	</Application.Resources>
 	<Application.Styles>
 		<FluentTheme>
 			<FluentTheme.Palettes>
@@ -14,6 +19,13 @@
 		</Style>
 		<Style Selector="TextBlock">
 			<Setter Property="Foreground" Value="Black"/>
+			<Setter Property="FontFamily" Value="{StaticResource MeiryoUI}"/>
+		</Style>
+		<Style Selector="Button">
+			<Setter Property="FontFamily" Value="{StaticResource MeiryoUI}"/>
+		</Style>
+		<Style Selector="RadioButton">
+			<Setter Property="FontFamily" Value="{StaticResource MeiryoUI}"/>
 		</Style>
 	</Application.Styles>
 </Application>
