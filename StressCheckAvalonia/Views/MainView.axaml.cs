@@ -22,7 +22,6 @@ namespace StressCheckAvalonia.Views
             }
         }
 
-
         public void DisplayQuestions(int sectionIndex, int questionCount)
         {
             var sectionViewModel = SectionViewModel.Instance;
@@ -31,12 +30,10 @@ namespace StressCheckAvalonia.Views
                 // Update the displayed questions in the SectionViewModel
                 sectionViewModel.UpdateDisplayedQuestions(sectionIndex);
 
-
                 // Get the QuestionsPanel
                 var QuestionsPanel = this.FindControl<StackPanel>("QuestionsPanel");
 
-                // Clear the existing questions
-                QuestionsPanel.Children.Clear();
+                QuestionsPanel?.Children.Clear();
 
                 // Add each question and its corresponding choice buttons to the QuestionsPanel
                 foreach (var questionViewModel in sectionViewModel.DisplayedQuestionViewModels)
@@ -68,10 +65,10 @@ namespace StressCheckAvalonia.Views
                     var questionGrid = new Grid
                     {
                         ColumnDefinitions =
-                        {
-                            new ColumnDefinition(1, GridUnitType.Star),
-                            new ColumnDefinition(0, GridUnitType.Auto)
-                        }
+                    {
+                        new ColumnDefinition(1, GridUnitType.Star),
+                        new ColumnDefinition(0, GridUnitType.Auto)
+                    }
                     };
 
                     Grid.SetColumn(questionText, 0);
@@ -80,7 +77,7 @@ namespace StressCheckAvalonia.Views
                     questionGrid.Children.Add(questionText);
                     questionGrid.Children.Add(choiceButtons);
 
-                    QuestionsPanel.Children.Add(questionGrid);
+                    QuestionsPanel?.Children.Add(questionGrid);
 
                     var underline = new Border
                     {
@@ -88,10 +85,11 @@ namespace StressCheckAvalonia.Views
                         BorderBrush = Brushes.Gray,
                         Margin = new Thickness(30, 0, 30, 10)
                     };
-                    QuestionsPanel.Children.Add(underline);
+                    QuestionsPanel?.Children.Add(underline);
                 }
             }
         }
+
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
