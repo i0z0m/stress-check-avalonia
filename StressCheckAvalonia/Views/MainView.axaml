@@ -6,26 +6,28 @@
              xmlns:local="clr-namespace:StressCheckAvalonia.Views"
              xmlns:desc="clr-namespace:StressCheckAvalonia.ViewModels"
              x:DataType="desc:StateViewModel">
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="*"/>
-			<RowDefinition Height="Auto"/>
-		</Grid.RowDefinitions>
-		<local:AppHeader x:Name="AppHeaderControl" Grid.Row="0"/>
-		<local:AppTitle Grid.Row="1"/>
-		<local:SectionDescription x:Name="SectionDescriptionControl" Grid.Row="2" />
-		<ContentControl x:Name="EmployeeInformationControl" Grid.Row="3" IsVisible="{Binding IsInput}">
-			<local:EmployeeInformation />
-		</ContentControl>
-		<StackPanel x:Name="QuestionsPanel" Grid.Row="3" IsVisible="{Binding IsSectionActive}">
-		</StackPanel>
-		<local:AggregateResults Grid.Row="3" />
-		<DockPanel Grid.Row="4" LastChildFill="False">
-			<local:BackButtons DockPanel.Dock="Left" Margin="30, 0, 0, 10" />
-			<local:NextButton DockPanel.Dock="Right" Margin="0, 0, 30, 10" />
-		</DockPanel>
-	</Grid>
+	<ScrollViewer HorizontalScrollBarVisibility="Auto">
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+			<local:AppHeader x:Name="AppHeaderControl" Grid.Row="0"/>
+			<local:AppTitle Grid.Row="1"/>
+			<local:SectionDescription x:Name="SectionDescriptionControl" Grid.Row="2" />
+			<ContentControl x:Name="EmployeeInformationControl" Grid.Row="3" IsVisible="{Binding IsInput}">
+				<local:EmployeeInformation />
+			</ContentControl>
+			<StackPanel x:Name="QuestionsPanel" Grid.Row="3" IsVisible="{Binding IsSectionActive}">
+			</StackPanel>
+			<local:AggregateResults Grid.Row="3" />
+			<DockPanel Grid.Row="4" LastChildFill="False">
+				<local:BackButtons DockPanel.Dock="Left" Margin="30, 0, 0, 10" />
+				<local:NextButton DockPanel.Dock="Right" Margin="0, 0, 30, 10" />
+			</DockPanel>
+		</Grid>
+	</ScrollViewer>
 </UserControl>
